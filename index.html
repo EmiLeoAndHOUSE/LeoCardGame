@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>L.L. Card Game - Gioco di Carte Strategico HD</title>
+    <meta name="description" content="L.L. Card Game - Un gioco di carte collezionabili strategico 1v1 con illustrazioni originali disegnate a mano, bonus elementali e multiplayer in tempo reale.">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    <!-- Google Fonts HD Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&family=Rajdhani:wght@600;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheet Principale -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Canvas Particelle FX in Background -->
+        <canvas id="fx-canvas"></canvas>
+
+        <!-- Layer Notifiche Toast floating -->
+        <div id="toast-layer"></div>
+
+        <!-- 1. MENU PRINCIPALE -->
+        <section id="screen-menu" class="screen active">
+            <div class="menu-hero glass-panel">
+                <div class="logo-glow"></div>
+                <h1 class="game-title">L.L. <span>Card Game</span></h1>
+                <p class="game-subtitle">Sfida la potente IA o gioca in Multiplayer Online 1v1!</p>
+                
+                <!-- SELETTORE NICKNAME GIOCATORE -->
+                <div class="nickname-box">
+                    <label for="input-nickname-menu">👤 Il Tuo Nickname:</label>
+                    <input type="text" id="input-nickname-menu" class="nickname-input" placeholder="Es. Gamer99" maxlength="12" value="Giocatore">
+                </div>
+
+                <div class="menu-actions">
+                    <button id="btn-pvai" class="btn btn-primary btn-glow">🤖 Giocatore vs IA</button>
+                    <button id="btn-online" class="btn btn-secondary">🌐 Multiplayer Online (1v1)</button>
+                    <button id="btn-collection" class="btn btn-secondary">🎴 Galleria 28 Carte HD</button>
+                    <button id="btn-fullscreen-menu" class="btn btn-secondary">📱 Schermo Intero ⛶</button>
+                    <button id="btn-rules" class="btn btn-secondary">📜 Regolamento Ufficiale</button>
+                </div>
+            </div>
+
+            <!-- FOOTER CON CREDITI, VERSIONE E COPYRIGHT -->
+            <footer class="screen-footer">
+                <span class="footer-left">Credito dell'Autore: Leonardo Laise</span>
+                <span class="footer-center">Numero di Versione: 1.1</span>
+                <span class="footer-right">Copyright: © 2026 Leonardo Laise</span>
+            </footer>
+        </section>
+
+        <!-- 2. LOBBY MULTIPLAYER ONLINE -->
+        <section id="screen-multiplayer" class="screen">
+            <div class="lobby-card glass-panel">
+                <h2>🌐 Lobby Multiplayer Online 1v1</h2>
+                <p class="game-subtitle">Crea una stanza e condividi il codice con un amico, oppure inserisci un codice per entrare!</p>
+                
+                <div class="lobby-options">
+                    <div class="lobby-box">
+                        <h3>Crea una Nuova Stanza</h3>
+                        <button id="btn-create-room" class="btn btn-primary">Genera Codice Stanza 🎲</button>
+                        <div id="room-created-info" style="display:none;" class="room-info">
+                            <span>Il tuo codice stanza:</span>
+                            <div id="display-room-code" class="room-code-display">LL-XXXX</div>
+                            <small>In attesa che l'avversario si connetta...</small>
+                        </div>
+                    </div>
+
+                    <div class="lobby-box">
+                        <h3>Entra in una Stanza Esistente</h3>
+                        <div class="room-input-group">
+                            <input type="text" id="input-room-code" placeholder="Codice (es. 1234)" maxlength="4">
+                            <button id="btn-join-room" class="btn btn-action">Entra ⚔️</button>
+                        </div>
+                    </div>
+                </div>
+
+                <button id="btn-close-lobby" class="btn btn-secondary btn-small">⬅ Torna al Menu</button>
+            </div>
+        </section>
+
+        <!-- 3. SCHERMATA REGOLAMENTO -->
+        <section id="screen-rules" class="screen">
+            <div class="rules-card glass-panel">
+                <h2>📜 Regolamento Ufficiale di Gioco</h2>
+                <div class="rules-body">
+                    <div class="rule-box">
+                        <span class="rule-icon">🎴</span>
+                        <div>
+                            <h4>Mazzo Condiviso</h4>
+                            <p>Entrambi i giocatori pescano le carte da un unico mazzo centrale di 28 carte uniche disegnate a mano.</p>
+                        </div>
+                    </div>
+
+                    <div class="rule-box">
+                        <span class="rule-icon">⚡</span>
+                        <div>
+                            <h4>Bonus Elementali Istantanei</h4>
+                            <p>Molte carte possiedono bonus speciali! Schierare una carta contro un determinato elemento nemico o avere carte dello stesso elemento in mano sblocca aumenti di Attacco o Vita in tempo reale.</p>
+                        </div>
+                    </div>
+
+                    <div class="rule-box">
+                        <span class="rule-icon">⚔️</span>
+                        <div>
+                            <h4>Schieramento ed Attacco</h4>
+                            <p>Puoi schierare massimo 1 carta a turno. Le carte schierate nei turni precedenti possono attaccare le carte nemiche sul campo oppure l'Eroe Avversario per ridurre i suoi punti vita (150 HP totali).</p>
+                        </div>
+                    </div>
+
+                    <div class="rule-box">
+                        <span class="rule-icon">⏱️</span>
+                        <div>
+                            <h4>Tempo Limite Turno (30 Secondi)</h4>
+                            <p>Hai 30 secondi per compiere le tue mosse. Negli ultimi 10 secondi un avviso sonoro incalzante scandisce il tempo rimasto!</p>
+                        </div>
+                    </div>
+                </div>
+                <button id="btn-close-rules" class="btn btn-primary">Ho Capito! Torna al Menu</button>
+            </div>
+        </section>
+
+        <!-- 4. GALLERIA CARTE GIGANTI -->
+        <section id="screen-collection" class="screen">
+            <header class="top-bar glass-panel">
+                <button id="btn-back-menu" class="btn btn-small">⬅ Menu</button>
+                <h2>🎴 Galleria Carte Ufficiali (28 Carte Reali HD)</h2>
+                <div class="deck-count-badge">Carte Totali: 28</div>
+            </header>
+            
+            <div class="collection-layout">
+                <div class="filter-bar">
+                    <button class="filter-btn active" data-filter="ALL">Tutti</button>
+                    <button class="filter-btn" data-filter="Giallo">🟡 Giallo</button>
+                    <button class="filter-btn" data-filter="Verde">🟢 Verde</button>
+                    <button class="filter-btn" data-filter="Bianco">⚪ Bianco</button>
+                    <button class="filter-btn" data-filter="Blu">🔵 Blu</button>
+                </div>
+                <div id="cards-grid" class="cards-grid">
+                    <!-- Carte renderizzate in HD da JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. CAMPO DI BATTAGLIA (BATTLEFIELD ONLINE) -->
+        <section id="screen-battle" class="screen">
+            <!-- Barra Superiore In-Game con Timer 30s -->
+            <div class="battle-top-bar glass-panel">
+                <div style="display:flex; gap:6px; align-items:center;">
+                    <button id="btn-surrender" class="btn btn-danger btn-small">Resa</button>
+                    <button id="btn-fullscreen-battle" class="btn btn-secondary btn-small" title="Schermo Intero">⛶</button>
+                </div>
+                
+                <div class="turn-counter">Turno <span id="turn-num">1</span>/15</div>
+
+                <!-- Reazioni Emoji In-Game per Multiplayer -->
+                <div class="emoji-bar" id="emoji-bar" style="display:none;">
+                    <button class="emoji-btn" data-emoji="🔥">🔥</button>
+                    <button class="emoji-btn" data-emoji="😂">😂</button>
+                    <button class="emoji-btn" data-emoji="💀">💀</button>
+                    <button class="emoji-btn" data-emoji="😮">😮</button>
+                    <button class="emoji-btn" data-emoji="👏">👏</button>
+                </div>
+
+                <!-- TIMER 30 SECONDI -->
+                <div class="timer-widget" id="timer-widget">
+                    <span class="timer-icon">⏱️</span>
+                    <span id="timer-text" class="timer-seconds">30s</span>
+                    <div class="timer-bar-wrapper">
+                        <div id="timer-bar" class="timer-bar-fill" style="width: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Banner Stato Azioni Disponibili -->
+            <div id="action-status-banner" class="action-banner">
+                <span id="action-status-icon">✨</span>
+                <span id="action-status-msg">Il Tuo Turno - Schiera 1 Carta o Attacca!</span>
+            </div>
+
+            <div class="battlefield-container">
+                <!-- ZONA AVVERSARIO (IA o GIOCATORE ONLINE) -->
+                <div class="player-zone zone-opponent">
+                    <div class="player-portrait glass-panel" title="Tocca per attaccare direttamente l'Eroe Avversario">
+                        <div class="avatar avatar-ai" id="opponent-avatar">🤖</div>
+                        <div class="player-stats">
+                            <div class="player-name" id="opponent-name">Avversario</div>
+                            <div class="hp-bar-wrapper">
+                                <div class="hp-bar" id="ai-hp-bar" style="width: 100%;"></div>
+                                <span class="hp-text">❤️ <span id="ai-hp">150</span>/150 HP</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="opponent-hand-preview" id="ai-hand-cards">
+                        <!-- Carte coperte avversario col dorso ufficiale -->
+                    </div>
+                </div>
+
+                <!-- CAMPO DI GIOCO CENTRALE -->
+                <div class="board-area">
+                    <!-- Fila Schieramento Avversario -->
+                    <div class="board-row" id="ai-board">
+                        <div class="empty-board-msg">Nessuna carta schierata dall'avversario</div>
+                    </div>
+
+                    <div class="board-divider">
+                        <span class="divider-glow"></span>
+                    </div>
+
+                    <!-- Fila Schieramento Giocatore -->
+                    <div class="board-row" id="player-board">
+                        <div class="empty-board-msg">Tocca una carta in mano per ingrandirla o schierarla</div>
+                    </div>
+                </div>
+
+                <!-- ZONA GIOCATORE HUMANO -->
+                <div class="player-zone zone-player">
+                    <div class="player-portrait glass-panel">
+                        <div class="avatar avatar-player">👑</div>
+                        <div class="player-stats">
+                            <div class="player-name" id="player-name">Tu</div>
+                            <div class="hp-bar-wrapper">
+                                <div class="hp-bar" id="player-hp-bar" style="width: 100%;"></div>
+                                <span class="hp-text">❤️ <span id="player-hp">150</span>/150 HP</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Controlli di Turno -->
+                    <div class="turn-controls">
+                        <div class="deck-pile" id="player-deck-pile">
+                            <span class="deck-count" id="player-deck-count">18</span>
+                        </div>
+                        <button id="btn-end-turn" class="btn btn-action btn-glow">Passa Turno ➔</button>
+                    </div>
+                </div>
+
+                <!-- MANO DEL GIOCATORE POSIZIONATA ALZATA DAL BORDO -->
+                <div class="hand-container">
+                    <div id="player-hand" class="hand-cards">
+                        <!-- Carte del giocatore generate da JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MODALE CARD SPOTLIGHT HD (ISPEZIONE INGRANDITA E SCHIERAMENTO) -->
+        <div id="card-detail-modal" class="modal-overlay">
+            <div class="detail-modal-card glass-panel">
+                <button id="btn-close-detail" class="modal-close-btn">✖</button>
+                <div id="detail-card-img" class="detail-card-preview"></div>
+                <div class="detail-card-info">
+                    <h3 id="detail-card-name">Nome Carta</h3>
+                    <div class="detail-badges">
+                        <span id="detail-card-elem" class="badge badge-elem">Elemento</span>
+                        <span id="detail-card-atk" class="badge badge-atk">ATT: 0</span>
+                        <span id="detail-card-hp" class="badge badge-hp">VITA: 0</span>
+                    </div>
+                    <div class="detail-bonus-box">
+                        <strong>⚡ Effetto Bonus Speciale:</strong>
+                        <p id="detail-card-bonus">Descrizione effetto bonus...</p>
+                    </div>
+                    <p id="detail-card-lore" class="detail-lore">Storia e note della carta...</p>
+                    <div class="detail-actions">
+                        <button id="btn-play-from-modal" class="btn btn-primary btn-glow">Schiera in Campo ⚔️</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODALE GAME OVER -->
+        <div id="game-over-modal" class="modal-overlay">
+            <div class="modal-card glass-panel" style="max-width: 420px; width: 100%; text-align: center; padding: 24px;">
+                <h2 id="modal-title">VITTORIA! 🎉</h2>
+                <p id="modal-desc">Hai sconfitto l'avversario!</p>
+                <div class="modal-actions" style="margin-top: 16px;">
+                    <button id="btn-rematch" class="btn btn-primary">Nuova Partita 🔄</button>
+                    <button id="btn-modal-menu" class="btn btn-secondary">Menu Principale 🏠</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MQTT WebSocket CDN per Multiplayer Cloud Infallibile -->
+    <script src="https://unpkg.com/mqtt@5.3.0/dist/mqtt.min.js"></script>
+
+    <!-- Moduli di Gioco JavaScript -->
+    <script src="src/cards.js"></script>
+    <script src="src/engine.js"></script>
+    <script src="src/ai.js"></script>
+    <script src="src/multiplayer.js"></script>
+    <script src="src/audio.js"></script>
+    <script src="src/particles.js"></script>
+    <script src="src/app.js"></script>
+</body>
+</html>

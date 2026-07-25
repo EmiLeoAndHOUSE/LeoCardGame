@@ -1,0 +1,1377 @@
+/* ==========================================================================
+   L.L. CARD GAME - STYLESHEET HD ULTRA READABLE (FOOTER E CREDITI)
+   ========================================================================== */
+
+:root {
+    --bg-dark: #060810;
+    --bg-card: rgba(14, 17, 30, 0.95);
+    --border-glass: rgba(255, 255, 255, 0.18);
+    --accent-gold: #ffb800;
+    --accent-blue: #00d2ff;
+    --accent-danger: #ff4757;
+    --accent-success: #2ed573;
+    
+    --elem-giallo: #ffb800;
+    --elem-verde: #2ed573;
+    --elem-bianco: #ffffff;
+    --elem-blu: #00b0ff;
+
+    --font-heading: 'Rajdhani', sans-serif;
+    --font-body: 'Outfit', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+body, html {
+    width: 100%;
+    height: 100vh;
+    height: 100dvh; /* Dynamic Viewport Height per Chrome & Safari Mobile */
+    overflow: hidden;
+    background-color: var(--bg-dark);
+    font-family: var(--font-body);
+    color: #ffffff;
+}
+
+#app {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    display: flex;
+    overflow: hidden;
+}
+
+#fx-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none !important;
+    z-index: 1;
+}
+
+/* Toast Notifications */
+#toast-layer {
+    position: absolute;
+    top: 45px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 950;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: center;
+    pointer-events: none;
+    width: 90%;
+    max-width: 380px;
+}
+
+.toast {
+    background: rgba(10, 14, 26, 0.96);
+    border: 2px solid var(--accent-gold);
+    color: #fff;
+    padding: 8px 18px;
+    border-radius: 30px;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+    text-align: center;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8), 0 0 20px var(--accent-gold);
+    animation: toastPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards, toastFadeOut 0.4s ease 2.2s forwards;
+}
+
+@keyframes toastPop {
+    from { opacity: 0; transform: translateY(-20px) scale(0.8); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes toastFadeOut {
+    to { opacity: 0; transform: translateY(-10px) scale(0.9); }
+}
+
+/* BANNER CINEMATICO CUT-IN BONUS */
+.bonus-cutin-overlay {
+    position: fixed;
+    top: 35%;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: linear-gradient(90deg, transparent, rgba(255, 184, 0, 0.95), rgba(0, 210, 255, 0.95), transparent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 900;
+    pointer-events: none;
+    box-shadow: 0 0 50px var(--accent-gold);
+    animation: cutInSlide 1.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.bonus-cutin-content {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 0 0 20px #000, 0 0 30px var(--accent-gold);
+    text-align: center;
+    padding: 0 10px;
+}
+
+@keyframes cutInSlide {
+    0% { opacity: 0; transform: scaleX(0.2) translateY(-20px); }
+    15% { opacity: 1; transform: scaleX(1) translateY(0); }
+    80% { opacity: 1; transform: scaleX(1) translateY(0); }
+    100% { opacity: 0; transform: scaleX(0.5) translateY(20px); }
+}
+
+.glass-panel {
+    background: var(--bg-card);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1.5px solid var(--border-glass);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6);
+}
+
+/* SCHERMI E TRANSIZIONI DECLARATIVE CON ISOLAMENTO Z-INDEX TOTALE */
+.screen {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: none !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    flex-direction: column;
+    z-index: -999 !important;
+}
+
+.screen.active {
+    display: flex !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    z-index: 100 !important;
+}
+
+/* Buttons */
+.btn {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 700;
+    padding: 10px 20px;
+    border-radius: 12px;
+    border: 1px solid var(--border-glass);
+    cursor: pointer !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    outline: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    z-index: 110 !important;
+    pointer-events: auto !important;
+    touch-action: manipulation !important;
+}
+
+.btn:hover { transform: translateY(-2px) scale(1.02); }
+.btn:active { transform: translateY(1px) scale(0.98); }
+
+.btn-primary {
+    background: linear-gradient(135deg, #ffb800 0%, #ff8c00 100%);
+    color: #000;
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+}
+
+.btn-secondary:hover { background: rgba(255, 255, 255, 0.16); }
+
+.btn-danger {
+    background: rgba(255, 71, 87, 0.2);
+    border-color: var(--accent-danger);
+    color: var(--accent-danger);
+}
+
+.btn-danger:hover {
+    background: var(--accent-danger);
+    color: #fff;
+}
+
+.btn-action {
+    background: linear-gradient(135deg, #00d2ff 0%, #0072ff 100%);
+    color: #fff;
+}
+
+.btn-glow { box-shadow: 0 0 20px rgba(255, 184, 0, 0.4); }
+.btn-glow:hover { box-shadow: 0 0 30px rgba(255, 184, 0, 0.7); }
+.btn-small { padding: 5px 12px; font-size: 0.85rem; }
+
+.btn-pulse-suggest {
+    animation: btnSuggestPulse 1.2s infinite ease-in-out;
+    background: linear-gradient(135deg, #ffb800 0%, #ff4757 100%) !important;
+    color: #ffffff !important;
+}
+
+@keyframes btnSuggestPulse {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 15px var(--accent-gold); }
+    50% { transform: scale(1.08); box-shadow: 0 0 30px var(--accent-danger); }
+}
+
+/* ==========================================================================
+   1. MENU PRINCIPALE & NICKNAME BOX
+   ========================================================================== */
+#screen-menu {
+    background: radial-gradient(circle at center, #1a2238 0%, #0a0c14 100%);
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+    position: relative;
+}
+
+.menu-hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 16px;
+    max-width: 440px;
+    width: 100%;
+    z-index: 105;
+    margin-bottom: 25px;
+}
+
+.nickname-box {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 100%;
+    align-items: center;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    z-index: 110;
+}
+
+.nickname-box label {
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    color: var(--accent-gold);
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.nickname-input {
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid var(--accent-gold);
+    border-radius: 12px;
+    padding: 8px 14px;
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #ffffff;
+    text-align: center;
+    width: 100%;
+    max-width: 280px;
+    outline: none;
+    box-shadow: 0 0 12px rgba(255, 184, 0, 0.25);
+    transition: all 0.2s ease;
+    user-select: text !important;
+    -webkit-user-select: text !important;
+}
+
+.nickname-input:focus {
+    border-color: #ffffff;
+    box-shadow: 0 0 20px var(--accent-gold);
+    background: rgba(0, 0, 0, 0.85);
+}
+
+.logo-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 220px;
+    height: 220px;
+    background: radial-gradient(circle, rgba(255, 184, 0, 0.35) 0%, transparent 70%);
+    filter: blur(40px);
+    pointer-events: none;
+}
+
+.game-title {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background: linear-gradient(180deg, #ffffff 0%, #a0aab8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.game-title span {
+    background: linear-gradient(180deg, #ffb800 0%, #ff7700 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: block;
+}
+
+.game-subtitle {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.85);
+    margin-top: 2px;
+}
+
+.menu-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    z-index: 110;
+}
+
+.menu-actions .btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 1.1rem;
+}
+
+/* FOOTER SCHERMATA CON CREDITI, VERSIONE E COPYRIGHT */
+.screen-footer {
+    position: absolute;
+    bottom: 12px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 24px;
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.75);
+    pointer-events: none;
+    z-index: 120;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.footer-left {
+    text-align: left;
+    color: var(--accent-gold);
+}
+
+.footer-center {
+    text-align: center;
+    color: var(--accent-blue);
+}
+
+.footer-right {
+    text-align: right;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+/* ==========================================================================
+   2. SCHERMATA MULTIPLAYER
+   ========================================================================== */
+#screen-multiplayer {
+    justify-content: center;
+    align-items: center;
+    background: rgba(10, 12, 20, 0.95);
+    padding: 16px;
+}
+
+.lobby-card {
+    max-width: 600px;
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-height: 95vh;
+    overflow-y: auto;
+}
+
+.lobby-card h2 {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    color: var(--accent-blue);
+    text-align: center;
+    border-bottom: 1px solid var(--border-glass);
+    padding-bottom: 8px;
+}
+
+.lobby-options {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.lobby-box {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border-glass);
+    border-radius: 12px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+}
+
+.room-code-display {
+    font-family: var(--font-heading);
+    font-size: 2.2rem;
+    font-weight: 900;
+    letter-spacing: 3px;
+    color: var(--accent-gold);
+    background: rgba(255, 184, 0, 0.15);
+    border: 2px dashed var(--accent-gold);
+    padding: 6px 20px;
+    border-radius: 12px;
+}
+
+.room-input-group {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+    max-width: 320px;
+}
+
+.room-input-group input {
+    flex: 1;
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid var(--border-glass);
+    border-radius: 10px;
+    padding: 8px 12px;
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--accent-gold);
+    text-align: center;
+    letter-spacing: 2px;
+    outline: none;
+    user-select: text !important;
+    -webkit-user-select: text !important;
+}
+
+/* RUOTA EMOJI REACTION IN-GAME */
+.emoji-bar {
+    display: flex;
+    gap: 4px;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 2px 6px;
+    border-radius: 16px;
+    border: 1.5px solid var(--border-glass);
+}
+
+.emoji-btn {
+    background: transparent;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 1px 3px;
+}
+
+/* ==========================================================================
+   3. SCHERMATA REGOLAMENTO
+   ========================================================================== */
+#screen-rules {
+    justify-content: center;
+    align-items: center;
+    background: rgba(10, 12, 20, 0.95);
+    padding: 16px;
+}
+
+.rules-card {
+    max-width: 550px;
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-height: 92vh;
+    overflow-y: auto;
+}
+
+.rules-card h2 {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    color: var(--accent-gold);
+    border-bottom: 1px solid var(--border-glass);
+    padding-bottom: 8px;
+}
+
+.rules-body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.rule-box {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.04);
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid var(--border-glass);
+}
+
+.rule-icon { font-size: 1.4rem; }
+.rule-box h4 { font-size: 1rem; color: var(--accent-blue); }
+.rule-box p { font-size: 0.85rem; color: rgba(255, 255, 255, 0.85); }
+
+/* ==========================================================================
+   4. GALLERIA CARTE GIGANTI
+   ========================================================================== */
+#screen-collection {
+    background: #070a14;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 14px;
+    margin: 4px 8px;
+}
+
+.top-bar h2 {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+}
+
+.deck-count-badge {
+    background: rgba(255, 184, 0, 0.15);
+    border: 1px solid var(--accent-gold);
+    color: var(--accent-gold);
+    padding: 4px 10px;
+    border-radius: 14px;
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+.collection-layout {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 0 10px 10px 10px;
+    overflow: hidden;
+}
+
+.filter-bar {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 10px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+}
+
+.filter-btn {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--border-glass);
+    color: #fff;
+    padding: 6px 14px;
+    border-radius: 14px;
+    cursor: pointer;
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+.filter-btn.active, .filter-btn:hover {
+    background: var(--accent-gold);
+    color: #000;
+    font-weight: 700;
+}
+
+.cards-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 14px;
+    overflow-y: auto;
+    padding: 8px 8px 30px 8px;
+}
+
+/* ==========================================================================
+   5. CAMPO DI BATTAGLIA (DESKTOP DEFAULT)
+   ========================================================================== */
+#screen-battle {
+    background: radial-gradient(circle at center, #151c30 0%, #05060b 100%);
+}
+
+.battle-top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 12px;
+    margin: 2px 4px;
+    z-index: 50;
+}
+
+.turn-counter {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-weight: 900;
+    color: var(--accent-gold);
+}
+
+.timer-widget {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 4px 10px;
+    border-radius: 18px;
+    border: 1.5px solid var(--border-glass);
+}
+
+.timer-icon { font-size: 1rem; }
+
+.timer-seconds {
+    font-family: var(--font-heading);
+    font-weight: 900;
+    font-size: 1.1rem;
+    color: var(--accent-gold);
+    min-width: 28px;
+}
+
+.timer-bar-wrapper {
+    width: 60px;
+    height: 7px;
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.timer-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #ffb800, #2ed573);
+    transition: width 0.9s linear;
+}
+
+.action-banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: rgba(0, 210, 255, 0.18);
+    border: 1.5px solid var(--accent-blue);
+    color: #fff;
+    padding: 4px 10px;
+    margin: 0 4px 2px 4px;
+    border-radius: 8px;
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+.battlefield-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding: 0 4px 270px 4px;
+    overflow: visible;
+}
+
+/* PROFILO EROE & BARRE HP */
+.player-zone {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 8px;
+    z-index: 40;
+}
+
+.player-portrait {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 14px;
+    min-width: 220px;
+    cursor: pointer;
+    background: rgba(12, 16, 28, 0.95);
+    border: 1.5px solid var(--border-glass);
+    border-radius: 14px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.7);
+    transition: all 0.2s ease;
+}
+
+.player-portrait:hover {
+    border-color: var(--accent-gold);
+    box-shadow: 0 0 20px rgba(255, 184, 0, 0.4);
+}
+
+.avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    background: rgba(255, 255, 255, 0.12);
+    border: 2px solid var(--border-glass);
+    flex-shrink: 0;
+}
+
+.avatar-ai { border-color: var(--accent-danger); box-shadow: 0 0 10px rgba(255, 71, 87, 0.5); }
+.avatar-player { border-color: var(--accent-gold); box-shadow: 0 0 10px rgba(255, 184, 0, 0.5); }
+
+.player-stats {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 100%;
+}
+
+.player-name {
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 140px;
+}
+
+.hp-bar-wrapper {
+    position: relative;
+    width: 100%;
+    min-width: 130px;
+    height: 24px;
+    background: rgba(0, 0, 0, 0.85);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1.5px solid rgba(255, 255, 255, 0.3);
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.9);
+}
+
+.hp-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #ff4757 0%, #ff6b81 100%);
+    box-shadow: 0 0 12px rgba(255, 71, 87, 0.8);
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hp-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--font-heading);
+    font-size: 0.92rem;
+    font-weight: 900;
+    color: #ffffff;
+    letter-spacing: 1px;
+    white-space: nowrap;
+    text-shadow: 0 0 4px #000, 0 1px 4px #000, 0 0 8px #000;
+    z-index: 5;
+}
+
+.turn-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.deck-pile {
+    position: relative;
+    width: 44px;
+    height: 64px;
+    border-radius: 6px;
+    background-image: url('assets/cards/dorso.jpg');
+    background-size: cover;
+    background-position: center;
+    border: 2px solid var(--accent-gold);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.deck-count {
+    position: absolute;
+    bottom: -5px;
+    right: -5px;
+    background: var(--accent-gold);
+    color: #000;
+    font-weight: 900;
+    font-size: 0.78rem;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.board-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 2px 0;
+    position: relative;
+    min-height: 240px;
+}
+
+.board-row {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    padding: 6px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px dashed rgba(255, 255, 255, 0.12);
+    margin: 2px 0;
+    min-height: 230px;
+}
+
+.empty-board-msg {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.5);
+    font-style: italic;
+    pointer-events: none;
+    text-align: center;
+}
+
+.board-divider {
+    position: relative;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.12);
+    width: 100%;
+}
+
+.divider-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+}
+
+/* MANO DEL GIOCATORE POSIZIONATA ED ALZATA IN PRIMISSIMO PIANO */
+.hand-container {
+    position: absolute !important;
+    bottom: 20px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    height: 255px !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: flex-end !important;
+    z-index: 600 !important;
+    pointer-events: auto !important;
+    width: 100% !important;
+    padding: 0 4px;
+}
+
+.hand-cards {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 10px;
+    padding: 0 4px;
+    width: 100%;
+    max-width: 100vw;
+}
+
+.opponent-hand-preview {
+    display: flex;
+    gap: 4px;
+}
+
+.card-back-mini {
+    width: 26px;
+    height: 38px;
+    background-image: url('assets/cards/dorso.jpg');
+    background-size: cover;
+    background-position: center;
+    border: 1px solid var(--accent-blue);
+    border-radius: 4px;
+}
+
+/* ==========================================================================
+   6. COMPONENTE CARTA DEFAULT (DESKTOP: 175px x 250px)
+   ========================================================================== */
+.card {
+    position: relative;
+    width: 175px;
+    height: 250px;
+    border-radius: 14px;
+    background-size: 100% 100% !important;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #0b0e1b;
+    border: 3px solid var(--accent-gold);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.9), 0 0 15px rgba(255, 184, 0, 0.35);
+    cursor: pointer;
+    transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.25s ease, border-color 0.25s ease;
+    user-select: none;
+    touch-action: manipulation;
+    overflow: visible;
+    flex-shrink: 0;
+}
+
+.hand-cards .card {
+    width: 175px;
+    height: 250px;
+}
+
+.board-card {
+    width: 165px;
+    height: 235px;
+}
+
+.card:hover {
+    transform: translateY(-40px) scale(1.45) !important;
+    z-index: 750 !important;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.98), 0 0 40px var(--accent-gold) !important;
+    border-color: #ffffff !important;
+}
+
+.card.selected {
+    transform: translateY(-45px) scale(1.5) !important;
+    border-color: var(--accent-blue) !important;
+    box-shadow: 0 0 50px var(--accent-blue) !important;
+    z-index: 760 !important;
+}
+
+.card.can-attack {
+    border-color: var(--accent-success);
+    box-shadow: 0 0 20px var(--accent-success);
+    animation: attackPulse 1.5s infinite ease-in-out;
+}
+
+@keyframes attackPulse {
+    0%, 100% { box-shadow: 0 0 10px var(--accent-success); }
+    50% { box-shadow: 0 0 28px var(--accent-success); }
+}
+
+.card.bonus-active {
+    border-color: #00d2ff !important;
+    box-shadow: 0 0 30px #00d2ff, 0 0 20px var(--accent-gold) !important;
+}
+
+.card-bonus-tag {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #ffb800, #ff4757);
+    color: #fff;
+    font-family: var(--font-heading);
+    font-weight: 900;
+    font-size: 0.85rem;
+    padding: 2px 10px;
+    border-radius: 14px;
+    border: 1.5px solid #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.9);
+    white-space: nowrap;
+    z-index: 30;
+    pointer-events: none !important;
+}
+
+.card-overlay-stats {
+    position: absolute;
+    bottom: -10px;
+    left: -4px;
+    right: -4px;
+    display: flex;
+    justify-content: space-between;
+    pointer-events: none !important;
+    z-index: 20;
+}
+
+.stat-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-family: var(--font-heading);
+    font-weight: 900;
+    font-size: 1.25rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.95);
+    border: 2.5px solid #ffffff;
+    transition: all 0.3s ease;
+    pointer-events: none !important;
+}
+
+.stat-badge.stat-boosted {
+    transform: scale(1.3);
+    background: linear-gradient(135deg, #ffb800, #ff0055) !important;
+    color: #ffffff !important;
+    border-color: #ffffff !important;
+    font-size: 1.35rem !important;
+}
+
+.stat-atk {
+    background: linear-gradient(135deg, #ff4757, #c0392b);
+    color: #fff;
+}
+
+.stat-hp {
+    background: linear-gradient(135deg, #2ed573, #27ae60);
+    color: #fff;
+}
+
+.bonus-floating-pop {
+    position: absolute;
+    font-family: var(--font-heading);
+    font-weight: 900;
+    font-size: 1.8rem;
+    color: var(--accent-gold);
+    text-shadow: 0 0 15px #000, 0 0 30px var(--accent-gold);
+    pointer-events: none;
+    z-index: 500;
+    animation: floatBonusPop 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+@keyframes floatBonusPop {
+    0% { opacity: 0; transform: translate(-50%, 0) scale(0.6); }
+    30% { opacity: 1; transform: translate(-50%, -30px) scale(1.4); }
+    80% { opacity: 1; transform: translate(-50%, -50px) scale(1.1); }
+    100% { opacity: 0; transform: translate(-50%, -70px) scale(0.9); }
+}
+
+/* MODALE CARD SPOTLIGHT HD */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(14px);
+    display: none !important;
+    align-items: center;
+    justify-content: center;
+    z-index: -999 !important;
+    opacity: 0;
+    pointer-events: none !important;
+    transition: opacity 0.3s ease;
+    padding: 12px;
+}
+
+.modal-overlay.active {
+    display: flex !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    z-index: 900 !important;
+}
+
+.detail-modal-card {
+    position: relative;
+    max-width: 750px;
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+    max-height: 94vh;
+    overflow-y: auto;
+    pointer-events: auto !important;
+}
+
+.modal-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--border-glass);
+    color: #fff;
+    font-size: 1.2rem;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.detail-card-preview {
+    width: 240px;
+    height: 350px;
+    border-radius: 16px;
+    background-size: 100% 100% !important;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #0b0e19;
+    border: 3.5px solid var(--accent-gold);
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.95), 0 0 35px var(--accent-gold);
+    flex-shrink: 0;
+}
+
+.detail-card-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    text-align: left;
+}
+
+.detail-card-info h3 {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 900;
+    color: #ffffff;
+}
+
+.detail-badges { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.badge {
+    padding: 4px 12px;
+    border-radius: 16px;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.95rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.badge-elem { background: rgba(255, 184, 0, 0.2); color: var(--accent-gold); border-color: var(--accent-gold); }
+.badge-atk { background: rgba(255, 71, 87, 0.2); color: #ff6b81; border-color: #ff4757; }
+.badge-hp { background: rgba(46, 213, 115, 0.2); color: #2ed573; border-color: #2ed573; }
+
+.detail-bonus-box {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-glass);
+    padding: 10px 12px;
+    border-radius: 10px;
+}
+
+.detail-bonus-box strong {
+    color: var(--accent-gold);
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    display: block;
+    margin-bottom: 2px;
+}
+
+.detail-bonus-box p { font-size: 0.9rem; color: #fff; }
+
+.detail-lore {
+    font-size: 0.9rem;
+    line-height: 1.35;
+    color: rgba(255, 255, 255, 0.8);
+    font-style: italic;
+}
+
+.detail-actions { margin-top: 4px; }
+
+.modal-card h2 {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--accent-gold);
+}
+
+.modal-card p {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+/* ==========================================================================
+   7. MEDIA QUERIES MOBILE SAFE AREA (BARRE HP BEN VISIBILI SU SMARTPHONE)
+   ========================================================================== */
+@media (max-width: 768px), (max-height: 750px) {
+    .screen-footer {
+        bottom: 6px;
+        padding: 0 10px;
+        font-size: 0.72rem;
+    }
+
+    .hand-cards .card {
+        width: 78px !important;
+        height: 115px !important;
+        border-width: 2.5px !important;
+        border-radius: 9px !important;
+        margin-left: -8px !important;
+    }
+
+    .hand-cards .card:first-child {
+        margin-left: 0 !important;
+    }
+
+    .board-card {
+        width: 82px !important;
+        height: 120px !important;
+        border-width: 2.5px !important;
+        border-radius: 9px !important;
+    }
+
+    .stat-badge {
+        width: 25px !important;
+        height: 25px !important;
+        font-size: 0.85rem !important;
+        border-width: 1.5px !important;
+    }
+
+    .card-overlay-stats {
+        bottom: -7px;
+        left: -3px;
+        right: -3px;
+    }
+
+    .card-bonus-tag {
+        font-size: 0.65rem;
+        padding: 1px 5px;
+        top: -9px;
+    }
+
+    .hand-container {
+        position: absolute !important;
+        bottom: calc(50px + env(safe-area-inset-bottom)) !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        height: 125px !important;
+        padding: 0 4px !important;
+    }
+
+    .battlefield-container {
+        padding: 0 4px 185px 4px !important;
+    }
+
+    .board-area {
+        min-height: 150px;
+    }
+
+    .board-row {
+        min-height: 125px;
+        gap: 6px;
+        padding: 2px;
+    }
+
+    .empty-board-msg {
+        font-size: 0.75rem;
+    }
+
+    .card:hover, .card.selected {
+        transform: translateY(-25px) scale(1.4) !important;
+        z-index: 780 !important;
+    }
+
+    .player-portrait {
+        min-width: 160px !important;
+        padding: 4px 10px !important;
+        gap: 8px !important;
+        border-radius: 12px !important;
+    }
+
+    .avatar {
+        width: 32px !important;
+        height: 32px !important;
+        font-size: 1.1rem !important;
+    }
+
+    .player-name {
+        font-size: 0.85rem !important;
+        max-width: 100px !important;
+    }
+
+    .hp-bar-wrapper {
+        height: 20px !important;
+        min-width: 110px !important;
+        border-radius: 10px !important;
+    }
+
+    .hp-text {
+        font-size: 0.85rem !important;
+    }
+
+    .deck-pile {
+        width: 34px;
+        height: 50px;
+    }
+
+    .deck-count {
+        width: 18px;
+        height: 18px;
+        font-size: 0.7rem;
+    }
+
+    .action-banner {
+        font-size: 0.78rem;
+        padding: 2px 6px;
+    }
+
+    .turn-counter {
+        font-size: 0.9rem;
+    }
+
+    .timer-widget {
+        padding: 2px 6px;
+    }
+
+    .timer-seconds {
+        font-size: 0.9rem;
+        min-width: 22px;
+    }
+
+    .timer-bar-wrapper {
+        width: 40px;
+        height: 5px;
+    }
+
+    .detail-modal-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 14px;
+        gap: 10px;
+    }
+
+    .detail-card-preview {
+        width: 190px;
+        height: 275px;
+    }
+
+    .detail-card-info {
+        text-align: center;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .detail-card-info h3 {
+        font-size: 1.4rem;
+    }
+
+    .game-title {
+        font-size: 2.2rem;
+    }
+}
