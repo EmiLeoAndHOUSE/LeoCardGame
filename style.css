@@ -1,5 +1,5 @@
 /* ==========================================================================
-   L.L. CARD GAME - STYLESHEET HD ULTRA READABLE (HEARTHSTONE PEEK STYLE - ZERO SOVRAPPOSIZIONI)
+   L.L. CARD GAME - STYLESHEET HD ULTRA READABLE (TOUCH OPTIMIZED & ZERO OVERLAP)
    ========================================================================== */
 
 :root {
@@ -70,7 +70,7 @@ body, html {
     flex-direction: column;
     gap: 6px;
     align-items: center;
-    pointer-events: none;
+    pointer-events: none !important;
     width: 90%;
     max-width: 380px;
 }
@@ -88,6 +88,7 @@ body, html {
     text-align: center;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8), 0 0 20px var(--accent-purple);
     animation: toastPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards, toastFadeOut 0.4s ease 2.2s forwards;
+    pointer-events: none !important;
 }
 
 @keyframes toastPop {
@@ -111,7 +112,7 @@ body, html {
     align-items: center;
     justify-content: center;
     z-index: 900;
-    pointer-events: none;
+    pointer-events: none !important;
     box-shadow: 0 0 50px var(--accent-purple);
     animation: cutInSlide 1.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
@@ -126,6 +127,7 @@ body, html {
     text-shadow: 0 0 20px #000, 0 0 30px var(--accent-purple);
     text-align: center;
     padding: 0 10px;
+    pointer-events: none !important;
 }
 
 @keyframes cutInSlide {
@@ -704,6 +706,7 @@ body, html {
     transition: width 0.9s linear;
 }
 
+/* BANNER GUIDA PASSANTE (POINTER-EVENTS NONE = NON OSTACOLA I CLICK SULLO SCHERMO) */
 .action-banner {
     display: flex;
     align-items: center;
@@ -720,6 +723,7 @@ body, html {
     font-weight: 700;
     text-align: center;
     flex-shrink: 0;
+    pointer-events: none !important;
 }
 
 .battlefield-container {
@@ -1484,7 +1488,7 @@ body, html {
 }
 
 /* ==========================================================================
-   8. MEDIA QUERY E CLASSE ORIZZONTALE AAA (HEARTHSTONE PEEK STYLE - ZERO SOVRAPPOSIZIONI)
+   8. MEDIA QUERY E CLASSE ORIZZONTALE AAA ULTRA OTTIMIZZATA
    ========================================================================== */
 @media screen and (orientation: landscape) and (max-height: 600px), body.mobile-landscape {
     body #app,
@@ -1507,15 +1511,18 @@ body, html {
         flex-shrink: 0 !important;
     }
 
+    /* BANNER AZIONI PASSANTE (POINTER-EVENTS NONE = NON BLOCCA I CLICK SULLE CARTE!) */
     body .action-banner {
+        pointer-events: none !important;
+        z-index: 30 !important;
         padding: 1px 6px !important;
-        font-size: 0.75rem !important;
+        font-size: 0.72rem !important;
         margin: 0 !important;
         height: 18px !important;
         flex-shrink: 0 !important;
     }
 
-    /* CARTE SUL CAMPO (80px x 112px) NITIDE ED ORDINATE */
+    /* CARTE SUL CAMPO (80px x 112px) DISTANZIATE ED SENZA SOVRAPPOSIZIONI */
     body .board-card {
         width: 80px !important;
         height: 112px !important;
@@ -1523,15 +1530,26 @@ body, html {
         border-radius: 8px !important;
     }
 
-    /* CARTE IN MANO (ADAGIATE IN BASSO CON EFFETTO PEEK PER NON COPRIRE IL CAMPO) */
+    /* CARTE IN MANO (BEN DISTANZIATE SENZA MARGINI NEGATIVI CON TOUCH AGEVOLE) */
+    body .hand-cards {
+        display: flex !important;
+        gap: 8px !important;
+        padding: 0 12px 10px 12px !important;
+        justify-content: center !important;
+        align-items: flex-end !important;
+        width: auto !important;
+    }
+
     body .hand-cards .card {
         width: 80px !important;
         height: 112px !important;
         border-width: 2px !important;
         border-radius: 8px !important;
-        margin-left: -10px !important;
-        transform: translateY(42px) !important;
-        transition: transform 0.22s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.22s ease !important;
+        margin-left: 0 !important;
+        flex-shrink: 0 !important;
+        transform: translateY(38px) !important;
+        transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.2s ease !important;
+        touch-action: manipulation !important;
     }
 
     body .hand-cards .card:first-child {
@@ -1541,9 +1559,9 @@ body, html {
     body .hand-cards .card:hover,
     body .hand-cards .card:active,
     body .hand-cards .card.selected {
-        transform: translateY(-30px) scale(1.35) !important;
+        transform: translateY(-28px) scale(1.32) !important;
         z-index: 800 !important;
-        box-shadow: 0 0 30px var(--accent-purple) !important;
+        box-shadow: 0 0 25px var(--accent-purple) !important;
         border-color: #ffffff !important;
     }
 
@@ -1567,9 +1585,9 @@ body, html {
         top: -8px !important;
     }
 
-    /* BATTLEFIELD CONTAINER CON SPAZIATURA PERFETTA */
+    /* BATTLEFIELD CONTAINER PULITO */
     body .battlefield-container {
-        padding: 0 85px 45px 135px !important;
+        padding: 0 80px 45px 145px !important;
         flex: 1 !important;
         min-height: 0 !important;
         height: calc(100dvh - 48px) !important;
@@ -1580,15 +1598,17 @@ body, html {
         position: relative !important;
     }
 
-    /* PROFILI EROE SUL BORDO SINISTRO */
+    /* PROFILO EROE NEMICO (TOP-LEFT) */
     body .zone-opponent {
         position: absolute !important;
         top: 4px !important;
         left: 6px !important;
         z-index: 100 !important;
         padding: 0 !important;
+        pointer-events: auto !important;
     }
 
+    /* PROFILO GIOCATORE (BOTTOM-LEFT COMODO) */
     body .zone-player {
         position: absolute !important;
         bottom: 4px !important;
@@ -1596,36 +1616,40 @@ body, html {
         z-index: 100 !important;
         padding: 0 !important;
         flex-direction: column !important;
-        gap: 4px !important;
+        gap: 6px !important;
         align-items: flex-start !important;
+        pointer-events: auto !important;
     }
 
     body .player-portrait {
-        min-width: 120px !important;
-        padding: 3px 6px !important;
+        min-width: 130px !important;
+        padding: 3px 8px !important;
         gap: 6px !important;
         border-radius: 10px !important;
-        height: 30px !important;
+        height: 32px !important;
+        pointer-events: auto !important;
     }
 
-    body .avatar {
-        width: 22px !important;
-        height: 22px !important;
-        font-size: 0.85rem !important;
+    /* PULSANTE PASSA TURNO GRANDE, COMODO E FACILE DA PREMERE */
+    body .turn-controls {
+        width: 100% !important;
+        display: flex !important;
+        justify-content: flex-start !important;
+        margin-top: 2px !important;
+        pointer-events: auto !important;
     }
 
-    body .player-name {
-        font-size: 0.72rem !important;
-        max-width: 75px !important;
-    }
-
-    body .hp-bar-wrapper {
-        height: 14px !important;
-        min-width: 75px !important;
-    }
-
-    body .hp-text {
-        font-size: 0.7rem !important;
+    body #btn-end-turn {
+        width: 130px !important;
+        height: 38px !important;
+        font-size: 0.88rem !important;
+        font-weight: 900 !important;
+        border-radius: 10px !important;
+        box-shadow: 0 4px 15px rgba(192, 132, 252, 0.6) !important;
+        touch-action: manipulation !important;
+        pointer-events: auto !important;
+        z-index: 700 !important;
+        padding: 4px 10px !important;
     }
 
     body .board-area {
@@ -1641,7 +1665,7 @@ body, html {
         min-height: 0 !important;
         height: 116px !important;
         max-height: 118px !important;
-        gap: 8px !important;
+        gap: 12px !important;
         padding: 2px !important;
         flex: 1 !important;
         margin: 1px 0 !important;
@@ -1652,16 +1676,20 @@ body, html {
         bottom: 0px !important;
         left: 50% !important;
         transform: translateX(-40%) !important;
-        height: 75px !important;
-        padding: 0 4px !important;
+        height: 80px !important;
+        width: 60% !important;
+        max-width: 480px !important;
+        overflow-x: auto !important;
+        overflow-y: visible !important;
+        -webkit-overflow-scrolling: touch !important;
         z-index: 600 !important;
-        overflow: visible !important;
     }
 
     body .shared-deck-widget {
         right: 6px !important;
         top: 45% !important;
         transform: translateY(-50%) !important;
+        pointer-events: auto !important;
     }
 
     body .deck-card-cover {
