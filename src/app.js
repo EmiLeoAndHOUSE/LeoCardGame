@@ -1,5 +1,5 @@
 /* ==========================================================================
-   L.L. CARD GAME - APPLICATION CONTROLLER (MODALITÀ ORIZZONTALE CARTE EXTRA LARGE)
+   L.L. CARD GAME - APPLICATION CONTROLLER (MODALITÀ ORIZZONTALE MISURA PERFETTA A METÀ)
    ========================================================================== */
 
 class AppController {
@@ -249,17 +249,14 @@ class AppController {
         if (isLandscape) {
             document.body.classList.add('mobile-landscape');
             
-            const isFullscreen = !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
-
-            // Sfrutta appieno l'altezza a schermo intero orizzontale aumentando significativamente la dimensione delle carte (fino a 165px - 175px!)
-            const availableHeight = Math.max(260, height - (isFullscreen ? 30 : 50));
-            const targetCardHeight = Math.min(175, Math.max(115, Math.floor(availableHeight / 2.05)));
-            const targetCardWidth = Math.floor(targetCardHeight * 0.7);
+            // Misura esatta a metà fra le due opzioni: 140px altezza per 98px larghezza
+            const targetCardHeight = 140;
+            const targetCardWidth = 98;
 
             document.documentElement.style.setProperty('--card-landscape-w', `${targetCardWidth}px`);
             document.documentElement.style.setProperty('--card-landscape-h', `${targetCardHeight}px`);
-            document.documentElement.style.setProperty('--hand-container-h', `${targetCardHeight + 12}px`);
-            document.documentElement.style.setProperty('--board-row-h', `${targetCardHeight + 10}px`);
+            document.documentElement.style.setProperty('--hand-container-h', `${targetCardHeight + 8}px`);
+            document.documentElement.style.setProperty('--board-row-h', `${targetCardHeight + 6}px`);
         } else {
             document.body.classList.remove('mobile-landscape');
         }
