@@ -1,5 +1,5 @@
 /* ==========================================================================
-   L.L. CARD GAME - STYLESHEET HD ULTRA READABLE (FIT 100% PERFETTO PER OGNI RISOLUZIONE)
+   L.L. CARD GAME - STYLESHEET HD ULTRA READABLE (ADATTAMENTO DINAMICO RETINA 6.74")
    ========================================================================== */
 
 :root {
@@ -1484,180 +1484,179 @@ body, html {
 }
 
 /* ==========================================================================
-   8. MEDIA QUERIES LANDSCAPE (MODALITÀ ORIZZONTALE 100% PERFECT FIT SENZA TAGLI)
+   8. CLASSE MODALITÀ ORIZZONTALE MOVILE DINAMICA (PERFETTA PER SCHERMI RETINA 6.74")
    ========================================================================== */
-@media screen and (orientation: landscape) {
-    #app, .screen, #screen-battle {
-        height: 100vh !important;
-        height: 100dvh !important;
-        max-height: 100dvh !important;
-        overflow: hidden !important;
-    }
+body.mobile-landscape #app,
+body.mobile-landscape .screen,
+body.mobile-landscape #screen-battle {
+    height: 100vh !important;
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+    overflow: hidden !important;
+}
 
-    .screen-footer {
-        display: none !important;
-    }
+body.mobile-landscape .screen-footer {
+    display: none !important;
+}
 
-    .battle-top-bar {
-        padding: 2px 8px !important;
-        margin: 0 !important;
-        height: 32px !important;
-        flex-shrink: 0 !important;
-    }
+body.mobile-landscape .battle-top-bar {
+    padding: 2px 8px !important;
+    margin: 0 !important;
+    height: 32px !important;
+    flex-shrink: 0 !important;
+}
 
-    .action-banner {
-        padding: 1px 6px !important;
-        font-size: 0.72rem !important;
-        margin: 0 !important;
-        height: 20px !important;
-        flex-shrink: 0 !important;
-    }
+body.mobile-landscape .action-banner {
+    padding: 1px 6px !important;
+    font-size: 0.72rem !important;
+    margin: 0 !important;
+    height: 20px !important;
+    flex-shrink: 0 !important;
+}
 
-    /* CARTE COMPATTE DENSAMENTE DISPOSTE PER ORIZZONTALE */
-    .card,
-    .hand-cards .card,
-    .board-card,
-    .deck-card-cover {
-        width: 65px !important;
-        height: 95px !important;
-        border-width: 2px !important;
-        border-radius: 6px !important;
-    }
+body.mobile-landscape .card,
+body.mobile-landscape .hand-cards .card,
+body.mobile-landscape .board-card,
+body.mobile-landscape .deck-card-cover {
+    width: var(--card-landscape-w, 65px) !important;
+    height: var(--card-landscape-h, 95px) !important;
+    border-width: 2px !important;
+    border-radius: 6px !important;
+}
 
-    .hand-cards .card {
-        margin-left: -5px !important;
-    }
+body.mobile-landscape .hand-cards .card {
+    margin-left: -5px !important;
+}
 
-    .hand-cards .card:first-child {
-        margin-left: 0 !important;
-    }
+body.mobile-landscape .hand-cards .card:first-child {
+    margin-left: 0 !important;
+}
 
-    .stat-badge {
-        width: 20px !important;
-        height: 20px !important;
-        font-size: 0.7rem !important;
-        border-width: 1.5px !important;
-    }
+body.mobile-landscape .stat-badge {
+    width: 20px !important;
+    height: 20px !important;
+    font-size: 0.7rem !important;
+    border-width: 1.5px !important;
+}
 
-    .card-overlay-stats {
-        bottom: -4px !important;
-        left: -2px !important;
-        right: -2px !important;
-    }
+body.mobile-landscape .card-overlay-stats {
+    bottom: -4px !important;
+    left: -2px !important;
+    right: -2px !important;
+}
 
-    .card-bonus-tag {
-        font-size: 0.55rem !important;
-        padding: 1px 3px !important;
-        top: -7px !important;
-    }
+body.mobile-landscape .card-bonus-tag {
+    font-size: 0.55rem !important;
+    padding: 1px 3px !important;
+    top: -7px !important;
+}
 
-    .battlefield-container {
-        padding: 0 4px 102px 4px !important;
-        flex: 1 !important;
-        min-height: 0 !important;
-        height: calc(100dvh - 52px) !important;
-        overflow: hidden !important;
-        display: flex !important;
-        flex-direction: column !important;
-        justify-content: space-between !important;
-    }
+body.mobile-landscape .battlefield-container {
+    padding: 0 4px calc(var(--hand-container-h, 100px) + 4px) 4px !important;
+    flex: 1 !important;
+    min-height: 0 !important;
+    height: calc(100dvh - 52px) !important;
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+}
 
-    .board-area {
-        min-height: 0 !important;
-        flex: 1 !important;
-        display: flex !important;
-        flex-direction: column !important;
-        justify-content: space-around !important;
-        padding: 1px 0 !important;
-    }
+body.mobile-landscape .board-area {
+    min-height: 0 !important;
+    flex: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-around !important;
+    padding: 1px 0 !important;
+}
 
-    .board-row {
-        min-height: 0 !important;
-        height: 98px !important;
-        max-height: 100px !important;
-        gap: 6px !important;
-        padding: 1px !important;
-        flex: 1 !important;
-        margin: 1px 0 !important;
-    }
+body.mobile-landscape .board-row {
+    min-height: 0 !important;
+    height: var(--board-row-h, 98px) !important;
+    max-height: var(--board-row-h, 98px) !important;
+    gap: 6px !important;
+    padding: 1px !important;
+    flex: 1 !important;
+    margin: 1px 0 !important;
+}
 
-    .hand-container {
-        position: absolute !important;
-        bottom: calc(2px + env(safe-area-inset-bottom)) !important;
-        left: 50% !important;
-        transform: translateX(-50%) !important;
-        height: 100px !important;
-        padding: 0 4px !important;
-        z-index: 600 !important;
-    }
+body.mobile-landscape .hand-container {
+    position: absolute !important;
+    bottom: calc(2px + env(safe-area-inset-bottom)) !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    height: var(--hand-container-h, 100px) !important;
+    padding: 0 4px !important;
+    z-index: 600 !important;
+}
 
-    .player-zone {
-        padding: 1px 6px !important;
-        height: 28px !important;
-        flex-shrink: 0 !important;
-    }
+body.mobile-landscape .player-zone {
+    padding: 1px 6px !important;
+    height: 28px !important;
+    flex-shrink: 0 !important;
+}
 
-    .player-portrait {
-        min-width: 110px !important;
-        padding: 2px 6px !important;
-        gap: 4px !important;
-        border-radius: 8px !important;
-        height: 26px !important;
-    }
+body.mobile-landscape .player-portrait {
+    min-width: 110px !important;
+    padding: 2px 6px !important;
+    gap: 4px !important;
+    border-radius: 8px !important;
+    height: 26px !important;
+}
 
-    .avatar {
-        width: 22px !important;
-        height: 22px !important;
-        font-size: 0.8rem !important;
-    }
+body.mobile-landscape .avatar {
+    width: 22px !important;
+    height: 22px !important;
+    font-size: 0.8rem !important;
+}
 
-    .player-name {
-        font-size: 0.72rem !important;
-        max-width: 75px !important;
-    }
+body.mobile-landscape .player-name {
+    font-size: 0.72rem !important;
+    max-width: 75px !important;
+}
 
-    .hp-bar-wrapper {
-        height: 14px !important;
-        min-width: 75px !important;
-    }
+body.mobile-landscape .hp-bar-wrapper {
+    height: 14px !important;
+    min-width: 75px !important;
+}
 
-    .hp-text {
-        font-size: 0.68rem !important;
-    }
+body.mobile-landscape .hp-text {
+    font-size: 0.68rem !important;
+}
 
-    .shared-deck-widget {
-        right: 4px !important;
-        top: 50% !important;
-        transform: translateY(-50%) !important;
-    }
+body.mobile-landscape .shared-deck-widget {
+    right: 4px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+}
 
-    .deck-count {
-        width: 18px !important;
-        height: 18px !important;
-        font-size: 0.65rem !important;
-        top: -4px !important;
-        right: -4px !important;
-    }
+body.mobile-landscape .deck-count {
+    width: 18px !important;
+    height: 18px !important;
+    font-size: 0.65rem !important;
+    top: -4px !important;
+    right: -4px !important;
+}
 
-    .deck-label {
-        font-size: 0.5rem !important;
-        bottom: 2px !important;
-        padding: 0 2px !important;
-    }
+body.mobile-landscape .deck-label {
+    font-size: 0.5rem !important;
+    bottom: 2px !important;
+    padding: 0 2px !important;
+}
 
-    .detail-modal-card {
-        flex-direction: row;
-        padding: 8px;
-        gap: 8px;
-        max-height: 96vh;
-    }
+body.mobile-landscape .detail-modal-card {
+    flex-direction: row;
+    padding: 8px;
+    gap: 8px;
+    max-height: 96vh;
+}
 
-    .detail-card-preview {
-        width: 130px;
-        height: 190px;
-    }
+body.mobile-landscape .detail-card-preview {
+    width: 130px;
+    height: 190px;
+}
 
-    .detail-card-info h3 {
-        font-size: 1.1rem;
-    }
+body.mobile-landscape .detail-card-info h3 {
+    font-size: 1.1rem;
 }

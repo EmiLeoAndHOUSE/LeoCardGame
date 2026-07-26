@@ -1,5 +1,5 @@
 /* ==========================================================================
-   L.L. CARD GAME - APPLICATION CONTROLLER (CON BLOCCO ORIENTAMENTO ORIZZONTALE)
+   L.L. CARD GAME - APPLICATION CONTROLLER (CON ADATTAMENTO DINAMICO RETINA 6.74")
    ========================================================================== */
 
 class AppController {
@@ -26,6 +26,7 @@ class AppController {
         this.activeBonusStateMap = new Map();
 
         this.initUI();
+        this.updateViewportDimensions();
     }
 
     bindClick(elementId, handler) {
@@ -59,7 +60,6 @@ class AppController {
     }
 
     initUI() {
-        // GESTIONE NICKNAME INPUT CON SALVATAGGIO IN LOCALSTORAGE
         const nickInput = document.getElementById('input-nickname-menu');
         if (nickInput) {
             nickInput.value = this.playerNickname;
@@ -225,14 +225,48 @@ class AppController {
             this.showScreen('screen-menu');
         });
 
-        // AVVISO RUOTA SCHERMO SE IN PORTRAIT SU MOBILE
-        window.addEventListener('resize', () => this.checkOrientation());
+        // ASCOLTATORI RESIZE ED ORIENTATION PER SCALATURA DINAMICA 100% PERFECT FIT
+        window.addEventListener('resize', () => {
+            this.updateViewportDimensions();
+            this.checkOrientation();
+        });
+        window.addEventListener('orientationchange', () => {
+            setTimeout(() => {
+                this.updateViewportDimensions();
+                this.checkOrientation();
+            }, 100);
+        });
+
         this.checkOrientation();
+    }
+
+    updateViewportDimensions() {
+        // Ripristina lo scroll a zero per evitare blocchi a metà schermata da parte del browser mobile
+        window.scrollTo(0, 0);
+
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+        const isLandscape = (width > height) && (width < 1400 || height < 750);
+
+        if (isLandscape) {
+            document.body.classList.add('mobile-landscape');
+            
+            // Calcola l'altezza disponibile esatta per far rientrare le 3 file (campo nemico, tuo campo, tua mano)
+            const availableHeight = Math.max(180, height - 120);
+            const targetCardHeight = Math.min(105, Math.max(50, Math.floor(availableHeight / 3.2)));
+            const targetCardWidth = Math.floor(targetCardHeight * 0.7);
+
+            document.documentElement.style.setProperty('--card-landscape-w', `${targetCardWidth}px`);
+            document.documentElement.style.setProperty('--card-landscape-h', `${targetCardHeight}px`);
+            document.documentElement.style.setProperty('--hand-container-h', `${targetCardHeight + 8}px`);
+            document.documentElement.style.setProperty('--board-row-h', `${targetCardHeight + 6}px`);
+        } else {
+            document.body.classList.remove('mobile-landscape');
+        }
     }
 
     checkOrientation() {
         if (window.innerWidth < 768 && window.innerHeight > window.innerWidth) {
-            // Su mobile verticale, avvisa di ruotare lo schermo
             if (!this.hasShownOrientationToast) {
                 this.showToast("🔄 Suggerimento: Ruota lo smartphone in Orizzontale per la vista panoramica ideale!");
                 this.hasShownOrientationToast = true;
@@ -249,12 +283,13 @@ class AppController {
             if (req) {
                 req.call(docEl).then(() => {
                     this.showToast("📱 Modalità Schermo Intero Attivata!");
-                    // Tenta il blocco automatico dell'orientamento in landscape
+                    this.updateViewportDimensions();
                     if (screen.orientation && screen.orientation.lock) {
                         screen.orientation.lock('landscape').catch(() => {});
                     }
                 }).catch(() => {
                     this.showToast("📱 Schermo Intero attivato!");
+                    this.updateViewportDimensions();
                 });
             } else {
                 this.showToast("Per lo schermo intero su iPhone, usa 'Aggiungi a Schermata Home'");
@@ -264,6 +299,7 @@ class AppController {
             if (exit) {
                 exit.call(document).then(() => {
                     this.showToast("Modalità Schermo Intero Disattivata");
+                    this.updateViewportDimensions();
                     if (screen.orientation && screen.orientation.unlock) {
                         screen.orientation.unlock();
                     }
@@ -336,6 +372,7 @@ class AppController {
             target.style.display = 'flex';
             target.classList.add('active');
         }
+        this.updateViewportDimensions();
     }
 
     startNewGame() {
@@ -609,6 +646,8 @@ class AppController {
     }
 
     renderBattlefield() {
+        this.updateViewportDimensions();
+
         if (this.isMyTurn() && !this.engine.gameOver) {
             if (!this.turnTimerInterval) {
                 this.startTurnTimer();
