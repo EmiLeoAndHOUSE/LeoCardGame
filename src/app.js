@@ -1,5 +1,5 @@
 /* ==========================================================================
-   L.L. CARD GAME - APPLICATION CONTROLLER (CON ADATTAMENTO DINAMICO RETINA 6.74")
+   L.L. CARD GAME - APPLICATION CONTROLLER (LAYOUT ORIZZONTALE AAA CARTE GRANDI)
    ========================================================================== */
 
 class AppController {
@@ -225,7 +225,7 @@ class AppController {
             this.showScreen('screen-menu');
         });
 
-        // ASCOLTATORI RESIZE ED ORIENTATION PER SCALATURA DINAMICA 100% PERFECT FIT
+        // ASCOLTATORI RESIZE ED ORIENTATION PER SCALATURA DINAMICA 100% PERFECT FIT & CARTE GRANDI
         window.addEventListener('resize', () => {
             this.updateViewportDimensions();
             this.checkOrientation();
@@ -241,7 +241,6 @@ class AppController {
     }
 
     updateViewportDimensions() {
-        // Ripristina lo scroll a zero per evitare blocchi a metà schermata da parte del browser mobile
         window.scrollTo(0, 0);
 
         const width = window.innerWidth;
@@ -251,15 +250,16 @@ class AppController {
         if (isLandscape) {
             document.body.classList.add('mobile-landscape');
             
-            // Calcola l'altezza disponibile esatta per far rientrare le 3 file (campo nemico, tuo campo, tua mano)
-            const availableHeight = Math.max(180, height - 120);
-            const targetCardHeight = Math.min(105, Math.max(50, Math.floor(availableHeight / 3.2)));
+            // In layout orizzontale AAA con profili eroe a sinistra, abbiamo ben 280px+ di altezza libera!
+            // Le carte possono essere MOLTO PIÙ GRANDI (fino a 125px-135px di altezza!)
+            const availableHeight = Math.max(220, height - 60);
+            const targetCardHeight = Math.min(130, Math.max(92, Math.floor(availableHeight / 2.2)));
             const targetCardWidth = Math.floor(targetCardHeight * 0.7);
 
             document.documentElement.style.setProperty('--card-landscape-w', `${targetCardWidth}px`);
             document.documentElement.style.setProperty('--card-landscape-h', `${targetCardHeight}px`);
-            document.documentElement.style.setProperty('--hand-container-h', `${targetCardHeight + 8}px`);
-            document.documentElement.style.setProperty('--board-row-h', `${targetCardHeight + 6}px`);
+            document.documentElement.style.setProperty('--hand-container-h', `${targetCardHeight + 10}px`);
+            document.documentElement.style.setProperty('--board-row-h', `${targetCardHeight + 8}px`);
         } else {
             document.body.classList.remove('mobile-landscape');
         }

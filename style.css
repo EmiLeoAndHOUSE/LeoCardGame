@@ -1,5 +1,5 @@
 /* ==========================================================================
-   L.L. CARD GAME - STYLESHEET HD ULTRA READABLE (ADATTAMENTO DINAMICO RETINA 6.74")
+   L.L. CARD GAME - STYLESHEET HD ULTRA READABLE (ADATTAMENTO ORIZZONTALE AAA CARTE GRANDI)
    ========================================================================== */
 
 :root {
@@ -1484,7 +1484,7 @@ body, html {
 }
 
 /* ==========================================================================
-   8. CLASSE MODALITÀ ORIZZONTALE MOVILE DINAMICA (PERFETTA PER SCHERMI RETINA 6.74")
+   8. CLASSE MODALITÀ ORIZZONTALE AAA (PANORAMICA CON CARTE MOLTO PIÙ GRANDI!)
    ========================================================================== */
 body.mobile-landscape #app,
 body.mobile-landscape .screen,
@@ -1500,32 +1500,33 @@ body.mobile-landscape .screen-footer {
 }
 
 body.mobile-landscape .battle-top-bar {
-    padding: 2px 8px !important;
+    padding: 2px 12px !important;
     margin: 0 !important;
-    height: 32px !important;
+    height: 36px !important;
     flex-shrink: 0 !important;
 }
 
 body.mobile-landscape .action-banner {
-    padding: 1px 6px !important;
-    font-size: 0.72rem !important;
+    padding: 1px 8px !important;
+    font-size: 0.8rem !important;
     margin: 0 !important;
-    height: 20px !important;
+    height: 22px !important;
     flex-shrink: 0 !important;
 }
 
+/* CARTE MOLTO PIÙ GRANDI, NIDE E LEGGIBILI IN ORIZZONTALE */
 body.mobile-landscape .card,
 body.mobile-landscape .hand-cards .card,
 body.mobile-landscape .board-card,
 body.mobile-landscape .deck-card-cover {
-    width: var(--card-landscape-w, 65px) !important;
-    height: var(--card-landscape-h, 95px) !important;
-    border-width: 2px !important;
-    border-radius: 6px !important;
+    width: var(--card-landscape-w, 84px) !important;
+    height: var(--card-landscape-h, 120px) !important;
+    border-width: 2.5px !important;
+    border-radius: 8px !important;
 }
 
 body.mobile-landscape .hand-cards .card {
-    margin-left: -5px !important;
+    margin-left: -8px !important;
 }
 
 body.mobile-landscape .hand-cards .card:first-child {
@@ -1533,50 +1534,99 @@ body.mobile-landscape .hand-cards .card:first-child {
 }
 
 body.mobile-landscape .stat-badge {
-    width: 20px !important;
-    height: 20px !important;
-    font-size: 0.7rem !important;
+    width: 24px !important;
+    height: 24px !important;
+    font-size: 0.85rem !important;
     border-width: 1.5px !important;
 }
 
 body.mobile-landscape .card-overlay-stats {
-    bottom: -4px !important;
+    bottom: -6px !important;
     left: -2px !important;
     right: -2px !important;
 }
 
 body.mobile-landscape .card-bonus-tag {
-    font-size: 0.55rem !important;
-    padding: 1px 3px !important;
-    top: -7px !important;
+    font-size: 0.62rem !important;
+    padding: 1px 5px !important;
+    top: -9px !important;
 }
 
 body.mobile-landscape .battlefield-container {
-    padding: 0 4px calc(var(--hand-container-h, 100px) + 4px) 4px !important;
+    padding: 0 75px calc(var(--hand-container-h, 125px) + 2px) 145px !important;
     flex: 1 !important;
     min-height: 0 !important;
-    height: calc(100dvh - 52px) !important;
+    height: calc(100dvh - 58px) !important;
     overflow: hidden !important;
     display: flex !important;
     flex-direction: column !important;
     justify-content: space-between !important;
+    position: relative !important;
+}
+
+/* POSIZIONAMENTO PROFILI EROE A SINISTRA SUL BORDO PER RISPARMIARE ALTEZZA */
+body.mobile-landscape .zone-opponent {
+    position: absolute !important;
+    top: 4px !important;
+    left: 6px !important;
+    z-index: 100 !important;
+    padding: 0 !important;
+}
+
+body.mobile-landscape .zone-player {
+    position: absolute !important;
+    bottom: 6px !important;
+    left: 6px !important;
+    z-index: 100 !important;
+    padding: 0 !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+    align-items: flex-start !important;
+}
+
+body.mobile-landscape .player-portrait {
+    min-width: 125px !important;
+    padding: 3px 8px !important;
+    gap: 6px !important;
+    border-radius: 10px !important;
+    height: 34px !important;
+}
+
+body.mobile-landscape .avatar {
+    width: 26px !important;
+    height: 26px !important;
+    font-size: 0.95rem !important;
+}
+
+body.mobile-landscape .player-name {
+    font-size: 0.78rem !important;
+    max-width: 85px !important;
+}
+
+body.mobile-landscape .hp-bar-wrapper {
+    height: 16px !important;
+    min-width: 85px !important;
+}
+
+body.mobile-landscape .hp-text {
+    font-size: 0.75rem !important;
 }
 
 body.mobile-landscape .board-area {
-    min-height: 0 !important;
     flex: 1 !important;
+    min-height: 0 !important;
     display: flex !important;
     flex-direction: column !important;
     justify-content: space-around !important;
-    padding: 1px 0 !important;
+    padding: 2px 0 !important;
 }
 
 body.mobile-landscape .board-row {
     min-height: 0 !important;
-    height: var(--board-row-h, 98px) !important;
-    max-height: var(--board-row-h, 98px) !important;
-    gap: 6px !important;
-    padding: 1px !important;
+    height: var(--board-row-h, 122px) !important;
+    max-height: var(--board-row-h, 125px) !important;
+    gap: 8px !important;
+    padding: 2px !important;
     flex: 1 !important;
     margin: 1px 0 !important;
 }
@@ -1585,78 +1635,44 @@ body.mobile-landscape .hand-container {
     position: absolute !important;
     bottom: calc(2px + env(safe-area-inset-bottom)) !important;
     left: 50% !important;
-    transform: translateX(-50%) !important;
-    height: var(--hand-container-h, 100px) !important;
+    transform: translateX(-40%) !important;
+    height: var(--hand-container-h, 125px) !important;
     padding: 0 4px !important;
     z-index: 600 !important;
 }
 
-body.mobile-landscape .player-zone {
-    padding: 1px 6px !important;
-    height: 28px !important;
-    flex-shrink: 0 !important;
-}
-
-body.mobile-landscape .player-portrait {
-    min-width: 110px !important;
-    padding: 2px 6px !important;
-    gap: 4px !important;
-    border-radius: 8px !important;
-    height: 26px !important;
-}
-
-body.mobile-landscape .avatar {
-    width: 22px !important;
-    height: 22px !important;
-    font-size: 0.8rem !important;
-}
-
-body.mobile-landscape .player-name {
-    font-size: 0.72rem !important;
-    max-width: 75px !important;
-}
-
-body.mobile-landscape .hp-bar-wrapper {
-    height: 14px !important;
-    min-width: 75px !important;
-}
-
-body.mobile-landscape .hp-text {
-    font-size: 0.68rem !important;
-}
-
 body.mobile-landscape .shared-deck-widget {
-    right: 4px !important;
-    top: 50% !important;
+    right: 8px !important;
+    top: 40% !important;
     transform: translateY(-50%) !important;
 }
 
 body.mobile-landscape .deck-count {
-    width: 18px !important;
-    height: 18px !important;
-    font-size: 0.65rem !important;
-    top: -4px !important;
-    right: -4px !important;
+    width: 22px !important;
+    height: 22px !important;
+    font-size: 0.75rem !important;
+    top: -5px !important;
+    right: -5px !important;
 }
 
 body.mobile-landscape .deck-label {
-    font-size: 0.5rem !important;
+    font-size: 0.58rem !important;
     bottom: 2px !important;
-    padding: 0 2px !important;
+    padding: 0 3px !important;
 }
 
 body.mobile-landscape .detail-modal-card {
     flex-direction: row;
-    padding: 8px;
-    gap: 8px;
+    padding: 10px;
+    gap: 12px;
     max-height: 96vh;
 }
 
 body.mobile-landscape .detail-card-preview {
-    width: 130px;
-    height: 190px;
+    width: 160px;
+    height: 230px;
 }
 
 body.mobile-landscape .detail-card-info h3 {
-    font-size: 1.1rem;
+    font-size: 1.3rem;
 }
