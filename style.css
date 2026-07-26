@@ -1,5 +1,5 @@
 /* ==========================================================================
-   L.L. CARD GAME - STYLESHEET HD ULTRA READABLE (PASSA TURNO IN BASSO A DESTRA)
+   L.L. CARD GAME - STYLESHEET HD ULTRA READABLE (DOWNWARD EXPANSION FOR PLAYER BOARD CARDS)
    ========================================================================== */
 
 :root {
@@ -1056,18 +1056,22 @@ body, html {
     height: 250px;
 }
 
-.card:hover {
-    transform: translateY(-40px) scale(1.45) !important;
-    z-index: 750 !important;
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.98), 0 0 40px var(--accent-purple) !important;
-    border-color: #ffffff !important;
+/* CARTE SUL CAMPO DEL GIOCATORE: SI INGRANDISCONO VERSO IL BASSO PER NON COPRIRE L'AVVERSARIO */
+#player-board .board-card:hover,
+#player-board .board-card.selected {
+    transform: translateY(28px) scale(1.4) !important;
+    z-index: 500 !important;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.98), 0 0 35px var(--accent-blue) !important;
+    border-color: var(--accent-blue) !important;
 }
 
-.card.selected {
-    transform: translateY(-45px) scale(1.5) !important;
-    border-color: var(--accent-blue) !important;
-    box-shadow: 0 0 50px var(--accent-blue) !important;
-    z-index: 760 !important;
+/* CARTE SUL CAMPO AVVERSARIO: SI INGRANDISCONO VERSO L'ALTO */
+#ai-board .board-card:hover,
+#ai-board .board-card.selected {
+    transform: translateY(-20px) scale(1.35) !important;
+    z-index: 500 !important;
+    box-shadow: 0 0 35px var(--accent-danger) !important;
+    border-color: var(--accent-danger) !important;
 }
 
 .card.can-attack {
@@ -1405,8 +1409,9 @@ body, html {
         font-size: 0.75rem;
     }
 
-    .card:hover, .card.selected {
-        transform: translateY(-25px) scale(1.4) !important;
+    #player-board .board-card:hover,
+    #player-board .board-card.selected {
+        transform: translateY(22px) scale(1.35) !important;
         z-index: 780 !important;
     }
 
@@ -1488,7 +1493,7 @@ body, html {
 }
 
 /* ==========================================================================
-   8. MEDIA QUERY E CLASSE ORIZZONTALE AAA (PASSA TURNO ANCORATO IN BASSO A DESTRA CON ABSOLUTE/FIXED SCHERMO)
+   8. MEDIA QUERY E CLASSE ORIZZONTALE AAA (DOWNWARD SELECTION FOR PLAYER BOARD CARDS)
    ========================================================================== */
 @media screen and (orientation: landscape) and (max-height: 600px), body.mobile-landscape {
     body #app,
@@ -1566,6 +1571,26 @@ body, html {
         border-radius: 7px !important;
     }
 
+    /* CARTE SUL CAMPO DEL GIOCATORE (TU): SI INGRANDISCONO VERSO IL BASSO (translateY +16px) PER LASCIARE IL CAMPO NEMICO 100% LIBERO */
+    body #player-board .board-card:hover,
+    body #player-board .board-card:active,
+    body #player-board .board-card.selected {
+        transform: translateY(16px) scale(1.35) !important;
+        z-index: 500 !important;
+        box-shadow: 0 0 25px var(--accent-blue) !important;
+        border-color: var(--accent-blue) !important;
+    }
+
+    /* CARTE SUL CAMPO AVVERSARIO (NEMICO): SI INGRANDISCONO VERSO L'ALTO (translateY -14px) */
+    body #ai-board .board-card:hover,
+    body #ai-board .board-card:active,
+    body #ai-board .board-card.selected {
+        transform: translateY(-14px) scale(1.35) !important;
+        z-index: 500 !important;
+        box-shadow: 0 0 25px var(--accent-danger) !important;
+        border-color: var(--accent-danger) !important;
+    }
+
     /* MANO GIOCATORE CON ALTEZZA 84px PER ACCOGLIERE AL 100% LE CARTE DA 76px CON MARGINE */
     body .hand-container {
         position: absolute !important;
@@ -1592,7 +1617,7 @@ body, html {
         height: 100% !important;
     }
 
-    /* CARTE IN MANO (54px x 76px) PERFETTAMENTE INTERE E INTEGRALI SENZA ALCUN TAGLIO */
+    /* CARTE IN MANO (54px x 76px) SI INGRANDISCONO VERSO L'ALTO DENTRO LO SPAZIO VUOTO */
     body .hand-cards .card {
         width: 54px !important;
         height: 76px !important;
