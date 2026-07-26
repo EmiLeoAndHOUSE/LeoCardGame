@@ -97,6 +97,7 @@ class AppController {
 
         this.bindClick('btn-create-room', () => {
             if (this.audio) this.audio.playClick();
+            this.engine.resetGame();
             this.showToast("Generazione codice stanza in corso...");
 
             const roomCode = this.multiplayer.createRoom(
@@ -125,6 +126,7 @@ class AppController {
             }
 
             if (this.audio) this.audio.playClick();
+            this.engine.resetGame();
             this.showToast(`Ricerca stanza LL-${inputCode} in corso...`);
 
             this.multiplayer.joinRoom(
@@ -360,6 +362,12 @@ class AppController {
     }
 
     showScreen(screenId) {
+        const gameOverModal = document.getElementById('game-over-modal');
+        if (gameOverModal) gameOverModal.classList.remove('active');
+
+        const cardDetailModal = document.getElementById('card-detail-modal');
+        if (cardDetailModal) cardDetailModal.classList.remove('active');
+
         document.querySelectorAll('.screen').forEach(s => {
             s.style.display = 'none';
             s.classList.remove('active');
@@ -384,6 +392,7 @@ class AppController {
     handleOnlineConnected(info) {
         this.isMultiplayer = true;
         this.myRole = info.isHost ? 'PLAYER' : 'AI';
+        this.engine.resetGame();
 
         const emojiBar = document.getElementById('emoji-bar');
         if (emojiBar) emojiBar.style.display = 'flex';
@@ -394,7 +403,6 @@ class AppController {
         this.showScreen('screen-battle');
 
         if (info.isHost) {
-            this.engine.resetGame();
             const initialState = {
                 sharedDeck: this.engine.sharedDeck,
                 playerHand: this.engine.playerHand,
@@ -422,6 +430,7 @@ class AppController {
                     if (msg.payload && msg.payload.guestNickname) {
                         this.opponentNickname = msg.payload.guestNickname;
                     }
+                    this.engine.resetGame();
                     const initialState = {
                         sharedDeck: this.engine.sharedDeck,
                         playerHand: this.engine.playerHand,
@@ -450,6 +459,8 @@ class AppController {
                 this.engine.aiHand = msg.payload.aiHand;
                 this.engine.activePlayer = msg.payload.activePlayer;
                 this.engine.currentTurn = msg.payload.currentTurn;
+                this.engine.gameOver = false;
+                this.engine.winner = null;
 
                 if (msg.payload.hostNickname) {
                     this.opponentNickname = msg.payload.hostNickname;
