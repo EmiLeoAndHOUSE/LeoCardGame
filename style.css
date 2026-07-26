@@ -1,5 +1,5 @@
 /* ==========================================================================
-   L.L. CARD GAME - STYLESHEET HD ULTRA READABLE (CON ORIENTAMENTO LANDSCAPE OPTIMIZED)
+   L.L. CARD GAME - STYLESHEET HD ULTRA READABLE (RISOLUZIONE LANDSCAPE MOBILE 100% PERFECT FIT)
    ========================================================================== */
 
 :root {
@@ -1302,9 +1302,9 @@ body, html {
 }
 
 /* ==========================================================================
-   7. MEDIA QUERIES MOBILE SAFE AREA (DIMENSIONI CARTE 100% UNIFORMI)
+   7. MEDIA QUERIES MOBILE PORTRAIT (VERTICALE SMARTPHONE)
    ========================================================================== */
-@media (max-width: 768px), (max-height: 750px) {
+@media (max-width: 768px) and (orientation: portrait) {
     .screen-footer {
         bottom: 6px;
         padding: 0 10px;
@@ -1476,61 +1476,147 @@ body, html {
 }
 
 /* ==========================================================================
-   8. MEDIA QUERIES LANDSCAPE MOBILE (MODALITÀ ORIZZONTALE PANORAMICA SMARTPHONE/TABLET)
+   8. MEDIA QUERIES LANDSCAPE MOBILE (ADATTAMENTO PERFECT FIT PER ALTEZZE RIDOTTE)
    ========================================================================== */
 @media (orientation: landscape) and (max-height: 600px) {
+    .screen-footer {
+        display: none !important;
+    }
+
+    .battle-top-bar {
+        padding: 2px 8px !important;
+        margin: 0 !important;
+    }
+
+    .action-banner {
+        padding: 1px 6px !important;
+        font-size: 0.75rem !important;
+        margin: 0 !important;
+    }
+
+    /* RIDUZIONE COMPATTA PERFETTA DELLE CARTE SU SCHERMI ORIZZONTALI RIDOTTI */
     .hand-cards .card,
     .board-card,
     .deck-card-cover {
-        width: 105px !important;
-        height: 152px !important;
-        border-width: 2.5px !important;
-        border-radius: 10px !important;
+        width: 72px !important;
+        height: 104px !important;
+        border-width: 2px !important;
+        border-radius: 7px !important;
     }
 
     .hand-cards .card {
-        margin-left: -4px !important;
+        margin-left: -6px !important;
+    }
+
+    .hand-cards .card:first-child {
+        margin-left: 0 !important;
+    }
+
+    .stat-badge {
+        width: 22px !important;
+        height: 22px !important;
+        font-size: 0.75rem !important;
+        border-width: 1.5px !important;
+    }
+
+    .card-overlay-stats {
+        bottom: -5px !important;
+        left: -2px !important;
+        right: -2px !important;
+    }
+
+    .card-bonus-tag {
+        font-size: 0.58rem !important;
+        padding: 1px 4px !important;
+        top: -8px !important;
+    }
+
+    .battlefield-container {
+        padding: 0 4px 115px 4px !important;
+        flex: 1 !important;
+        min-height: 0 !important;
+    }
+
+    .board-area {
+        min-height: 0 !important;
+        flex: 1 !important;
+    }
+
+    .board-row {
+        min-height: 0 !important;
+        height: 112px !important;
+        gap: 6px !important;
+        padding: 2px !important;
+        flex: 1 !important;
     }
 
     .hand-container {
         position: absolute !important;
-        bottom: calc(8px + env(safe-area-inset-bottom)) !important;
+        bottom: calc(2px + env(safe-area-inset-bottom)) !important;
         left: 50% !important;
         transform: translateX(-50%) !important;
-        height: 160px !important;
+        height: 115px !important;
         padding: 0 4px !important;
     }
 
-    .battlefield-container {
-        padding: 0 4px 170px 4px !important;
-    }
-
-    .board-area {
-        min-height: 180px;
-    }
-
-    .board-row {
-        min-height: 160px;
-        gap: 10px;
-        padding: 4px;
-    }
-
     .player-portrait {
-        min-width: 150px !important;
-        padding: 3px 8px !important;
+        min-width: 120px !important;
+        padding: 2px 6px !important;
+        gap: 4px !important;
+        border-radius: 8px !important;
+    }
+
+    .avatar {
+        width: 26px !important;
+        height: 26px !important;
+        font-size: 0.9rem !important;
+    }
+
+    .player-name {
+        font-size: 0.75rem !important;
+        max-width: 80px !important;
     }
 
     .hp-bar-wrapper {
-        height: 18px !important;
-        min-width: 90px !important;
+        height: 15px !important;
+        min-width: 80px !important;
     }
 
     .hp-text {
-        font-size: 0.78rem !important;
+        font-size: 0.72rem !important;
+    }
+
+    .shared-deck-widget {
+        right: 4px !important;
+    }
+
+    .deck-count {
+        width: 20px !important;
+        height: 20px !important;
+        font-size: 0.7rem !important;
+        top: -5px !important;
+        right: -5px !important;
     }
 
     .deck-label {
-        font-size: 0.65rem;
-        bottom: 6px;
+        font-size: 0.55rem !important;
+        bottom: 2px !important;
+        padding: 0 3px !important;
+    }
+
+    .detail-modal-card {
+        flex-direction: row;
+        padding: 10px;
+        gap: 10px;
+        max-height: 96vh;
+    }
+
+    .detail-card-preview {
+        width: 140px;
+        height: 205px;
+    }
+
+    .detail-card-info h3 {
+        font-size: 1.2rem;
     }
 }
