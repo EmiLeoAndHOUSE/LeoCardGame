@@ -1,5 +1,5 @@
 /* ==========================================================================
-   L.L. CARD GAME - MOTORE DI GIOCO (REGOLE DI VITTORIA ROBUSTE CON SPAREGGIO)
+   L.L. CARD GAME - MOTORE DI GIOCO (REGOLE DI VITTORIA ROBUSTE CON PRIORITÀ BIANCO)
    ========================================================================== */
 
 class GameEngine {
@@ -83,17 +83,28 @@ class GameEngine {
         }
 
         const card = hand.splice(cardIndex, 1)[0];
-        card.canAttack = false;
+
+        // REGOLE UFFICIALI TIPO BIANCO: Bonus Priorità (può entrare in campo ed attaccare nello stesso turno!)
+        if (card.element === 'Bianco') {
+            card.canAttack = true;
+        } else {
+            card.canAttack = false;
+        }
 
         board.push(card);
         this.cardsPlayedThisTurn++;
 
         this.updateCardBonusStates();
 
+        let msg = `${isPlayer ? 'Hai' : 'L\'IA ha'} schierato ${card.name}!`;
+        if (card.element === 'Bianco') {
+            msg += ` ⚡ Bonus Priorità (Bianco): Può attaccare subito!`;
+        }
+
         return {
             success: true,
             card: card,
-            message: `${isPlayer ? 'Hai' : 'L\'IA ha'} schierato ${card.name}!`
+            message: msg
         };
     }
 
@@ -148,45 +159,30 @@ class GameEngine {
         }
 
         let atkDamage = attacker.attack + attacker.currentBonusAtk;
+        
+        // BONUS ELEMENTALE SPECIFICO ATTACCO VS ELEMENTO NEMICO
         if (attacker.bonusType === 'ATT_VS_ELEMENT' && defender.element === attacker.targetElement) {
             atkDamage += attacker.bonusValue;
         }
 
-        let defDamage = defender.attack + defender.currentBonusAtk;
-        if (defender.bonusType === 'ATT_VS_ELEMENT' && attacker.element === defender.targetElement) {
-            defDamage += defender.bonusValue;
-        }
-
         defender.currentHp -= atkDamage;
-        attacker.currentHp -= defDamage;
-
         attacker.canAttack = false;
 
-        const defenderDestroyed = (defender.currentHp <= 0);
-        const attackerDestroyed = (attacker.currentHp <= 0);
+        let resultMsg = `${attacker.name} ha attaccato ${defender.name} infliggendo ${atkDamage} danni!`;
 
-        if (defenderDestroyed) {
+        if (defender.currentHp <= 0) {
             const idx = defenderBoard.findIndex(c => c.instanceId === defenderInstanceId);
             if (idx !== -1) defenderBoard.splice(idx, 1);
+            resultMsg += ` ${defender.name} è stata distrutta! 💥`;
         }
 
-        if (attackerDestroyed) {
-            const idx = attackerBoard.findIndex(c => c.instanceId === attackerInstanceId);
-            if (idx !== -1) attackerBoard.splice(idx, 1);
-        }
-
-        this.updateCardBonusStates();
         this.checkWinConditions();
 
         return {
             success: true,
-            attacker: attacker,
-            defender: defender,
-            attackerDamageDealt: atkDamage,
-            defenderDamageDealt: defDamage,
-            attackerDestroyed: attackerDestroyed,
-            defenderDestroyed: defenderDestroyed,
-            message: `${attacker.name} ha attaccato ${defender.name} infliggendo ${atkDamage} danni!`
+            damageDealt: atkDamage,
+            defenderDestroyed: defender.currentHp <= 0,
+            message: resultMsg
         };
     }
 

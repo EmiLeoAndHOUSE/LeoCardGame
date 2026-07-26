@@ -31,7 +31,7 @@ const CARDS_DATABASE = [
         bonusType: "ATT_VS_ELEMENT",
         targetElement: "Blu",
         bonusValue: 5,
-        lore: "Venuta da lontano, ha un solo obiettivo: conquistare il palato e il mondo. Bastoncini in mano e occhi a mandorla, non sottovalutare questa sfera di riso!",
+        lore: "Venuta da lontano, ha un solo obiettivo: conquistar il palato e il mondo. Bastoncini in mano e occhi a mandorla, non sottovalutare questa sfera di riso!",
         image: "assets/cards/aranchina.jpg"
     },
     {
@@ -57,7 +57,7 @@ const CARDS_DATABASE = [
         attack: 20,
         hp: 20,
         rarity: "Rara",
-        bonusText: "+10 ATT CONTRO TUTTI SE È GIÀ PRESENTE UN BLU IN CAMPO",
+        bonusText: "⚡ PRIORITÀ (Attacca Subito!). +10 ATT CONTRO TUTTI SE BLU IN CAMPO",
         bonusType: "ATT_IF_ELEMENT_ON_BOARD",
         targetElement: "Blu",
         bonusValue: 10,
@@ -134,7 +134,7 @@ const CARDS_DATABASE = [
         attack: 15,
         hp: 40,
         rarity: "Epica",
-        bonusText: "+5 VITA CONTRO TUTTI",
+        bonusText: "⚡ PRIORITÀ (Attacca Subito!). +5 VITA CONTRO TUTTI",
         bonusType: "VITA_VS_ALL",
         targetElement: "Tutti",
         bonusValue: 5,
@@ -149,7 +149,7 @@ const CARDS_DATABASE = [
         attack: 10,
         hp: 20,
         rarity: "Comune",
-        bonusText: "+10 ATT CONTRO TUTTI SE BLU GIÀ IN CAMPO",
+        bonusText: "⚡ PRIORITÀ (Attacca Subito!). +10 ATT CONTRO TUTTI SE BLU IN CAMPO",
         bonusType: "ATT_IF_ELEMENT_ON_BOARD",
         targetElement: "Blu",
         bonusValue: 10,
@@ -273,7 +273,7 @@ const CARDS_DATABASE = [
         attack: 10,
         hp: 20,
         rarity: "Comune",
-        bonusText: "+5 VITA CONTRO TUTTI",
+        bonusText: "⚡ PRIORITÀ (Attacca Subito!). +5 VITA CONTRO TUTTI",
         bonusType: "VITA_VS_ALL",
         targetElement: "Tutti",
         bonusValue: 5,
@@ -288,7 +288,7 @@ const CARDS_DATABASE = [
         attack: 25,
         hp: 30,
         rarity: "Leggendaria",
-        bonusText: "+10 ATT CONTRO TUTTI",
+        bonusText: "⚡ PRIORITÀ (Attacca Subito!). +10 ATT CONTRO TUTTI",
         bonusType: "ATT_VS_ALL",
         targetElement: "Tutti",
         bonusValue: 10,
@@ -354,7 +354,7 @@ const CARDS_DATABASE = [
         bonusType: "VITA_VS_ELEMENT",
         targetElement: "Blu",
         bonusValue: 20,
-        lore: "Un sacchetto di popcorn che ha preso la visione del film un po' troppo seriamente. È così salato che le corna gli sono cresciute per la rabbia!",
+        lore: "Un sacchetto di popcorn che ha preso la visione del film un po' troppo seriamente. È così salato che le corna gli sono crescite per la rabbia!",
         image: "assets/cards/popcorni.jpg"
     },
     {
@@ -365,7 +365,7 @@ const CARDS_DATABASE = [
         attack: 10,
         hp: 50,
         rarity: "Rara",
-        bonusText: "+10 VITA SE HAI UNA CARTA VERDE",
+        bonusText: "⚡ PRIORITÀ (Attacca Subito!). +10 VITA SE HAI UNA CARTA VERDE",
         bonusType: "VITA_IF_ELEMENT_ON_BOARD",
         targetElement: "Verde",
         bonusValue: 10,
@@ -397,7 +397,7 @@ const CARDS_DATABASE = [
         attack: 20,
         hp: 20,
         rarity: "Rara",
-        bonusText: "+10 ATT CONTRO TUTTI SE BLU GIÀ IN CAMPO",
+        bonusText: "⚡ PRIORITÀ (Attacca Subito!). +10 ATT CONTRO TUTTI SE BLU IN CAMPO",
         bonusType: "ATT_IF_ELEMENT_ON_BOARD",
         targetElement: "Blu",
         bonusValue: 10,
@@ -444,7 +444,7 @@ function getCardCopy(cardId) {
     card.currentHp = card.hp;
     card.currentBonusAtk = 0;
     card.currentBonusHp = 0;
-    card.canAttack = false;
+    card.canAttack = (card.element === 'Bianco');
     return card;
 }
 
