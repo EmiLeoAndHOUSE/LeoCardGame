@@ -1,5 +1,5 @@
 /* ==========================================================================
-   L.L. CARD GAME - STYLESHEET HD ULTRA READABLE (ZERO CLIPPING - 100% CARDS VISIBLE)
+   L.L. CARD GAME - STYLESHEET HD ULTRA READABLE (PERFECT LANDSCAPE FIT - ZERO CLIPPING)
    ========================================================================== */
 
 :root {
@@ -1488,7 +1488,7 @@ body, html {
 }
 
 /* ==========================================================================
-   8. MEDIA QUERY E CLASSE ORIZZONTALE AAA PERFECTED (ZERO CLIPPING - 100% FULL CARDS)
+   8. MEDIA QUERY E CLASSE ORIZZONTALE AAA (PERFECT LANDSCAPE FIT - ZERO CLIPPING)
    ========================================================================== */
 @media screen and (orientation: landscape) and (max-height: 600px), body.mobile-landscape {
     body #app,
@@ -1508,27 +1508,27 @@ body, html {
     body .battle-top-bar {
         padding: 2px 8px !important;
         margin: 0 !important;
-        height: 28px !important;
+        height: 26px !important;
         flex-shrink: 0 !important;
     }
 
-    /* BANNER AZIONI PASSANTE (POINTER-EVENTS NONE = NON OSTACOLA I CLICK) */
+    /* BANNER AZIONI PASSANTE (POINTER-EVENTS NONE) */
     body .action-banner {
         pointer-events: none !important;
         z-index: 30 !important;
         padding: 1px 6px !important;
-        font-size: 0.7rem !important;
+        font-size: 0.68rem !important;
         margin: 0 !important;
-        height: 16px !important;
+        height: 15px !important;
         flex-shrink: 0 !important;
     }
 
-    /* BATTLEFIELD CONTAINER CON RISERVA SPAZIO BOTTOM 104px ESCLUSIVA PER LA MANO */
+    /* BATTLEFIELD CONTAINER CON RISERVA SPAZIO BOTTOM ESCLUSIVA PER LA MANO */
     body .battlefield-container {
-        padding: 2px 75px 104px 140px !important;
+        padding: 2px 70px 88px 135px !important;
         flex: 1 !important;
         min-height: 0 !important;
-        height: calc(100dvh - 44px) !important;
+        height: calc(100dvh - 41px) !important;
         overflow: hidden !important;
         display: flex !important;
         flex-direction: column !important;
@@ -1547,32 +1547,32 @@ body, html {
         padding: 0 !important;
     }
 
-    /* FILE CAMPO DA GIOCO (92px) */
+    /* FILE CAMPO DA GIOCO (78px) */
     body .board-row {
         min-height: 0 !important;
-        height: 92px !important;
-        max-height: 94px !important;
+        height: 78px !important;
+        max-height: 80px !important;
         gap: 10px !important;
         padding: 2px !important;
         flex: 0 0 auto !important;
         margin: 0 !important;
     }
 
-    /* CARTE SUL CAMPO (65px x 92px) COMPLETA E SENZA TAGLI */
+    /* CARTE SUL CAMPO (54px x 76px) PERFETTE E NITIDE */
     body .board-card {
-        width: 65px !important;
-        height: 92px !important;
-        border-width: 2px !important;
-        border-radius: 8px !important;
+        width: 54px !important;
+        height: 76px !important;
+        border-width: 1.8px !important;
+        border-radius: 7px !important;
     }
 
-    /* MANO GIOCATORE CON ALTEZZA 102px PER ACCOGLIERE AL 100% LE CARTE SENZA NESSUN TAGLIO IN ALTO O IN BASSO! */
+    /* MANO GIOCATORE CON ALTEZZA 84px PER ACCOGLIERE AL 100% LE CARTE DA 76px CON MARGINE */
     body .hand-container {
         position: absolute !important;
-        bottom: 2px !important;
+        bottom: 3px !important;
         left: 50% !important;
         transform: translateX(-40%) !important;
-        height: 102px !important;
+        height: 84px !important;
         width: 65% !important;
         max-width: 500px !important;
         overflow-x: auto !important;
@@ -1585,18 +1585,19 @@ body, html {
     body .hand-cards {
         display: flex !important;
         gap: 8px !important;
-        padding: 4px 10px 4px 10px !important;
+        padding: 3px 8px 3px 8px !important;
         justify-content: center !important;
         align-items: center !important;
         width: auto !important;
+        height: 100% !important;
     }
 
-    /* CARTE IN MANO (65px x 92px) PERFETTAMENTE INTERE E INTEGRALI AL 100% */
+    /* CARTE IN MANO (54px x 76px) PERFETTAMENTE INTERE E INTEGRALI SENZA ALCUN TAGLIO */
     body .hand-cards .card {
-        width: 65px !important;
-        height: 92px !important;
-        border-width: 2px !important;
-        border-radius: 8px !important;
+        width: 54px !important;
+        height: 76px !important;
+        border-width: 1.8px !important;
+        border-radius: 7px !important;
         margin-left: 0 !important;
         flex-shrink: 0 !important;
         transform: translateY(0px) !important;
@@ -1607,18 +1608,18 @@ body, html {
     body .hand-cards .card:hover,
     body .hand-cards .card:active,
     body .hand-cards .card.selected {
-        transform: translateY(-20px) scale(1.35) !important;
+        transform: translateY(-22px) scale(1.4) !important;
         z-index: 800 !important;
         box-shadow: 0 0 25px var(--accent-purple) !important;
         border-color: #ffffff !important;
     }
 
-    /* PALLINI ATTACCO E VITA APPLICATI PERFETTAMENTE DENTRO IL BORDO IN BASSO */
+    /* PALLINI ATTACCO E VITA ADATTATI PERFETTAMENTE A 18px x 18px */
     body .stat-badge {
-        width: 20px !important;
-        height: 20px !important;
-        font-size: 0.75rem !important;
-        border-width: 1.5px !important;
+        width: 18px !important;
+        height: 18px !important;
+        font-size: 0.7rem !important;
+        border-width: 1.2px !important;
     }
 
     body .card-overlay-stats {
@@ -1628,9 +1629,9 @@ body, html {
     }
 
     body .card-bonus-tag {
-        font-size: 0.5rem !important;
+        font-size: 0.48rem !important;
         padding: 1px 3px !important;
-        top: -8px !important;
+        top: -7px !important;
     }
 
     /* EROI SUI BORDI LATERALI */
@@ -1654,7 +1655,7 @@ body, html {
     }
 
     body .player-portrait {
-        min-width: 125px !important;
+        min-width: 120px !important;
         padding: 3px 6px !important;
         gap: 6px !important;
         border-radius: 10px !important;
@@ -1662,9 +1663,9 @@ body, html {
     }
 
     body #btn-end-turn {
-        width: 125px !important;
-        height: 36px !important;
-        font-size: 0.85rem !important;
+        width: 120px !important;
+        height: 34px !important;
+        font-size: 0.82rem !important;
         font-weight: 900 !important;
         border-radius: 10px !important;
         box-shadow: 0 4px 15px rgba(192, 132, 252, 0.6) !important;
@@ -1681,7 +1682,7 @@ body, html {
     }
 
     body .deck-card-cover {
-        width: 65px !important;
-        height: 92px !important;
+        width: 58px !important;
+        height: 82px !important;
     }
 }
