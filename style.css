@@ -1,5 +1,5 @@
 /* ==========================================================================
-   L.L. CARD GAME - STYLESHEET HD ULTRA READABLE (MENU CON DORSO CARTA & VIOLA NEON)
+   L.L. CARD GAME - STYLESHEET HD ULTRA READABLE (MAZZO CONDIVISO METÀ CAMPO)
    ========================================================================== */
 
 :root {
@@ -828,37 +828,6 @@ body, html {
     gap: 8px;
 }
 
-.deck-pile {
-    position: relative;
-    width: 44px;
-    height: 64px;
-    border-radius: 6px;
-    background-image: url('assets/cards/dorso.jpg');
-    background-size: cover;
-    background-position: center;
-    border: 2px solid var(--accent-purple);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.deck-count {
-    position: absolute;
-    bottom: -5px;
-    right: -5px;
-    background: var(--accent-purple);
-    color: #000;
-    font-weight: 900;
-    font-size: 0.78rem;
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
 .board-area {
     flex: 1;
     display: flex;
@@ -906,6 +875,93 @@ body, html {
     width: 70%;
     height: 2px;
     background: linear-gradient(90deg, transparent, var(--accent-purple), transparent);
+}
+
+/* ==========================================================================
+   MAZZO CENTRALE CONDIVISO A DESTRA A METÀ TRA I DUE CAMPI
+   ========================================================================== */
+.shared-deck-widget {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 120;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: default;
+    pointer-events: auto;
+}
+
+.deck-card-cover {
+    width: 60px;
+    height: 88px;
+    border-radius: 8px;
+    background-image: url('assets/cards/dorso.jpg');
+    background-size: cover;
+    background-position: center;
+    border: 2px solid var(--accent-purple);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.95), 0 0 15px rgba(192, 132, 252, 0.5);
+    position: relative;
+    transition: transform 0.2s ease;
+}
+
+/* Effetto 3D carte impilate */
+.deck-card-cover::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    background: rgba(14, 17, 30, 0.95);
+    border: 1.5px solid var(--accent-purple);
+    z-index: -1;
+}
+
+.deck-card-cover::after {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: -6px;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    background: rgba(10, 12, 22, 0.85);
+    border: 1px solid rgba(192, 132, 252, 0.5);
+    z-index: -2;
+}
+
+.deck-label {
+    font-family: var(--font-heading);
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: rgba(255, 255, 255, 0.8);
+    letter-spacing: 1px;
+    margin-top: 3px;
+    text-shadow: 0 1px 4px #000;
+}
+
+.deck-count {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: linear-gradient(135deg, #c084fc 0%, #7e22ce 100%);
+    color: #ffffff;
+    font-family: var(--font-heading);
+    font-weight: 900;
+    font-size: 0.85rem;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.9), 0 0 12px var(--accent-purple);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
 }
 
 /* MANO DEL GIOCATORE POSIZIONATA ED ALZATA IN PRIMISSIMO PIANO */
@@ -1249,6 +1305,28 @@ body, html {
         font-size: 0.72rem;
     }
 
+    .shared-deck-widget {
+        right: 6px;
+    }
+
+    .deck-card-cover {
+        width: 44px;
+        height: 64px;
+        border-radius: 6px;
+    }
+
+    .deck-count {
+        width: 22px;
+        height: 22px;
+        font-size: 0.75rem;
+        top: -6px;
+        right: -6px;
+    }
+
+    .deck-label {
+        font-size: 0.6rem;
+    }
+
     .hand-cards .card {
         width: 78px !important;
         height: 115px !important;
@@ -1345,17 +1423,6 @@ body, html {
 
     .hp-text {
         font-size: 0.85rem !important;
-    }
-
-    .deck-pile {
-        width: 34px;
-        height: 50px;
-    }
-
-    .deck-count {
-        width: 18px;
-        height: 18px;
-        font-size: 0.7rem;
     }
 
     .action-banner {

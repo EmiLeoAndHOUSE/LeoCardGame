@@ -202,15 +202,23 @@
                     </div>
                 </div>
 
-                <!-- CAMPO DI GIOCO CENTRALE -->
+                <!-- CAMPO DI GIOCO CENTRALE CON MAZZO CONDIVISO A DESTRA A METÀ TRA I DUE CAMPI -->
                 <div class="board-area">
                     <!-- Fila Schieramento Avversario -->
                     <div class="board-row" id="ai-board">
                         <div class="empty-board-msg">Nessuna carta schierata dall'avversario</div>
                     </div>
 
+                    <!-- LINEA DI SEPARAZIONE E MAZZO CONDIVISO A DESTRA METÀ CAMPO -->
                     <div class="board-divider">
                         <span class="divider-glow"></span>
+                        
+                        <!-- MAZZO CENTRALE CONDIVISO -->
+                        <div class="shared-deck-widget" id="player-deck-pile" title="Mazzo Condiviso di Gioco">
+                            <div class="deck-card-cover"></div>
+                            <span class="deck-label">MAZZO</span>
+                            <span class="deck-count" id="player-deck-count">18</span>
+                        </div>
                     </div>
 
                     <!-- Fila Schieramento Giocatore -->
@@ -234,9 +242,6 @@
 
                     <!-- Controlli di Turno -->
                     <div class="turn-controls">
-                        <div class="deck-pile" id="player-deck-pile">
-                            <span class="deck-count" id="player-deck-count">18</span>
-                        </div>
                         <button id="btn-end-turn" class="btn btn-action btn-glow">Passa Turno ➔</button>
                     </div>
                 </div>
