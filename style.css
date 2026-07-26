@@ -1484,216 +1484,218 @@ body, html {
 }
 
 /* ==========================================================================
-   8. CLASSE MODALITÀ ORIZZONTALE AAA (HEARTHSTONE PEEK STYLE - ZERO SOVRAPPOSIZIONI)
+   8. MEDIA QUERY E CLASSE ORIZZONTALE AAA (HEARTHSTONE PEEK STYLE - ZERO SOVRAPPOSIZIONI)
    ========================================================================== */
-body.mobile-landscape #app,
-body.mobile-landscape .screen,
-body.mobile-landscape #screen-battle {
-    height: 100vh !important;
-    height: 100dvh !important;
-    max-height: 100dvh !important;
-    overflow: hidden !important;
-}
+@media screen and (orientation: landscape) and (max-height: 600px), body.mobile-landscape {
+    body #app,
+    body .screen,
+    body #screen-battle {
+        height: 100vh !important;
+        height: 100dvh !important;
+        max-height: 100dvh !important;
+        overflow: hidden !important;
+    }
 
-body.mobile-landscape .screen-footer {
-    display: none !important;
-}
+    body .screen-footer {
+        display: none !important;
+    }
 
-body.mobile-landscape .battle-top-bar {
-    padding: 2px 8px !important;
-    margin: 0 !important;
-    height: 30px !important;
-    flex-shrink: 0 !important;
-}
+    body .battle-top-bar {
+        padding: 2px 8px !important;
+        margin: 0 !important;
+        height: 30px !important;
+        flex-shrink: 0 !important;
+    }
 
-body.mobile-landscape .action-banner {
-    padding: 1px 6px !important;
-    font-size: 0.75rem !important;
-    margin: 0 !important;
-    height: 18px !important;
-    flex-shrink: 0 !important;
-}
+    body .action-banner {
+        padding: 1px 6px !important;
+        font-size: 0.75rem !important;
+        margin: 0 !important;
+        height: 18px !important;
+        flex-shrink: 0 !important;
+    }
 
-/* CARTE SUL CAMPO (84px x 118px) NITIDE E PERFETTAMENTE SEPARATE */
-body.mobile-landscape .board-card {
-    width: 84px !important;
-    height: 118px !important;
-    border-width: 2px !important;
-    border-radius: 8px !important;
-}
+    /* CARTE SUL CAMPO (80px x 112px) NITIDE ED ORDINATE */
+    body .board-card {
+        width: 80px !important;
+        height: 112px !important;
+        border-width: 2px !important;
+        border-radius: 8px !important;
+    }
 
-/* CARTE IN MANO (ADAGIATE SUL BORDO IN BASSO CON LIFT AUTOMATICO AL TOUCH) */
-body.mobile-landscape .hand-cards .card {
-    width: 84px !important;
-    height: 118px !important;
-    border-width: 2px !important;
-    border-radius: 8px !important;
-    margin-left: -10px !important;
-    transform: translateY(38px);
-    transition: transform 0.22s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.22s ease !important;
-}
+    /* CARTE IN MANO (ADAGIATE IN BASSO CON EFFETTO PEEK PER NON COPRIRE IL CAMPO) */
+    body .hand-cards .card {
+        width: 80px !important;
+        height: 112px !important;
+        border-width: 2px !important;
+        border-radius: 8px !important;
+        margin-left: -10px !important;
+        transform: translateY(42px) !important;
+        transition: transform 0.22s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.22s ease !important;
+    }
 
-body.mobile-landscape .hand-cards .card:first-child {
-    margin-left: 0 !important;
-}
+    body .hand-cards .card:first-child {
+        margin-left: 0 !important;
+    }
 
-body.mobile-landscape .hand-cards .card:hover,
-body.mobile-landscape .hand-cards .card:active,
-body.mobile-landscape .hand-cards .card.selected {
-    transform: translateY(-28px) scale(1.32) !important;
-    z-index: 800 !important;
-    box-shadow: 0 0 30px var(--accent-purple) !important;
-    border-color: #ffffff !important;
-}
+    body .hand-cards .card:hover,
+    body .hand-cards .card:active,
+    body .hand-cards .card.selected {
+        transform: translateY(-30px) scale(1.35) !important;
+        z-index: 800 !important;
+        box-shadow: 0 0 30px var(--accent-purple) !important;
+        border-color: #ffffff !important;
+    }
 
-/* PALLINI ATTACCO E VITA APPLICATI *ALL'INTERNO* DELLA CARTA (ZERO OVERLAP) */
-body.mobile-landscape .stat-badge {
-    width: 22px !important;
-    height: 22px !important;
-    font-size: 0.78rem !important;
-    border-width: 1.5px !important;
-}
+    /* PALLINI ATTACCO E VITA ALL'INTERNO DELLA CARTA */
+    body .stat-badge {
+        width: 20px !important;
+        height: 20px !important;
+        font-size: 0.75rem !important;
+        border-width: 1.5px !important;
+    }
 
-body.mobile-landscape .card-overlay-stats {
-    bottom: 2px !important;
-    left: 2px !important;
-    right: 2px !important;
-}
+    body .card-overlay-stats {
+        bottom: 2px !important;
+        left: 2px !important;
+        right: 2px !important;
+    }
 
-body.mobile-landscape .card-bonus-tag {
-    font-size: 0.58rem !important;
-    padding: 1px 4px !important;
-    top: -8px !important;
-}
+    body .card-bonus-tag {
+        font-size: 0.55rem !important;
+        padding: 1px 4px !important;
+        top: -8px !important;
+    }
 
-/* BATTLEFIELD CONTAINER INTERAMENTE PULITO ED ORDINATO */
-body.mobile-landscape .battlefield-container {
-    padding: 0 85px 48px 140px !important;
-    flex: 1 !important;
-    min-height: 0 !important;
-    height: calc(100dvh - 48px) !important;
-    overflow: hidden !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: space-between !important;
-    position: relative !important;
-}
+    /* BATTLEFIELD CONTAINER CON SPAZIATURA PERFETTA */
+    body .battlefield-container {
+        padding: 0 85px 45px 135px !important;
+        flex: 1 !important;
+        min-height: 0 !important;
+        height: calc(100dvh - 48px) !important;
+        overflow: hidden !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+        position: relative !important;
+    }
 
-/* PROFILI EROE SUL BORDO SINISTRO SENZA OSTACOLARE IL CAMPO */
-body.mobile-landscape .zone-opponent {
-    position: absolute !important;
-    top: 4px !important;
-    left: 6px !important;
-    z-index: 100 !important;
-    padding: 0 !important;
-}
+    /* PROFILI EROE SUL BORDO SINISTRO */
+    body .zone-opponent {
+        position: absolute !important;
+        top: 4px !important;
+        left: 6px !important;
+        z-index: 100 !important;
+        padding: 0 !important;
+    }
 
-body.mobile-landscape .zone-player {
-    position: absolute !important;
-    bottom: 6px !important;
-    left: 6px !important;
-    z-index: 100 !important;
-    padding: 0 !important;
-    flex-direction: column !important;
-    gap: 6px !important;
-    align-items: flex-start !important;
-}
+    body .zone-player {
+        position: absolute !important;
+        bottom: 4px !important;
+        left: 6px !important;
+        z-index: 100 !important;
+        padding: 0 !important;
+        flex-direction: column !important;
+        gap: 4px !important;
+        align-items: flex-start !important;
+    }
 
-body.mobile-landscape .player-portrait {
-    min-width: 125px !important;
-    padding: 3px 8px !important;
-    gap: 6px !important;
-    border-radius: 10px !important;
-    height: 32px !important;
-}
+    body .player-portrait {
+        min-width: 120px !important;
+        padding: 3px 6px !important;
+        gap: 6px !important;
+        border-radius: 10px !important;
+        height: 30px !important;
+    }
 
-body.mobile-landscape .avatar {
-    width: 24px !important;
-    height: 24px !important;
-    font-size: 0.9rem !important;
-}
+    body .avatar {
+        width: 22px !important;
+        height: 22px !important;
+        font-size: 0.85rem !important;
+    }
 
-body.mobile-landscape .player-name {
-    font-size: 0.75rem !important;
-    max-width: 80px !important;
-}
+    body .player-name {
+        font-size: 0.72rem !important;
+        max-width: 75px !important;
+    }
 
-body.mobile-landscape .hp-bar-wrapper {
-    height: 15px !important;
-    min-width: 80px !important;
-}
+    body .hp-bar-wrapper {
+        height: 14px !important;
+        min-width: 75px !important;
+    }
 
-body.mobile-landscape .hp-text {
-    font-size: 0.72rem !important;
-}
+    body .hp-text {
+        font-size: 0.7rem !important;
+    }
 
-body.mobile-landscape .board-area {
-    flex: 1 !important;
-    min-height: 0 !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: space-around !important;
-    padding: 0 !important;
-}
+    body .board-area {
+        flex: 1 !important;
+        min-height: 0 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-around !important;
+        padding: 0 !important;
+    }
 
-body.mobile-landscape .board-row {
-    min-height: 0 !important;
-    height: 122px !important;
-    max-height: 124px !important;
-    gap: 8px !important;
-    padding: 2px !important;
-    flex: 1 !important;
-    margin: 1px 0 !important;
-}
+    body .board-row {
+        min-height: 0 !important;
+        height: 116px !important;
+        max-height: 118px !important;
+        gap: 8px !important;
+        padding: 2px !important;
+        flex: 1 !important;
+        margin: 1px 0 !important;
+    }
 
-body.mobile-landscape .hand-container {
-    position: absolute !important;
-    bottom: 0px !important;
-    left: 50% !important;
-    transform: translateX(-40%) !important;
-    height: 80px !important;
-    padding: 0 4px !important;
-    z-index: 600 !important;
-    overflow: visible !important;
-}
+    body .hand-container {
+        position: absolute !important;
+        bottom: 0px !important;
+        left: 50% !important;
+        transform: translateX(-40%) !important;
+        height: 75px !important;
+        padding: 0 4px !important;
+        z-index: 600 !important;
+        overflow: visible !important;
+    }
 
-body.mobile-landscape .shared-deck-widget {
-    right: 6px !important;
-    top: 45% !important;
-    transform: translateY(-50%) !important;
-}
+    body .shared-deck-widget {
+        right: 6px !important;
+        top: 45% !important;
+        transform: translateY(-50%) !important;
+    }
 
-body.mobile-landscape .deck-card-cover {
-    width: 75px !important;
-    height: 108px !important;
-}
+    body .deck-card-cover {
+        width: 70px !important;
+        height: 100px !important;
+    }
 
-body.mobile-landscape .deck-count {
-    width: 22px !important;
-    height: 22px !important;
-    font-size: 0.75rem !important;
-    top: -5px !important;
-    right: -5px !important;
-}
+    body .deck-count {
+        width: 20px !important;
+        height: 20px !important;
+        font-size: 0.7rem !important;
+        top: -5px !important;
+        right: -5px !important;
+    }
 
-body.mobile-landscape .deck-label {
-    font-size: 0.55rem !important;
-    bottom: 2px !important;
-    padding: 0 3px !important;
-}
+    body .deck-label {
+        font-size: 0.52rem !important;
+        bottom: 2px !important;
+        padding: 0 2px !important;
+    }
 
-body.mobile-landscape .detail-modal-card {
-    flex-direction: row;
-    padding: 10px;
-    gap: 12px;
-    max-height: 96vh;
-}
+    body .detail-modal-card {
+        flex-direction: row;
+        padding: 10px;
+        gap: 12px;
+        max-height: 96vh;
+    }
 
-body.mobile-landscape .detail-card-preview {
-    width: 160px;
-    height: 230px;
-}
+    body .detail-card-preview {
+        width: 160px;
+        height: 230px;
+    }
 
-body.mobile-landscape .detail-card-info h3 {
-    font-size: 1.3rem;
+    body .detail-card-info h3 {
+        font-size: 1.3rem;
+    }
 }
