@@ -1,5 +1,5 @@
 /* ==========================================================================
-   L.L. CARD GAME - STYLESHEET HD ULTRA READABLE (ADATTAMENTO ORIZZONTALE AAA CARTE GRANDI)
+   L.L. CARD GAME - STYLESHEET HD ULTRA READABLE (CARTE EXTRA LARGE ORIZZONTALI)
    ========================================================================== */
 
 :root {
@@ -1484,7 +1484,7 @@ body, html {
 }
 
 /* ==========================================================================
-   8. CLASSE MODALITÀ ORIZZONTALE AAA (PANORAMICA CON CARTE MOLTO PIÙ GRANDI!)
+   8. CLASSE MODALITÀ ORIZZONTALE AAA (CARTE GIGANTI HD IMPATTANTI)
    ========================================================================== */
 body.mobile-landscape #app,
 body.mobile-landscape .screen,
@@ -1502,7 +1502,7 @@ body.mobile-landscape .screen-footer {
 body.mobile-landscape .battle-top-bar {
     padding: 2px 12px !important;
     margin: 0 !important;
-    height: 36px !important;
+    height: 34px !important;
     flex-shrink: 0 !important;
 }
 
@@ -1510,19 +1510,19 @@ body.mobile-landscape .action-banner {
     padding: 1px 8px !important;
     font-size: 0.8rem !important;
     margin: 0 !important;
-    height: 22px !important;
+    height: 20px !important;
     flex-shrink: 0 !important;
 }
 
-/* CARTE MOLTO PIÙ GRANDI, NIDE E LEGGIBILI IN ORIZZONTALE */
+/* CARTE EXTRA LARGE HD IMPATTANTI E CHIARISSIME IN ORIZZONTALE */
 body.mobile-landscape .card,
 body.mobile-landscape .hand-cards .card,
 body.mobile-landscape .board-card,
 body.mobile-landscape .deck-card-cover {
-    width: var(--card-landscape-w, 84px) !important;
-    height: var(--card-landscape-h, 120px) !important;
-    border-width: 2.5px !important;
-    border-radius: 8px !important;
+    width: var(--card-landscape-w, 115px) !important;
+    height: var(--card-landscape-h, 165px) !important;
+    border-width: 3px !important;
+    border-radius: 10px !important;
 }
 
 body.mobile-landscape .hand-cards .card {
@@ -1534,29 +1534,29 @@ body.mobile-landscape .hand-cards .card:first-child {
 }
 
 body.mobile-landscape .stat-badge {
-    width: 24px !important;
-    height: 24px !important;
-    font-size: 0.85rem !important;
-    border-width: 1.5px !important;
+    width: 30px !important;
+    height: 30px !important;
+    font-size: 1rem !important;
+    border-width: 2px !important;
 }
 
 body.mobile-landscape .card-overlay-stats {
-    bottom: -6px !important;
-    left: -2px !important;
-    right: -2px !important;
+    bottom: -8px !important;
+    left: -3px !important;
+    right: -3px !important;
 }
 
 body.mobile-landscape .card-bonus-tag {
-    font-size: 0.62rem !important;
-    padding: 1px 5px !important;
-    top: -9px !important;
+    font-size: 0.72rem !important;
+    padding: 2px 7px !important;
+    top: -11px !important;
 }
 
 body.mobile-landscape .battlefield-container {
-    padding: 0 75px calc(var(--hand-container-h, 125px) + 2px) 145px !important;
+    padding: 0 90px calc(var(--hand-container-h, 165px) + 2px) 150px !important;
     flex: 1 !important;
     min-height: 0 !important;
-    height: calc(100dvh - 58px) !important;
+    height: calc(100dvh - 54px) !important;
     overflow: hidden !important;
     display: flex !important;
     flex-direction: column !important;
@@ -1564,7 +1564,7 @@ body.mobile-landscape .battlefield-container {
     position: relative !important;
 }
 
-/* POSIZIONAMENTO PROFILI EROE A SINISTRA SUL BORDO PER RISPARMIARE ALTEZZA */
+/* POSIZIONAMENTO PROFILI EROE SUL BORDO SINISTRO PER L'ALTEZZA MASSIMA DELLE CARTE */
 body.mobile-landscape .zone-opponent {
     position: absolute !important;
     top: 4px !important;
@@ -1585,7 +1585,7 @@ body.mobile-landscape .zone-player {
 }
 
 body.mobile-landscape .player-portrait {
-    min-width: 125px !important;
+    min-width: 130px !important;
     padding: 3px 8px !important;
     gap: 6px !important;
     border-radius: 10px !important;
@@ -1623,9 +1623,9 @@ body.mobile-landscape .board-area {
 
 body.mobile-landscape .board-row {
     min-height: 0 !important;
-    height: var(--board-row-h, 122px) !important;
-    max-height: var(--board-row-h, 125px) !important;
-    gap: 8px !important;
+    height: var(--board-row-h, 165px) !important;
+    max-height: var(--board-row-h, 170px) !important;
+    gap: 10px !important;
     padding: 2px !important;
     flex: 1 !important;
     margin: 1px 0 !important;
@@ -1636,7 +1636,7 @@ body.mobile-landscape .hand-container {
     bottom: calc(2px + env(safe-area-inset-bottom)) !important;
     left: 50% !important;
     transform: translateX(-40%) !important;
-    height: var(--hand-container-h, 125px) !important;
+    height: var(--hand-container-h, 170px) !important;
     padding: 0 4px !important;
     z-index: 600 !important;
 }
@@ -1648,15 +1648,15 @@ body.mobile-landscape .shared-deck-widget {
 }
 
 body.mobile-landscape .deck-count {
-    width: 22px !important;
-    height: 22px !important;
-    font-size: 0.75rem !important;
+    width: 24px !important;
+    height: 24px !important;
+    font-size: 0.8rem !important;
     top: -5px !important;
     right: -5px !important;
 }
 
 body.mobile-landscape .deck-label {
-    font-size: 0.58rem !important;
+    font-size: 0.6rem !important;
     bottom: 2px !important;
     padding: 0 3px !important;
 }
@@ -1669,10 +1669,10 @@ body.mobile-landscape .detail-modal-card {
 }
 
 body.mobile-landscape .detail-card-preview {
-    width: 160px;
-    height: 230px;
+    width: 180px;
+    height: 260px;
 }
 
 body.mobile-landscape .detail-card-info h3 {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
 }
