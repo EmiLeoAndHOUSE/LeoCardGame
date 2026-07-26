@@ -1,5 +1,5 @@
 /* ==========================================================================
-   L.L. CARD GAME - STYLESHEET HD ULTRA READABLE (TOUCH OPTIMIZED & ZERO OVERLAP)
+   L.L. CARD GAME - STYLESHEET HD ULTRA READABLE (ZERO OVERLAP & 100% STATS VISIBILITY)
    ========================================================================== */
 
 :root {
@@ -706,7 +706,7 @@ body, html {
     transition: width 0.9s linear;
 }
 
-/* BANNER GUIDA PASSANTE (POINTER-EVENTS NONE = NON OSTACOLA I CLICK SULLO SCHERMO) */
+/* BANNER GUIDA PASSANTE (POINTER-EVENTS NONE) */
 .action-banner {
     display: flex;
     align-items: center;
@@ -1488,7 +1488,7 @@ body, html {
 }
 
 /* ==========================================================================
-   8. MEDIA QUERY E CLASSE ORIZZONTALE AAA ULTRA OTTIMIZZATA
+   8. MEDIA QUERY E CLASSE ORIZZONTALE AAA PERFECTED (ZERO OVERLAP & 100% STATS VISIBILITY)
    ========================================================================== */
 @media screen and (orientation: landscape) and (max-height: 600px), body.mobile-landscape {
     body #app,
@@ -1504,72 +1504,120 @@ body, html {
         display: none !important;
     }
 
+    /* BARRA SUPERIORE ULTRAPULITA */
     body .battle-top-bar {
         padding: 2px 8px !important;
         margin: 0 !important;
-        height: 30px !important;
+        height: 28px !important;
         flex-shrink: 0 !important;
     }
 
-    /* BANNER AZIONI PASSANTE (POINTER-EVENTS NONE = NON BLOCCA I CLICK SULLE CARTE!) */
+    /* BANNER AZIONI PASSANTE (POINTER-EVENTS NONE) */
     body .action-banner {
         pointer-events: none !important;
         z-index: 30 !important;
         padding: 1px 6px !important;
-        font-size: 0.72rem !important;
+        font-size: 0.7rem !important;
         margin: 0 !important;
-        height: 18px !important;
+        height: 16px !important;
         flex-shrink: 0 !important;
     }
 
-    /* CARTE SUL CAMPO (80px x 112px) DISTANZIATE ED SENZA SOVRAPPOSIZIONI */
+    /* BATTLEFIELD CONTAINER CON RISERVA SPAZIO BOTTOM PER LA MANO */
+    body .battlefield-container {
+        padding: 2px 75px 82px 140px !important;
+        flex: 1 !important;
+        min-height: 0 !important;
+        height: calc(100dvh - 44px) !important;
+        overflow: hidden !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: flex-start !important;
+        position: relative !important;
+    }
+
+    /* AREA TABELLONE CON ALTEZZA CONTROLLATA */
+    body .board-area {
+        flex: 1 !important;
+        min-height: 0 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        gap: 2px !important;
+        padding: 0 !important;
+    }
+
+    /* FILE CAMPO DA GIOCO (95px) */
+    body .board-row {
+        min-height: 0 !important;
+        height: 95px !important;
+        max-height: 98px !important;
+        gap: 10px !important;
+        padding: 2px !important;
+        flex: 0 0 auto !important;
+        margin: 0 !important;
+    }
+
+    /* CARTE SUL CAMPO (68px x 95px) PERFETTE E NITIDE */
     body .board-card {
-        width: 80px !important;
-        height: 112px !important;
+        width: 68px !important;
+        height: 95px !important;
         border-width: 2px !important;
         border-radius: 8px !important;
     }
 
-    /* CARTE IN MANO (BEN DISTANZIATE SENZA MARGINI NEGATIVI CON TOUCH AGEVOLE) */
+    /* MANO GIOCATORE POSIZIONATA AL BORDO IN BASSO SENZA TRUNCATE SUI PALLINI VITA/ATTACCO */
+    body .hand-container {
+        position: absolute !important;
+        bottom: 2px !important;
+        left: 50% !important;
+        transform: translateX(-40%) !important;
+        height: 80px !important;
+        width: 60% !important;
+        max-width: 480px !important;
+        overflow-x: auto !important;
+        overflow-y: visible !important;
+        -webkit-overflow-scrolling: touch !important;
+        z-index: 600 !important;
+        padding: 0 4px !important;
+    }
+
     body .hand-cards {
         display: flex !important;
         gap: 8px !important;
-        padding: 0 12px 10px 12px !important;
+        padding: 0 10px 2px 10px !important;
         justify-content: center !important;
         align-items: flex-end !important;
         width: auto !important;
     }
 
+    /* CARTE IN MANO (68px x 95px) SENZA TRASLAZIONE CHE ESCE DALLO SCHERMO! */
     body .hand-cards .card {
-        width: 80px !important;
-        height: 112px !important;
+        width: 68px !important;
+        height: 95px !important;
         border-width: 2px !important;
         border-radius: 8px !important;
         margin-left: 0 !important;
         flex-shrink: 0 !important;
-        transform: translateY(38px) !important;
+        transform: translateY(0px) !important;
         transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.2s ease !important;
         touch-action: manipulation !important;
-    }
-
-    body .hand-cards .card:first-child {
-        margin-left: 0 !important;
     }
 
     body .hand-cards .card:hover,
     body .hand-cards .card:active,
     body .hand-cards .card.selected {
-        transform: translateY(-28px) scale(1.32) !important;
+        transform: translateY(-24px) scale(1.35) !important;
         z-index: 800 !important;
         box-shadow: 0 0 25px var(--accent-purple) !important;
         border-color: #ffffff !important;
     }
 
-    /* PALLINI ATTACCO E VITA ALL'INTERNO DELLA CARTA */
+    /* PALLINI ATTACCO E VITA VISIBILISSIMI DENTRO LA CARTA IN BASSO */
     body .stat-badge {
-        width: 20px !important;
-        height: 20px !important;
-        font-size: 0.75rem !important;
+        width: 21px !important;
+        height: 21px !important;
+        font-size: 0.78rem !important;
         border-width: 1.5px !important;
     }
 
@@ -1580,35 +1628,20 @@ body, html {
     }
 
     body .card-bonus-tag {
-        font-size: 0.55rem !important;
+        font-size: 0.52rem !important;
         padding: 1px 4px !important;
         top: -8px !important;
     }
 
-    /* BATTLEFIELD CONTAINER PULITO */
-    body .battlefield-container {
-        padding: 0 80px 45px 145px !important;
-        flex: 1 !important;
-        min-height: 0 !important;
-        height: calc(100dvh - 48px) !important;
-        overflow: hidden !important;
-        display: flex !important;
-        flex-direction: column !important;
-        justify-content: space-between !important;
-        position: relative !important;
-    }
-
-    /* PROFILO EROE NEMICO (TOP-LEFT) */
+    /* EROI SUI BORDI LATERALI */
     body .zone-opponent {
         position: absolute !important;
         top: 4px !important;
         left: 6px !important;
         z-index: 100 !important;
         padding: 0 !important;
-        pointer-events: auto !important;
     }
 
-    /* PROFILO GIOCATORE (BOTTOM-LEFT COMODO) */
     body .zone-player {
         position: absolute !important;
         bottom: 4px !important;
@@ -1616,114 +1649,39 @@ body, html {
         z-index: 100 !important;
         padding: 0 !important;
         flex-direction: column !important;
-        gap: 6px !important;
+        gap: 4px !important;
         align-items: flex-start !important;
-        pointer-events: auto !important;
     }
 
     body .player-portrait {
-        min-width: 130px !important;
-        padding: 3px 8px !important;
+        min-width: 125px !important;
+        padding: 3px 6px !important;
         gap: 6px !important;
         border-radius: 10px !important;
-        height: 32px !important;
-        pointer-events: auto !important;
-    }
-
-    /* PULSANTE PASSA TURNO GRANDE, COMODO E FACILE DA PREMERE */
-    body .turn-controls {
-        width: 100% !important;
-        display: flex !important;
-        justify-content: flex-start !important;
-        margin-top: 2px !important;
-        pointer-events: auto !important;
+        height: 30px !important;
     }
 
     body #btn-end-turn {
-        width: 130px !important;
-        height: 38px !important;
-        font-size: 0.88rem !important;
+        width: 125px !important;
+        height: 36px !important;
+        font-size: 0.85rem !important;
         font-weight: 900 !important;
         border-radius: 10px !important;
         box-shadow: 0 4px 15px rgba(192, 132, 252, 0.6) !important;
         touch-action: manipulation !important;
         pointer-events: auto !important;
         z-index: 700 !important;
-        padding: 4px 10px !important;
-    }
-
-    body .board-area {
-        flex: 1 !important;
-        min-height: 0 !important;
-        display: flex !important;
-        flex-direction: column !important;
-        justify-content: space-around !important;
-        padding: 0 !important;
-    }
-
-    body .board-row {
-        min-height: 0 !important;
-        height: 116px !important;
-        max-height: 118px !important;
-        gap: 12px !important;
-        padding: 2px !important;
-        flex: 1 !important;
-        margin: 1px 0 !important;
-    }
-
-    body .hand-container {
-        position: absolute !important;
-        bottom: 0px !important;
-        left: 50% !important;
-        transform: translateX(-40%) !important;
-        height: 80px !important;
-        width: 60% !important;
-        max-width: 480px !important;
-        overflow-x: auto !important;
-        overflow-y: visible !important;
-        -webkit-overflow-scrolling: touch !important;
-        z-index: 600 !important;
+        padding: 4px 8px !important;
     }
 
     body .shared-deck-widget {
         right: 6px !important;
         top: 45% !important;
         transform: translateY(-50%) !important;
-        pointer-events: auto !important;
     }
 
     body .deck-card-cover {
-        width: 70px !important;
-        height: 100px !important;
-    }
-
-    body .deck-count {
-        width: 20px !important;
-        height: 20px !important;
-        font-size: 0.7rem !important;
-        top: -5px !important;
-        right: -5px !important;
-    }
-
-    body .deck-label {
-        font-size: 0.52rem !important;
-        bottom: 2px !important;
-        padding: 0 2px !important;
-    }
-
-    body .detail-modal-card {
-        flex-direction: row;
-        padding: 10px;
-        gap: 12px;
-        max-height: 96vh;
-    }
-
-    body .detail-card-preview {
-        width: 160px;
-        height: 230px;
-    }
-
-    body .detail-card-info h3 {
-        font-size: 1.3rem;
+        width: 65px !important;
+        height: 92px !important;
     }
 }
