@@ -1,5 +1,5 @@
 /* ==========================================================================
-   L.L. CARD GAME - STYLESHEET HD ULTRA READABLE (MANO GIOCATORE RIALZATA BEN VISIBILE)
+   L.L. CARD GAME - STYLESHEET HD ULTRA READABLE (CON ORIENTAMENTO LANDSCAPE OPTIMIZED)
    ========================================================================== */
 
 :root {
@@ -1302,7 +1302,7 @@ body, html {
 }
 
 /* ==========================================================================
-   7. MEDIA QUERIES MOBILE SAFE AREA (MANO GIOCATORE RIALZATA BEN VISIBILE)
+   7. MEDIA QUERIES MOBILE SAFE AREA (DIMENSIONI CARTE 100% UNIFORMI)
    ========================================================================== */
 @media (max-width: 768px), (max-height: 750px) {
     .screen-footer {
@@ -1315,7 +1315,7 @@ body, html {
         right: 6px;
     }
 
-    /* DIMENSIONI CARTE UNIFORMI SU MOBILE (MANO, CAMPO ED MAZZO) */
+    /* DIMENSIONI CARTE UNIFORMI SU MOBILE PORTRAIT */
     .hand-cards .card,
     .board-card,
     .deck-card-cover {
@@ -1472,5 +1472,65 @@ body, html {
 
     .game-title {
         font-size: 2.2rem;
+    }
+}
+
+/* ==========================================================================
+   8. MEDIA QUERIES LANDSCAPE MOBILE (MODALITÀ ORIZZONTALE PANORAMICA SMARTPHONE/TABLET)
+   ========================================================================== */
+@media (orientation: landscape) and (max-height: 600px) {
+    .hand-cards .card,
+    .board-card,
+    .deck-card-cover {
+        width: 105px !important;
+        height: 152px !important;
+        border-width: 2.5px !important;
+        border-radius: 10px !important;
+    }
+
+    .hand-cards .card {
+        margin-left: -4px !important;
+    }
+
+    .hand-container {
+        position: absolute !important;
+        bottom: calc(8px + env(safe-area-inset-bottom)) !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        height: 160px !important;
+        padding: 0 4px !important;
+    }
+
+    .battlefield-container {
+        padding: 0 4px 170px 4px !important;
+    }
+
+    .board-area {
+        min-height: 180px;
+    }
+
+    .board-row {
+        min-height: 160px;
+        gap: 10px;
+        padding: 4px;
+    }
+
+    .player-portrait {
+        min-width: 150px !important;
+        padding: 3px 8px !important;
+    }
+
+    .hp-bar-wrapper {
+        height: 18px !important;
+        min-width: 90px !important;
+    }
+
+    .hp-text {
+        font-size: 0.78rem !important;
+    }
+
+    .deck-label {
+        font-size: 0.65rem;
+        bottom: 6px;
     }
 }

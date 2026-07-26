@@ -1,5 +1,5 @@
 /* ==========================================================================
-   L.L. CARD GAME - APPLICATION CONTROLLER (GESTIONE MENU & SELEZIONE VIOLA)
+   L.L. CARD GAME - APPLICATION CONTROLLER (CON BLOCCO ORIENTAMENTO ORIZZONTALE)
    ========================================================================== */
 
 class AppController {
@@ -224,6 +224,20 @@ class AppController {
             this.multiplayer.disconnect();
             this.showScreen('screen-menu');
         });
+
+        // AVVISO RUOTA SCHERMO SE IN PORTRAIT SU MOBILE
+        window.addEventListener('resize', () => this.checkOrientation());
+        this.checkOrientation();
+    }
+
+    checkOrientation() {
+        if (window.innerWidth < 768 && window.innerHeight > window.innerWidth) {
+            // Su mobile verticale, avvisa di ruotare lo schermo
+            if (!this.hasShownOrientationToast) {
+                this.showToast("🔄 Suggerimento: Ruota lo smartphone in Orizzontale per la vista panoramica ideale!");
+                this.hasShownOrientationToast = true;
+            }
+        }
     }
 
     toggleFullscreen() {
@@ -235,6 +249,10 @@ class AppController {
             if (req) {
                 req.call(docEl).then(() => {
                     this.showToast("📱 Modalità Schermo Intero Attivata!");
+                    // Tenta il blocco automatico dell'orientamento in landscape
+                    if (screen.orientation && screen.orientation.lock) {
+                        screen.orientation.lock('landscape').catch(() => {});
+                    }
                 }).catch(() => {
                     this.showToast("📱 Schermo Intero attivato!");
                 });
@@ -246,6 +264,9 @@ class AppController {
             if (exit) {
                 exit.call(document).then(() => {
                     this.showToast("Modalità Schermo Intero Disattivata");
+                    if (screen.orientation && screen.orientation.unlock) {
+                        screen.orientation.unlock();
+                    }
                 }).catch(() => {});
             }
         }
