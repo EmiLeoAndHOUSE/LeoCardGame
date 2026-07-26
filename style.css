@@ -1,5 +1,5 @@
 /* ==========================================================================
-   L.L. CARD GAME - STYLESHEET HD ULTRA READABLE (FOOTER E CREDITI)
+   L.L. CARD GAME - STYLESHEET HD ULTRA READABLE (MENU CON DORSO CARTA & VIOLA NEON)
    ========================================================================== */
 
 :root {
@@ -8,6 +8,8 @@
     --border-glass: rgba(255, 255, 255, 0.18);
     --accent-gold: #ffb800;
     --accent-blue: #00d2ff;
+    --accent-purple: #c084fc;
+    --accent-purple-dark: #7e22ce;
     --accent-danger: #ff4757;
     --accent-success: #2ed573;
     
@@ -75,7 +77,7 @@ body, html {
 
 .toast {
     background: rgba(10, 14, 26, 0.96);
-    border: 2px solid var(--accent-gold);
+    border: 2px solid var(--accent-purple);
     color: #fff;
     padding: 8px 18px;
     border-radius: 30px;
@@ -84,7 +86,7 @@ body, html {
     font-size: 1rem;
     letter-spacing: 0.5px;
     text-align: center;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8), 0 0 20px var(--accent-gold);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8), 0 0 20px var(--accent-purple);
     animation: toastPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards, toastFadeOut 0.4s ease 2.2s forwards;
 }
 
@@ -104,13 +106,13 @@ body, html {
     left: 0;
     width: 100%;
     height: 100px;
-    background: linear-gradient(90deg, transparent, rgba(255, 184, 0, 0.95), rgba(0, 210, 255, 0.95), transparent);
+    background: linear-gradient(90deg, transparent, rgba(192, 132, 252, 0.95), rgba(0, 210, 255, 0.95), transparent);
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 900;
     pointer-events: none;
-    box-shadow: 0 0 50px var(--accent-gold);
+    box-shadow: 0 0 50px var(--accent-purple);
     animation: cutInSlide 1.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
 
@@ -121,7 +123,7 @@ body, html {
     color: #ffffff;
     text-transform: uppercase;
     letter-spacing: 1px;
-    text-shadow: 0 0 20px #000, 0 0 30px var(--accent-gold);
+    text-shadow: 0 0 20px #000, 0 0 30px var(--accent-purple);
     text-align: center;
     padding: 0 10px;
 }
@@ -163,20 +165,20 @@ body, html {
     z-index: 100 !important;
 }
 
-/* Buttons */
+/* Buttons Generici */
 .btn {
     font-family: var(--font-heading);
     font-size: 1.1rem;
     font-weight: 700;
     padding: 10px 20px;
     border-radius: 12px;
-    border: 1px solid var(--border-glass);
+    border: 1.5px solid var(--border-glass);
     cursor: pointer !important;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
     outline: none;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -190,9 +192,10 @@ body, html {
 .btn:active { transform: translateY(1px) scale(0.98); }
 
 .btn-primary {
-    background: linear-gradient(135deg, #ffb800 0%, #ff8c00 100%);
-    color: #000;
-    border-color: rgba(255, 255, 255, 0.3);
+    background: linear-gradient(135deg, #c084fc 0%, #7e22ce 100%);
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 0 15px rgba(192, 132, 252, 0.4);
 }
 
 .btn-secondary {
@@ -218,30 +221,32 @@ body, html {
     color: #fff;
 }
 
-.btn-glow { box-shadow: 0 0 20px rgba(255, 184, 0, 0.4); }
-.btn-glow:hover { box-shadow: 0 0 30px rgba(255, 184, 0, 0.7); }
+.btn-glow { box-shadow: 0 0 20px rgba(192, 132, 252, 0.5); }
+.btn-glow:hover { box-shadow: 0 0 30px rgba(192, 132, 252, 0.8); }
 .btn-small { padding: 5px 12px; font-size: 0.85rem; }
 
 .btn-pulse-suggest {
     animation: btnSuggestPulse 1.2s infinite ease-in-out;
-    background: linear-gradient(135deg, #ffb800 0%, #ff4757 100%) !important;
+    background: linear-gradient(135deg, #c084fc 0%, #ff4757 100%) !important;
     color: #ffffff !important;
 }
 
 @keyframes btnSuggestPulse {
-    0%, 100% { transform: scale(1); box-shadow: 0 0 15px var(--accent-gold); }
+    0%, 100% { transform: scale(1); box-shadow: 0 0 15px var(--accent-purple); }
     50% { transform: scale(1.08); box-shadow: 0 0 30px var(--accent-danger); }
 }
 
 /* ==========================================================================
-   1. MENU PRINCIPALE & NICKNAME BOX
+   1. MENU PRINCIPALE CON SFONDO DORSO CARTA & SELEZIONE VIOLA NEON
    ========================================================================== */
 #screen-menu {
-    background: radial-gradient(circle at center, #1a2238 0%, #0a0c14 100%);
+    background: linear-gradient(180deg, rgba(8, 10, 24, 0.76) 0%, rgba(12, 14, 28, 0.88) 100%), 
+                url('assets/cards/dorso.jpg') center/cover no-repeat;
     justify-content: center;
     align-items: center;
     padding: 16px;
     position: relative;
+    overflow: hidden;
 }
 
 .menu-hero {
@@ -254,6 +259,11 @@ body, html {
     width: 100%;
     z-index: 105;
     margin-bottom: 25px;
+    background: rgba(14, 17, 30, 0.88);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1.5px solid rgba(192, 132, 252, 0.3);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.85), 0 0 25px rgba(192, 132, 252, 0.2);
 }
 
 .nickname-box {
@@ -270,14 +280,15 @@ body, html {
 .nickname-box label {
     font-family: var(--font-heading);
     font-size: 0.95rem;
-    color: var(--accent-gold);
+    color: var(--accent-purple);
     font-weight: 700;
     letter-spacing: 0.5px;
+    text-shadow: 0 0 10px rgba(192, 132, 252, 0.5);
 }
 
 .nickname-input {
-    background: rgba(0, 0, 0, 0.7);
-    border: 2px solid var(--accent-gold);
+    background: rgba(10, 12, 24, 0.85);
+    border: 2px solid var(--accent-purple);
     border-radius: 12px;
     padding: 8px 14px;
     font-family: var(--font-heading);
@@ -288,7 +299,7 @@ body, html {
     width: 100%;
     max-width: 280px;
     outline: none;
-    box-shadow: 0 0 12px rgba(255, 184, 0, 0.25);
+    box-shadow: 0 0 15px rgba(192, 132, 252, 0.3);
     transition: all 0.2s ease;
     user-select: text !important;
     -webkit-user-select: text !important;
@@ -296,8 +307,8 @@ body, html {
 
 .nickname-input:focus {
     border-color: #ffffff;
-    box-shadow: 0 0 20px var(--accent-gold);
-    background: rgba(0, 0, 0, 0.85);
+    box-shadow: 0 0 25px var(--accent-purple);
+    background: rgba(20, 14, 38, 0.95);
 }
 
 .logo-glow {
@@ -305,9 +316,9 @@ body, html {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 220px;
-    height: 220px;
-    background: radial-gradient(circle, rgba(255, 184, 0, 0.35) 0%, transparent 70%);
+    width: 260px;
+    height: 260px;
+    background: radial-gradient(circle, rgba(192, 132, 252, 0.4) 0%, rgba(255, 184, 0, 0.2) 50%, transparent 75%);
     filter: blur(40px);
     pointer-events: none;
 }
@@ -319,13 +330,14 @@ body, html {
     line-height: 1.1;
     letter-spacing: 2px;
     text-transform: uppercase;
-    background: linear-gradient(180deg, #ffffff 0%, #a0aab8 100%);
+    background: linear-gradient(180deg, #ffffff 0%, #d8b4fe 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 12px rgba(192, 132, 252, 0.4));
 }
 
 .game-title span {
-    background: linear-gradient(180deg, #ffb800 0%, #ff7700 100%);
+    background: linear-gradient(180deg, #c084fc 0%, #7e22ce 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     display: block;
@@ -333,7 +345,7 @@ body, html {
 
 .game-subtitle {
     font-size: 1rem;
-    color: rgba(255, 255, 255, 0.85);
+    color: rgba(255, 255, 255, 0.9);
     margin-top: 2px;
 }
 
@@ -349,6 +361,26 @@ body, html {
     width: 100%;
     padding: 12px;
     font-size: 1.1rem;
+}
+
+/* PULSANTI DEL MENU CON DESIGN UNIFORME E SELEZIONE VIOLA NEON */
+.btn-menu-option {
+    background: rgba(20, 16, 38, 0.75);
+    border: 1.5px solid rgba(192, 132, 252, 0.35);
+    color: #ffffff;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.btn-menu-option:hover,
+.btn-menu-option:focus,
+.btn-menu-option:active,
+.btn-menu-option.selected {
+    background: linear-gradient(135deg, #c084fc 0%, #7e22ce 100%) !important;
+    border-color: #ffffff !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 25px rgba(192, 132, 252, 0.8), 0 0 10px rgba(126, 34, 206, 0.6) !important;
+    transform: translateY(-2px) scale(1.03) !important;
 }
 
 /* FOOTER SCHERMATA CON CREDITI, VERSIONE E COPYRIGHT */
@@ -367,12 +399,12 @@ body, html {
     color: rgba(255, 255, 255, 0.75);
     pointer-events: none;
     z-index: 120;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
 }
 
 .footer-left {
     text-align: left;
-    color: var(--accent-gold);
+    color: var(--accent-purple);
 }
 
 .footer-center {
@@ -438,9 +470,9 @@ body, html {
     font-size: 2.2rem;
     font-weight: 900;
     letter-spacing: 3px;
-    color: var(--accent-gold);
-    background: rgba(255, 184, 0, 0.15);
-    border: 2px dashed var(--accent-gold);
+    color: var(--accent-purple);
+    background: rgba(192, 132, 252, 0.15);
+    border: 2px dashed var(--accent-purple);
     padding: 6px 20px;
     border-radius: 12px;
 }
@@ -461,7 +493,7 @@ body, html {
     font-family: var(--font-heading);
     font-size: 1.1rem;
     font-weight: 700;
-    color: var(--accent-gold);
+    color: var(--accent-purple);
     text-align: center;
     letter-spacing: 2px;
     outline: none;
@@ -511,7 +543,7 @@ body, html {
 .rules-card h2 {
     font-family: var(--font-heading);
     font-size: 1.6rem;
-    color: var(--accent-gold);
+    color: var(--accent-purple);
     border-bottom: 1px solid var(--border-glass);
     padding-bottom: 8px;
 }
@@ -557,9 +589,9 @@ body, html {
 }
 
 .deck-count-badge {
-    background: rgba(255, 184, 0, 0.15);
-    border: 1px solid var(--accent-gold);
-    color: var(--accent-gold);
+    background: rgba(192, 132, 252, 0.15);
+    border: 1px solid var(--accent-purple);
+    color: var(--accent-purple);
     padding: 4px 10px;
     border-radius: 14px;
     font-weight: 700;
@@ -595,7 +627,7 @@ body, html {
 }
 
 .filter-btn.active, .filter-btn:hover {
-    background: var(--accent-gold);
+    background: var(--accent-purple);
     color: #000;
     font-weight: 700;
 }
@@ -734,7 +766,7 @@ body, html {
 }
 
 .avatar-ai { border-color: var(--accent-danger); box-shadow: 0 0 10px rgba(255, 71, 87, 0.5); }
-.avatar-player { border-color: var(--accent-gold); box-shadow: 0 0 10px rgba(255, 184, 0, 0.5); }
+.avatar-player { border-color: var(--accent-purple); box-shadow: 0 0 10px rgba(192, 132, 252, 0.5); }
 
 .player-stats {
     flex: 1;
@@ -804,7 +836,7 @@ body, html {
     background-image: url('assets/cards/dorso.jpg');
     background-size: cover;
     background-position: center;
-    border: 2px solid var(--accent-gold);
+    border: 2px solid var(--accent-purple);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
     display: flex;
     align-items: center;
@@ -815,7 +847,7 @@ body, html {
     position: absolute;
     bottom: -5px;
     right: -5px;
-    background: var(--accent-gold);
+    background: var(--accent-purple);
     color: #000;
     font-weight: 900;
     font-size: 0.78rem;
@@ -873,7 +905,7 @@ body, html {
     transform: translate(-50%, -50%);
     width: 70%;
     height: 2px;
-    background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+    background: linear-gradient(90deg, transparent, var(--accent-purple), transparent);
 }
 
 /* MANO DEL GIOCATORE POSIZIONATA ED ALZATA IN PRIMISSIMO PIANO */
@@ -952,7 +984,7 @@ body, html {
 .card:hover {
     transform: translateY(-40px) scale(1.45) !important;
     z-index: 750 !important;
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.98), 0 0 40px var(--accent-gold) !important;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.98), 0 0 40px var(--accent-purple) !important;
     border-color: #ffffff !important;
 }
 
@@ -976,7 +1008,7 @@ body, html {
 
 .card.bonus-active {
     border-color: #00d2ff !important;
-    box-shadow: 0 0 30px #00d2ff, 0 0 20px var(--accent-gold) !important;
+    box-shadow: 0 0 30px #00d2ff, 0 0 20px var(--accent-purple) !important;
 }
 
 .card-bonus-tag {
@@ -984,7 +1016,7 @@ body, html {
     top: -14px;
     left: 50%;
     transform: translateX(-50%);
-    background: linear-gradient(135deg, #ffb800, #ff4757);
+    background: linear-gradient(135deg, #c084fc, #ff4757);
     color: #fff;
     font-family: var(--font-heading);
     font-weight: 900;
@@ -1027,7 +1059,7 @@ body, html {
 
 .stat-badge.stat-boosted {
     transform: scale(1.3);
-    background: linear-gradient(135deg, #ffb800, #ff0055) !important;
+    background: linear-gradient(135deg, #c084fc, #ff0055) !important;
     color: #ffffff !important;
     border-color: #ffffff !important;
     font-size: 1.35rem !important;
@@ -1048,8 +1080,8 @@ body, html {
     font-family: var(--font-heading);
     font-weight: 900;
     font-size: 1.8rem;
-    color: var(--accent-gold);
-    text-shadow: 0 0 15px #000, 0 0 30px var(--accent-gold);
+    color: var(--accent-purple);
+    text-shadow: 0 0 15px #000, 0 0 30px var(--accent-purple);
     pointer-events: none;
     z-index: 500;
     animation: floatBonusPop 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
@@ -1127,8 +1159,8 @@ body, html {
     background-repeat: no-repeat;
     background-position: center;
     background-color: #0b0e19;
-    border: 3.5px solid var(--accent-gold);
-    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.95), 0 0 35px var(--accent-gold);
+    border: 3.5px solid var(--accent-purple);
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.95), 0 0 35px var(--accent-purple);
     flex-shrink: 0;
 }
 
@@ -1158,7 +1190,7 @@ body, html {
     border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.badge-elem { background: rgba(255, 184, 0, 0.2); color: var(--accent-gold); border-color: var(--accent-gold); }
+.badge-elem { background: rgba(192, 132, 252, 0.2); color: var(--accent-purple); border-color: var(--accent-purple); }
 .badge-atk { background: rgba(255, 71, 87, 0.2); color: #ff6b81; border-color: #ff4757; }
 .badge-hp { background: rgba(46, 213, 115, 0.2); color: #2ed573; border-color: #2ed573; }
 
@@ -1170,7 +1202,7 @@ body, html {
 }
 
 .detail-bonus-box strong {
-    color: var(--accent-gold);
+    color: var(--accent-purple);
     font-family: var(--font-heading);
     font-size: 0.95rem;
     display: block;
@@ -1192,7 +1224,7 @@ body, html {
     font-family: var(--font-heading);
     font-size: 2.5rem;
     font-weight: 900;
-    color: var(--accent-gold);
+    color: var(--accent-purple);
 }
 
 .modal-card p {

@@ -1,5 +1,5 @@
 /* ==========================================================================
-   L.L. CARD GAME - APPLICATION CONTROLLER (MULTIPLAYER MESSAGES & TOASTS)
+   L.L. CARD GAME - APPLICATION CONTROLLER (GESTIONE MENU & SELEZIONE VIOLA)
    ========================================================================== */
 
 class AppController {
@@ -42,6 +42,22 @@ class AppController {
         }
     }
 
+    bindMenuClick(elementId, handler) {
+        const el = document.getElementById(elementId);
+        if (el) {
+            el.onclick = (e) => {
+                if (e) e.stopPropagation();
+                document.querySelectorAll('.btn-menu-option').forEach(b => b.classList.remove('selected'));
+                el.classList.add('selected');
+                try {
+                    handler(e);
+                } catch (err) {
+                    console.error(`Errore nel click su #${elementId}:`, err);
+                }
+            };
+        }
+    }
+
     initUI() {
         // GESTIONE NICKNAME INPUT CON SALVATAGGIO IN LOCALSTORAGE
         const nickInput = document.getElementById('input-nickname-menu');
@@ -54,22 +70,21 @@ class AppController {
             };
         }
 
-        this.bindClick('btn-pvai', () => this.startPvAIGame());
-        this.bindClick('btn-online', () => this.showScreen('screen-multiplayer'));
+        this.bindMenuClick('btn-pvai', () => this.startPvAIGame());
+        this.bindMenuClick('btn-online', () => this.showScreen('screen-multiplayer'));
+        this.bindMenuClick('btn-collection', () => {
+            this.renderCollection('ALL');
+            this.showScreen('screen-collection');
+        });
+        this.bindMenuClick('btn-fullscreen-menu', () => this.toggleFullscreen());
+        this.bindMenuClick('btn-rules', () => this.showScreen('screen-rules'));
+
         this.bindClick('btn-close-lobby', () => {
             this.multiplayer.disconnect();
             this.showScreen('screen-menu');
         });
 
-        this.bindClick('btn-collection', () => {
-            this.renderCollection('ALL');
-            this.showScreen('screen-collection');
-        });
-
-        this.bindClick('btn-fullscreen-menu', () => this.toggleFullscreen());
         this.bindClick('btn-fullscreen-battle', () => this.toggleFullscreen());
-
-        this.bindClick('btn-rules', () => this.showScreen('screen-rules'));
         this.bindClick('btn-close-rules', () => this.showScreen('screen-menu'));
         this.bindClick('btn-back-menu', () => {
             this.stopTurnTimer();
@@ -710,7 +725,7 @@ class AppController {
     createCardDOM(card, inHand = false, inCollection = false) {
         const cardEl = document.createElement('div');
         cardEl.className = 'card';
-        cardEl.style.borderColor = card.elementColor || '#ffb800';
+        cardEl.style.borderColor = card.elementColor || '#c084fc';
 
         if (card.image) {
             cardEl.style.backgroundImage = `url('${card.image}')`;
@@ -752,13 +767,13 @@ class AppController {
         cutIn.className = 'bonus-cutin-overlay';
         cutIn.innerHTML = `
             <div class="bonus-cutin-content">
-                ⚡ POWER UP! ${cardName}<br><span style="color:#ffb800; font-size:2.2rem;">${bonusMessage}</span>
+                ⚡ POWER UP! ${cardName}<br><span style="color:#c084fc; font-size:2.2rem;">${bonusMessage}</span>
             </div>
         `;
         document.body.appendChild(cutIn);
 
         if (this.audio) this.audio.playBonusPowerUp();
-        if (this.particles) this.particles.createBurst(window.innerWidth / 2, window.innerHeight / 2, '#ffb800');
+        if (this.particles) this.particles.createBurst(window.innerWidth / 2, window.innerHeight / 2, '#c084fc');
 
         setTimeout(() => {
             if (document.body.contains(cutIn)) {
@@ -776,7 +791,7 @@ class AppController {
 
         if (currentBonusAtk > prevBonusAtk) {
             const diff = currentBonusAtk - prevBonusAtk;
-            this.spawnFloatingBonusText(cardEl, `⚡ +${diff} ATT!`, '#ffb800');
+            this.spawnFloatingBonusText(cardEl, `⚡ +${diff} ATT!`, '#c084fc');
             this.triggerBonusCutIn(card.name, `+${diff} ATTACCO PER QUESTO TURNO!`);
         }
 
