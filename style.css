@@ -1,5 +1,5 @@
 /* ==========================================================================
-   L.L. CARD GAME - STYLESHEET HD ULTRA READABLE (RISOLUZIONE LANDSCAPE MOBILE 100% PERFECT FIT)
+   L.L. CARD GAME - STYLESHEET HD ULTRA READABLE (FIT PERFETTO ORIZZONTALE MOBILE)
    ========================================================================== */
 
 :root {
@@ -1476,9 +1476,16 @@ body, html {
 }
 
 /* ==========================================================================
-   8. MEDIA QUERIES LANDSCAPE MOBILE (ADATTAMENTO PERFECT FIT PER ALTEZZE RIDOTTE)
+   8. MEDIA QUERIES LANDSCAPE UNIVERSILE PER TUTTI I DISPOSITIVI MOBILE E TABLET
    ========================================================================== */
-@media (orientation: landscape) and (max-height: 600px) {
+@media screen and (orientation: landscape) and (max-width: 1100px) {
+    #app, .screen, #screen-battle {
+        height: 100vh !important;
+        height: 100dvh !important;
+        max-height: 100dvh !important;
+        overflow: hidden !important;
+    }
+
     .screen-footer {
         display: none !important;
     }
@@ -1486,15 +1493,19 @@ body, html {
     .battle-top-bar {
         padding: 2px 8px !important;
         margin: 0 !important;
+        height: 34px !important;
+        flex-shrink: 0 !important;
     }
 
     .action-banner {
         padding: 1px 6px !important;
         font-size: 0.75rem !important;
         margin: 0 !important;
+        height: 22px !important;
+        flex-shrink: 0 !important;
     }
 
-    /* RIDUZIONE COMPATTA PERFETTA DELLE CARTE SU SCHERMI ORIZZONTALI RIDOTTI */
+    /* RIDUZIONE COMPATTA ED EQUILIBRATA DELLE CARTE IN ORIZZONTALE */
     .hand-cards .card,
     .board-card,
     .deck-card-cover {
@@ -1535,19 +1546,30 @@ body, html {
         padding: 0 4px 115px 4px !important;
         flex: 1 !important;
         min-height: 0 !important;
+        height: calc(100dvh - 58px) !important;
+        overflow: hidden !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
     }
 
     .board-area {
         min-height: 0 !important;
         flex: 1 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+        padding: 2px 0 !important;
     }
 
     .board-row {
         min-height: 0 !important;
-        height: 112px !important;
+        height: 108px !important;
+        max-height: 110px !important;
         gap: 6px !important;
         padding: 2px !important;
         flex: 1 !important;
+        margin: 1px 0 !important;
     }
 
     .hand-container {
@@ -1557,6 +1579,13 @@ body, html {
         transform: translateX(-50%) !important;
         height: 115px !important;
         padding: 0 4px !important;
+        z-index: 600 !important;
+    }
+
+    .player-zone {
+        padding: 1px 6px !important;
+        height: 32px !important;
+        flex-shrink: 0 !important;
     }
 
     .player-portrait {
@@ -1564,12 +1593,13 @@ body, html {
         padding: 2px 6px !important;
         gap: 4px !important;
         border-radius: 8px !important;
+        height: 30px !important;
     }
 
     .avatar {
-        width: 26px !important;
-        height: 26px !important;
-        font-size: 0.9rem !important;
+        width: 24px !important;
+        height: 24px !important;
+        font-size: 0.85rem !important;
     }
 
     .player-name {
@@ -1588,6 +1618,8 @@ body, html {
 
     .shared-deck-widget {
         right: 4px !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
     }
 
     .deck-count {
