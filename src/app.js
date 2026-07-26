@@ -1,5 +1,5 @@
 /* ==========================================================================
-   L.L. CARD GAME - APPLICATION CONTROLLER (MODALITÀ ORIZZONTALE MISURA PERFETTA A METÀ)
+   L.L. CARD GAME - APPLICATION CONTROLLER (ORGANIZZAZIONE HEARTHSTONE PEEK STYLE)
    ========================================================================== */
 
 class AppController {
@@ -249,14 +249,14 @@ class AppController {
         if (isLandscape) {
             document.body.classList.add('mobile-landscape');
             
-            // Misura esatta a metà fra le due opzioni: 140px altezza per 98px larghezza
-            const targetCardHeight = 140;
-            const targetCardWidth = 98;
+            // Layout Hearthstone-style: carte sul campo 118px nitide, mano abbassata in basso senza alcuna sovrapposizione!
+            const targetCardHeight = 118;
+            const targetCardWidth = 84;
 
             document.documentElement.style.setProperty('--card-landscape-w', `${targetCardWidth}px`);
             document.documentElement.style.setProperty('--card-landscape-h', `${targetCardHeight}px`);
-            document.documentElement.style.setProperty('--hand-container-h', `${targetCardHeight + 8}px`);
-            document.documentElement.style.setProperty('--board-row-h', `${targetCardHeight + 6}px`);
+            document.documentElement.style.setProperty('--hand-container-h', `80px`);
+            document.documentElement.style.setProperty('--board-row-h', `${targetCardHeight + 4}px`);
         } else {
             document.body.classList.remove('mobile-landscape');
         }
