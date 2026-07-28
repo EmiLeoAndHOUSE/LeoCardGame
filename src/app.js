@@ -246,36 +246,10 @@ class AppController {
 
         const width = window.innerWidth;
         const height = window.innerHeight;
-        const dpr = window.devicePixelRatio || 1;
         const isLandscape = (width > height);
-        const isMobileTablet = (width <= 1400 || height <= 900);
 
-        if (isLandscape && isMobileTablet) {
+        if (isLandscape && width <= 1600) {
             document.body.classList.add('mobile-landscape');
-            
-            // MOTORE DI CALCOLO DINAMICO IN BASE ALL'ALTEZZA ED ALLA RISOLUZIONE DEL DISPOSITIVO
-            let cardW, cardH, badgeSize, badgeFont, handH, boardRowH;
-
-            if (height < 380) {
-                // Ultra-narrow landscape (es. vecchi smartphone o schermi molto stretti)
-                cardW = 48; cardH = 70; badgeSize = 15; badgeFont = '0.6rem'; handH = 78; boardRowH = 74;
-            } else if (height < 500) {
-                // Smartphone Standard 6.74" OLED (2772x1240)
-                cardW = 56; cardH = 80; badgeSize = 17; badgeFont = '0.68rem'; handH = 88; boardRowH = 84;
-            } else if (height < 750) {
-                // Tablet Medio / FHD (es. Lenovo Tab M10 FHD+, iPad Mini, Galaxy Tab A8)
-                cardW = 62; cardH = 88; badgeSize = 19; badgeFont = '0.75rem'; handH = 96; boardRowH = 92;
-            } else {
-                // Tablet Grande (iPad Pro 11"/12.9", Galaxy Tab S8+)
-                cardW = 72; cardH = 102; badgeSize = 22; badgeFont = '0.85rem'; handH = 110; boardRowH = 106;
-            }
-
-            document.documentElement.style.setProperty('--card-w', `${cardW}px`);
-            document.documentElement.style.setProperty('--card-h', `${cardH}px`);
-            document.documentElement.style.setProperty('--stat-badge-size', `${badgeSize}px`);
-            document.documentElement.style.setProperty('--stat-badge-font', badgeFont);
-            document.documentElement.style.setProperty('--hand-container-h', `${handH}px`);
-            document.documentElement.style.setProperty('--board-row-h', `${boardRowH}px`);
         } else {
             document.body.classList.remove('mobile-landscape');
         }
