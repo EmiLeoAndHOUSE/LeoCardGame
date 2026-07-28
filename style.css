@@ -1614,7 +1614,7 @@ body, html {
         padding: 0 !important;
     }
 
-    /* FILE CAMPO DA GIOCO PERCENUTALI (23% ALTEZZA CIASCUNA) */
+    /* FILE CAMPO DA GIOCO PERCENUTALI (22% ALTEZZA CIASCUNA) */
     body .board-row {
         min-height: 0 !important;
         height: 22dvh !important;
@@ -1656,32 +1656,32 @@ body, html {
         border-color: var(--accent-danger) !important;
     }
 
-    /* MANO GIOCATORE CON AMPLEZZA ORIZZONTALE AMPIA (88% LARGHEZZA E MAX 920px CENTRATA) PER TABLET & MOBILE */
+    /* MANO GIOCATORE CON AMPLEZZA PERFETTA E MARGIN AUTO ANTI-TAGLIO SINISTRA */
     body .hand-container {
         position: absolute !important;
         bottom: 0 !important;
-        left: 50% !important;
+        left: 52% !important;
         transform: translateX(-50%) !important;
         height: 38dvh !important;
-        width: 88% !important;
-        max-width: 920px !important;
+        width: 78% !important;
+        max-width: 860px !important;
         overflow-x: auto !important;
         overflow-y: visible !important;
         -webkit-overflow-scrolling: touch !important;
         z-index: 600 !important;
-        padding: 0 10px !important;
+        padding: 0 4px !important;
         display: flex !important;
         align-items: flex-end !important;
-        justify-content: center !important;
     }
 
     body .hand-cards {
         display: flex !important;
         gap: 8px !important;
-        padding: 4px 10px 6px 10px !important;
-        justify-content: center !important;
+        padding: 4px 30px 6px 30px !important;
+        margin: 0 auto !important;
+        justify-content: flex-start !important;
         align-items: flex-end !important;
-        width: auto !important;
+        width: max-content !important;
         height: 100% !important;
         flex-wrap: nowrap !important;
     }
