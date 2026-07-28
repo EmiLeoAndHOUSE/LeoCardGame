@@ -1590,9 +1590,9 @@ body, html {
         flex-shrink: 0 !important;
     }
 
-    /* BATTLEFIELD CONTAINER CON BUDGET RISERVATO DEL 38dvh PER LA MANO DEL GIOCATORE */
+    /* BATTLEFIELD CONTAINER CON BUDGET RISERVATO PER LA MANO DEL GIOCATORE */
     body .battlefield-container {
-        padding: 2px 145px 38dvh 140px !important;
+        padding: 2px 145px min(32dvh, 160px) 140px !important;
         flex: 1 !important;
         min-height: 0 !important;
         height: calc(100dvh - 10dvh) !important;
@@ -1617,8 +1617,8 @@ body, html {
     /* FILE CAMPO DA GIOCO PERCENUTALI (22% ALTEZZA CIASCUNA) */
     body .board-row {
         min-height: 0 !important;
-        height: 22dvh !important;
-        max-height: 24dvh !important;
+        height: min(22dvh, 115px) !important;
+        max-height: 120px !important;
         gap: 10px !important;
         padding: 2px !important;
         flex: 0 0 auto !important;
@@ -1627,9 +1627,9 @@ body, html {
         overflow: visible !important;
     }
 
-    /* CARTE SUL CAMPO CON ALTEZZA PERCENTUALE E ASPECT-RATIO PERFETTO (1 : 1.4) */
+    /* CARTE SUL CAMPO CON ALTEZZA PERCENTUALE CAPPA A max 105px ED ASPECT-RATIO PERFETTO (1 : 1.4) */
     body .board-card {
-        height: 20dvh !important;
+        height: min(20dvh, 105px) !important;
         width: auto !important;
         aspect-ratio: 1 / 1.4 !important;
         border-width: 1.8px !important;
@@ -1662,7 +1662,7 @@ body, html {
         bottom: 0 !important;
         left: 50% !important;
         transform: translateX(-50%) !important;
-        height: 38dvh !important;
+        height: min(34dvh, 175px) !important;
         width: 90% !important;
         max-width: 980px !important;
         overflow-x: auto !important;
@@ -1686,9 +1686,9 @@ body, html {
         flex-wrap: nowrap !important;
     }
 
-    /* CARTE IN MANO CON TETTO ALTEZZA CAP min(30dvh, 185px) PERFETTE SU TABLET 16:10 E SMARTPHONE */
+    /* CARTE IN MANO CON TETTO MASSIMO min(28dvh, 140px) PERFETTE IN QUALSIASI MODALITÀ (NORMALE O FULLSCREEN) */
     body .hand-cards .card {
-        height: min(30dvh, 185px) !important;
+        height: min(28dvh, 140px) !important;
         width: auto !important;
         aspect-ratio: 1 / 1.4 !important;
         border-width: 2px !important;
@@ -1797,7 +1797,7 @@ body, html {
     }
 
     body .deck-card-cover {
-        height: 22dvh !important;
+        height: min(22dvh, 115px) !important;
         width: auto !important;
         aspect-ratio: 1 / 1.4 !important;
     }
