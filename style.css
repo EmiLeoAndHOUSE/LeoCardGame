@@ -1,5 +1,5 @@
 /* ==========================================================================
-   L.L. CARD GAME - STYLESHEET HD ULTRA READABLE (DYNAMIC DENSITY & LANDSCAPE AAA FIT)
+   L.L. CARD GAME - STYLESHEET HD ULTRA READABLE (TABLET & MOBILE AAA LANDSCAPE FIT)
    ========================================================================== */
 
 :root {
@@ -21,13 +21,13 @@
     --font-heading: 'Rajdhani', sans-serif;
     --font-body: 'Outfit', sans-serif;
 
-    /* Variabili CSS Dinamiche di Adattamento Schermo */
-    --card-w: 62px;
-    --card-h: 88px;
-    --stat-badge-size: 20px;
-    --stat-badge-font: 0.72rem;
-    --hand-container-h: 96px;
-    --board-row-h: 92px;
+    /* Variabili CSS Dinamiche di Adattamento Schermo (Smartphone & Tablet) */
+    --card-w: 60px;
+    --card-h: 85px;
+    --stat-badge-size: 18px;
+    --stat-badge-font: 0.7rem;
+    --hand-container-h: 92px;
+    --board-row-h: 88px;
 }
 
 * {
@@ -1561,9 +1561,9 @@ body, html {
 }
 
 /* ==========================================================================
-   8. MEDIA QUERY E CLASSE ORIZZONTALE AAA (DYNAMIC DENSITY & LANDSCAPE AAA FIT)
+   8. MEDIA QUERY E CLASSE ORIZZONTALE AAA (TABLET & SMARTPHONE DENSITY FIT)
    ========================================================================== */
-@media screen and (orientation: landscape) and (max-height: 680px), body.mobile-landscape {
+@media screen and (orientation: landscape) and (max-height: 900px), body.mobile-landscape {
     body #app,
     body .screen,
     body #screen-battle {
@@ -1596,9 +1596,9 @@ body, html {
         flex-shrink: 0 !important;
     }
 
-    /* BATTLEFIELD CONTAINER CON RISERVA SPAZIO BOTTOM ESCLUSIVA PER LA MANO */
+    /* BATTLEFIELD CONTAINER CON RISERVA SPAZIO BOTTOM DINAMICA PER LA MANO */
     body .battlefield-container {
-        padding: 2px 145px 94px 140px !important;
+        padding: 2px 145px calc(var(--hand-container-h, 92px) + 6px) 140px !important;
         flex: 1 !important;
         min-height: 0 !important;
         height: calc(100dvh - 41px) !important;
@@ -1623,18 +1623,20 @@ body, html {
     /* FILE CAMPO DA GIOCO DINAMICHE */
     body .board-row {
         min-height: 0 !important;
-        height: var(--board-row-h, 86px) !important;
-        max-height: 115px !important;
-        gap: 10px !important;
+        height: var(--board-row-h, 88px) !important;
+        max-height: 120px !important;
+        gap: 8px !important;
         padding: 2px !important;
         flex: 0 0 auto !important;
         margin: 0 !important;
+        flex-wrap: nowrap !important;
+        overflow: visible !important;
     }
 
-    /* CARTE SUL CAMPO CON SCALA DINAMICA SUL DISPOSITIVO */
+    /* CARTE SUL CAMPO CON SCALA DINAMICA SUL DISPOSITIVO (TABLET & MOBILE) */
     body .board-card {
-        width: var(--card-w, 58px) !important;
-        height: var(--card-h, 82px) !important;
+        width: var(--card-w, 60px) !important;
+        height: var(--card-h, 85px) !important;
         border-width: 1.8px !important;
         border-radius: 7px !important;
     }
@@ -1665,7 +1667,7 @@ body, html {
         bottom: 3px !important;
         left: 50% !important;
         transform: translateX(-40%) !important;
-        height: var(--hand-container-h, 90px) !important;
+        height: var(--hand-container-h, 92px) !important;
         width: 60% !important;
         max-width: 520px !important;
         overflow-x: auto !important;
@@ -1687,8 +1689,8 @@ body, html {
 
     /* CARTE IN MANO CON SCALA DINAMICA SUL DISPOSITIVO */
     body .hand-cards .card {
-        width: var(--card-w, 58px) !important;
-        height: var(--card-h, 82px) !important;
+        width: var(--card-w, 60px) !important;
+        height: var(--card-h, 85px) !important;
         border-width: 1.8px !important;
         border-radius: 7px !important;
         margin-left: 0 !important;
@@ -1794,7 +1796,7 @@ body, html {
     }
 
     body .deck-card-cover {
-        width: var(--card-w, 58px) !important;
-        height: var(--card-h, 82px) !important;
+        width: var(--card-w, 60px) !important;
+        height: var(--card-h, 85px) !important;
     }
 }

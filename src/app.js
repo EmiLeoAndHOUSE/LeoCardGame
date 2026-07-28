@@ -248,7 +248,7 @@ class AppController {
         const height = window.innerHeight;
         const dpr = window.devicePixelRatio || 1;
         const isLandscape = (width > height);
-        const isMobileTablet = (width < 1200 || height < 850);
+        const isMobileTablet = (width <= 1400 || height <= 900);
 
         if (isLandscape && isMobileTablet) {
             document.body.classList.add('mobile-landscape');
@@ -256,18 +256,18 @@ class AppController {
             // MOTORE DI CALCOLO DINAMICO IN BASE ALL'ALTEZZA ED ALLA RISOLUZIONE DEL DISPOSITIVO
             let cardW, cardH, badgeSize, badgeFont, handH, boardRowH;
 
-            if (height < 360) {
+            if (height < 380) {
                 // Ultra-narrow landscape (es. vecchi smartphone o schermi molto stretti)
-                cardW = 50; cardH = 72; badgeSize = 16; badgeFont = '0.62rem'; handH = 80; boardRowH = 76;
-            } else if (height < 450) {
+                cardW = 48; cardH = 70; badgeSize = 15; badgeFont = '0.6rem'; handH = 78; boardRowH = 74;
+            } else if (height < 500) {
                 // Smartphone Standard 6.74" OLED (2772x1240)
-                cardW = 58; cardH = 82; badgeSize = 18; badgeFont = '0.7rem'; handH = 90; boardRowH = 86;
-            } else if (height < 680) {
-                // Smartphone Grande o Tablet Compatto (es. iPad Mini, Galaxy Tab 8"-10")
-                cardW = 68; cardH = 96; badgeSize = 22; badgeFont = '0.8rem'; handH = 104; boardRowH = 100;
+                cardW = 56; cardH = 80; badgeSize = 17; badgeFont = '0.68rem'; handH = 88; boardRowH = 84;
+            } else if (height < 750) {
+                // Tablet Medio / FHD (es. Lenovo Tab M10 FHD+, iPad Mini, Galaxy Tab A8)
+                cardW = 62; cardH = 88; badgeSize = 19; badgeFont = '0.75rem'; handH = 96; boardRowH = 92;
             } else {
-                // Tablet Grande (iPad Pro 11"/12.9")
-                cardW = 82; cardH = 116; badgeSize = 26; badgeFont = '0.95rem'; handH = 125; boardRowH = 120;
+                // Tablet Grande (iPad Pro 11"/12.9", Galaxy Tab S8+)
+                cardW = 72; cardH = 102; badgeSize = 22; badgeFont = '0.85rem'; handH = 110; boardRowH = 106;
             }
 
             document.documentElement.style.setProperty('--card-w', `${cardW}px`);
