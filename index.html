@@ -14,7 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&family=Rajdhani:wght@600;700;900&display=swap" rel="stylesheet">
     
     <!-- Stylesheet Principale -->
-    <link rel="stylesheet" href="style.css?v=3.1">
+    <link rel="stylesheet" href="style.css?v=3.2">
 </head>
 <body>
     <div id="app">
@@ -58,7 +58,7 @@
             <!-- FOOTER CON CREDITI, VERSIONE E COPYRIGHT -->
             <footer class="screen-footer">
                 <span class="footer-left">Credito dell'Autore: Leonardo Laise</span>
-                <span class="footer-center">Numero di Versione: 2.0</span>
+                <span class="footer-center">Numero di Versione: 3.2</span>
                 <span class="footer-right">Copyright: © 2026 Leonardo Laise</span>
             </footer>
         </section>
@@ -119,6 +119,14 @@
                         <div>
                             <h4>Schieramento ed Attacco</h4>
                             <p>Puoi schierare massimo 1 carta a turno. Le carte schierate nei turni precedenti (e le carte Bianche con Priorità) possono attaccare le carte nemiche sul campo oppure l'Eroe Avversario per ridurre i suoi punti vita (150 HP totali).</p>
+                        </div>
+                    </div>
+
+                    <div class="rule-box">
+                        <span class="rule-icon">🛡️⚔️</span>
+                        <div>
+                            <h4>Scontro e Danno Reciproco</h4>
+                            <p>Quando attacchi una carta nemica, entrambe le carte si infliggono il rispettivo valore d'attacco contemporaneamente. Se i punti vita di una carta scendono a 0, la carta viene distrutta!</p>
                         </div>
                     </div>
 
@@ -315,12 +323,12 @@
     <script src="https://unpkg.com/mqtt@5.3.0/dist/mqtt.min.js"></script>
 
     <!-- Moduli di Gioco JavaScript con Cache Busting Mobile -->
-    <script src="src/cards.js?v=3.1"></script>
-    <script src="src/engine.js?v=3.1"></script>
-    <script src="src/ai.js?v=3.1"></script>
-    <script src="src/multiplayer.js?v=3.1"></script>
-    <script src="src/audio.js?v=3.1"></script>
-    <script src="src/particles.js?v=3.1"></script>
-    <script src="src/app.js?v=3.1"></script>
+    <script src="src/cards.js?v=3.2"></script>
+    <script src="src/engine.js?v=3.2"></script>
+    <script src="src/ai.js?v=3.2"></script>
+    <script src="src/multiplayer.js?v=3.2"></script>
+    <script src="src/audio.js?v=3.2"></script>
+    <script src="src/particles.js?v=3.2"></script>
+    <script src="src/app.js?v=3.2"></script>
 </body>
 </html>

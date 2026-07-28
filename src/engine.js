@@ -158,30 +158,52 @@ class GameEngine {
             return { success: false, reason: "Questa carta ha già attaccato in questo turno!" };
         }
 
-        let atkDamage = attacker.attack + attacker.currentBonusAtk;
+        let atkDamage = attacker.attack + (attacker.currentBonusAtk || 0);
         
         // BONUS ELEMENTALE SPECIFICO ATTACCO VS ELEMENTO NEMICO
         if (attacker.bonusType === 'ATT_VS_ELEMENT' && defender.element === attacker.targetElement) {
             atkDamage += attacker.bonusValue;
         }
 
+        // DANNO SUBITO DAL DIFENSORE
         defender.currentHp -= atkDamage;
+
+        // DANNO RECIPROCO SUBITO DALL'ATTACCANTE (CONTRATTACCO)
+        let defCounterDamage = defender.attack + (defender.currentBonusAtk || 0);
+        if (defender.bonusType === 'ATT_VS_ELEMENT' && attacker.element === defender.targetElement) {
+            defCounterDamage += defender.bonusValue;
+        }
+        attacker.currentHp -= defCounterDamage;
+
         attacker.canAttack = false;
 
-        let resultMsg = `${attacker.name} ha attaccato ${defender.name} infliggendo ${atkDamage} danni!`;
+        let resultMsg = `${attacker.name} attacca ${defender.name} (${atkDamage} danni). ${defender.name} risponde (${defCounterDamage} danni)!`;
 
-        if (defender.currentHp <= 0) {
+        const defenderDestroyed = defender.currentHp <= 0;
+        const attackerDestroyed = attacker.currentHp <= 0;
+
+        if (defenderDestroyed) {
             const idx = defenderBoard.findIndex(c => c.instanceId === defenderInstanceId);
             if (idx !== -1) defenderBoard.splice(idx, 1);
-            resultMsg += ` ${defender.name} è stata distrutta! 💥`;
+            resultMsg += ` 💀 ${defender.name} distrutta!`;
+        }
+
+        if (attackerDestroyed) {
+            const idx = attackerBoard.findIndex(c => c.instanceId === attackerInstanceId);
+            if (idx !== -1) attackerBoard.splice(idx, 1);
+            resultMsg += ` 💀 ${attacker.name} distrutta nel contrattacco!`;
         }
 
         this.checkWinConditions();
 
         return {
             success: true,
+            attackerId: attackerInstanceId,
+            defenderId: defenderInstanceId,
             damageDealt: atkDamage,
-            defenderDestroyed: defender.currentHp <= 0,
+            counterDamageDealt: defCounterDamage,
+            defenderDestroyed: defenderDestroyed,
+            attackerDestroyed: attackerDestroyed,
             message: resultMsg
         };
     }

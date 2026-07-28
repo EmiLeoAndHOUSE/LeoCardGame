@@ -482,7 +482,7 @@ class AppController {
 
             case 'ATTACK_CARD':
                 const attCardRes = this.engine.attackCard(msg.payload.attackerId, msg.payload.defenderId);
-                this.animateAttack(msg.payload.attackerId, msg.payload.defenderId, attCardRes.damageDealt, false, () => {
+                this.animateAttack(msg.payload.attackerId, msg.payload.defenderId, attCardRes.damageDealt, attCardRes.counterDamageDealt || 0, false, () => {
                     this.showToast(`${this.opponentNickname} ha sferrato un attacco!`);
                     this.renderBattlefield();
                 });
@@ -490,7 +490,7 @@ class AppController {
 
             case 'ATTACK_HERO':
                 const attHeroRes = this.engine.attackHero(msg.payload.attackerId);
-                this.animateAttack(msg.payload.attackerId, null, attHeroRes.damageDealt, true, () => {
+                this.animateAttack(msg.payload.attackerId, null, attHeroRes.damageDealt, 0, true, () => {
                     this.showToast(`${this.opponentNickname} ha attaccato direttamente il tuo Eroe!`);
                     this.renderBattlefield();
                 });
@@ -899,7 +899,7 @@ class AppController {
         return cardEl;
     }
 
-    animateAttack(attackerId, defenderId, damageDealt, isHero = false, onComplete) {
+    animateAttack(attackerId, defenderId, damageDealt, counterDamageDealt = 0, isHero = false, onComplete = null) {
         const attackerEl = document.querySelector(`[data-instance-id="${attackerId}"]`);
         let defenderEl = null;
 
@@ -947,6 +947,14 @@ class AppController {
             defenderEl.classList.add('card-hit-flash');
             setTimeout(() => defenderEl.classList.remove('card-hit-flash'), 400);
 
+            // Se c'è contrattacco, flash anche dell'attaccante
+            if (counterDamageDealt > 0 && !isHero) {
+                attackerEl.classList.remove('card-hit-flash');
+                void attackerEl.offsetWidth;
+                attackerEl.classList.add('card-hit-flash');
+                setTimeout(() => attackerEl.classList.remove('card-hit-flash'), 400);
+            }
+
             // Esplosione di particelle
             if (this.particles) {
                 this.particles.createBurst(dRect.left + dRect.width / 2, dRect.top + dRect.height / 2, '#ff4757');
@@ -957,7 +965,7 @@ class AppController {
                 this.audio.playAttackHit();
             }
 
-            // Danni Fluttuanti 3D
+            // Danni Fluttuanti 3D sul DIFENSORE
             const damagePop = document.createElement('div');
             damagePop.className = 'damage-pop-float';
             damagePop.textContent = `-${damageDealt} 💥`;
@@ -965,10 +973,23 @@ class AppController {
             damagePop.style.top = `${dRect.top + dRect.height / 2}px`;
             document.body.appendChild(damagePop);
 
+            // Danni Fluttuanti 3D per il CONTRATTACCO (sull'ATTACCANTE)
+            if (counterDamageDealt > 0 && !isHero) {
+                const counterPop = document.createElement('div');
+                counterPop.className = 'damage-pop-float';
+                counterPop.textContent = `-${counterDamageDealt} 🛡️`;
+                counterPop.style.left = `${aRect.left + aRect.width / 2}px`;
+                counterPop.style.top = `${aRect.top + aRect.height / 2}px`;
+                counterPop.style.color = '#ffb800';
+                document.body.appendChild(counterPop);
+
+                setTimeout(() => {
+                    if (document.body.contains(counterPop)) document.body.removeChild(counterPop);
+                }, 1200);
+            }
+
             setTimeout(() => {
-                if (document.body.contains(damagePop)) {
-                    document.body.removeChild(damagePop);
-                }
+                if (document.body.contains(damagePop)) document.body.removeChild(damagePop);
             }, 1200);
 
             setTimeout(() => {
@@ -1143,7 +1164,7 @@ class AppController {
 
             const result = this.engine.attackCard(attackerId, defenderId);
             if (result.success) {
-                this.animateAttack(attackerId, defenderId, result.damageDealt, false, () => {
+                this.animateAttack(attackerId, defenderId, result.damageDealt, result.counterDamageDealt || 0, false, () => {
                     if (this.isMultiplayer) {
                         this.multiplayer.send('ATTACK_CARD', {
                             attackerId: attackerId,
@@ -1168,12 +1189,20 @@ class AppController {
             this.showToast(`L'IA ha schierato ${action.card.name}!`);
             this.renderBattlefield();
         } else if (action.type === 'ATTACK_CARD') {
-            this.animateAttack(action.attackerId, action.defenderId, action.result.damageDealt, false, () => {
+            const attId = action.result ? action.result.attackerId : action.attackerId;
+            const defId = action.result ? action.result.defenderId : action.defenderId;
+            const dmg = action.result ? action.result.damageDealt : 0;
+            const counterDmg = action.result ? action.result.counterDamageDealt : 0;
+
+            this.animateAttack(attId, defId, dmg, counterDmg, false, () => {
                 this.showToast(action.result.message);
                 this.renderBattlefield();
             });
         } else if (action.type === 'ATTACK_HERO') {
-            this.animateAttack(action.attackerId, null, action.result.damageDealt, true, () => {
+            const attId = action.result ? action.result.attackerId : action.attackerId;
+            const dmg = action.result ? action.result.damageDealt : 0;
+
+            this.animateAttack(attId, null, dmg, 0, true, () => {
                 this.showToast(action.result.message);
                 this.renderBattlefield();
             });
