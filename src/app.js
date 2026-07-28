@@ -246,29 +246,53 @@ class AppController {
 
         const width = window.innerWidth;
         const height = window.innerHeight;
-        const isLandscape = (width > height) && (width < 1500 || height < 850);
+        const dpr = window.devicePixelRatio || 1;
+        const isLandscape = (width > height);
+        const isMobileTablet = (width < 1200 || height < 850);
 
-        if (isLandscape) {
+        if (isLandscape && isMobileTablet) {
             document.body.classList.add('mobile-landscape');
             
-            // Layout Hearthstone-style: carte sul campo 118px nitide, mano abbassata in basso senza alcuna sovrapposizione!
-            const targetCardHeight = 118;
-            const targetCardWidth = 84;
+            // MOTORE DI CALCOLO DINAMICO IN BASE ALL'ALTEZZA ED ALLA RISOLUZIONE DEL DISPOSITIVO
+            let cardW, cardH, badgeSize, badgeFont, handH, boardRowH;
 
-            document.documentElement.style.setProperty('--card-landscape-w', `${targetCardWidth}px`);
-            document.documentElement.style.setProperty('--card-landscape-h', `${targetCardHeight}px`);
-            document.documentElement.style.setProperty('--hand-container-h', `80px`);
-            document.documentElement.style.setProperty('--board-row-h', `${targetCardHeight + 4}px`);
+            if (height < 360) {
+                // Ultra-narrow landscape (es. vecchi smartphone o schermi molto stretti)
+                cardW = 50; cardH = 72; badgeSize = 16; badgeFont = '0.62rem'; handH = 80; boardRowH = 76;
+            } else if (height < 450) {
+                // Smartphone Standard 6.74" OLED (2772x1240)
+                cardW = 58; cardH = 82; badgeSize = 18; badgeFont = '0.7rem'; handH = 90; boardRowH = 86;
+            } else if (height < 680) {
+                // Smartphone Grande o Tablet Compatto (es. iPad Mini, Galaxy Tab 8"-10")
+                cardW = 68; cardH = 96; badgeSize = 22; badgeFont = '0.8rem'; handH = 104; boardRowH = 100;
+            } else {
+                // Tablet Grande (iPad Pro 11"/12.9")
+                cardW = 82; cardH = 116; badgeSize = 26; badgeFont = '0.95rem'; handH = 125; boardRowH = 120;
+            }
+
+            document.documentElement.style.setProperty('--card-w', `${cardW}px`);
+            document.documentElement.style.setProperty('--card-h', `${cardH}px`);
+            document.documentElement.style.setProperty('--stat-badge-size', `${badgeSize}px`);
+            document.documentElement.style.setProperty('--stat-badge-font', badgeFont);
+            document.documentElement.style.setProperty('--hand-container-h', `${handH}px`);
+            document.documentElement.style.setProperty('--board-row-h', `${boardRowH}px`);
         } else {
             document.body.classList.remove('mobile-landscape');
         }
+
+        this.checkOrientation();
     }
 
     checkOrientation() {
-        if (window.innerWidth < 768 && window.innerHeight > window.innerWidth) {
-            if (!this.hasShownOrientationToast) {
-                this.showToast("🔄 Suggerimento: Ruota lo smartphone in Orizzontale per la vista panoramica ideale!");
-                this.hasShownOrientationToast = true;
+        const isMobile = (window.innerWidth < 1024 || window.innerHeight < 700);
+        const isPortrait = (window.innerHeight > window.innerWidth);
+        const overlay = document.getElementById('rotate-device-overlay');
+
+        if (overlay) {
+            if (isMobile && isPortrait) {
+                overlay.classList.add('active');
+            } else {
+                overlay.classList.remove('active');
             }
         }
     }

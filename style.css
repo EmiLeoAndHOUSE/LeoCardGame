@@ -1,5 +1,5 @@
 /* ==========================================================================
-   L.L. CARD GAME - STYLESHEET HD ULTRA READABLE (DOWNWARD EXPANSION FOR PLAYER BOARD CARDS)
+   L.L. CARD GAME - STYLESHEET HD ULTRA READABLE (DYNAMIC DENSITY & LANDSCAPE AAA FIT)
    ========================================================================== */
 
 :root {
@@ -20,6 +20,14 @@
 
     --font-heading: 'Rajdhani', sans-serif;
     --font-body: 'Outfit', sans-serif;
+
+    /* Variabili CSS Dinamiche di Adattamento Schermo */
+    --card-w: 62px;
+    --card-h: 88px;
+    --stat-badge-size: 20px;
+    --stat-badge-font: 0.72rem;
+    --hand-container-h: 96px;
+    --board-row-h: 92px;
 }
 
 * {
@@ -47,6 +55,66 @@ body, html {
     height: 100dvh;
     display: flex;
     overflow: hidden;
+}
+
+/* OVERLAY DINAMICO INVITO ALLA ROTAZIONE (MOBILE PORTRAIT -> LANDSCAPE) */
+#rotate-device-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    background: rgba(6, 8, 16, 0.96);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    z-index: 99999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    text-align: center;
+}
+
+#rotate-device-overlay.active {
+    display: flex !important;
+}
+
+.rotate-overlay-content {
+    max-width: 380px;
+    width: 100%;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    border: 2px solid var(--accent-purple);
+    box-shadow: 0 0 40px rgba(192, 132, 252, 0.5), 0 12px 40px rgba(0, 0, 0, 0.9);
+}
+
+.phone-icon-anim {
+    font-size: 4.2rem;
+    animation: rotatePhone 2.2s infinite ease-in-out;
+}
+
+@keyframes rotatePhone {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(-90deg); }
+}
+
+.rotate-overlay-content h2 {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--accent-purple);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.rotate-overlay-content p {
+    font-size: 1rem;
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.9);
 }
 
 #fx-canvas {
@@ -1493,9 +1561,9 @@ body, html {
 }
 
 /* ==========================================================================
-   8. MEDIA QUERY E CLASSE ORIZZONTALE AAA (DOWNWARD SELECTION FOR PLAYER BOARD CARDS)
+   8. MEDIA QUERY E CLASSE ORIZZONTALE AAA (DYNAMIC DENSITY & LANDSCAPE AAA FIT)
    ========================================================================== */
-@media screen and (orientation: landscape) and (max-height: 600px), body.mobile-landscape {
+@media screen and (orientation: landscape) and (max-height: 680px), body.mobile-landscape {
     body #app,
     body .screen,
     body #screen-battle {
@@ -1530,7 +1598,7 @@ body, html {
 
     /* BATTLEFIELD CONTAINER CON RISERVA SPAZIO BOTTOM ESCLUSIVA PER LA MANO */
     body .battlefield-container {
-        padding: 2px 145px 88px 140px !important;
+        padding: 2px 145px 94px 140px !important;
         flex: 1 !important;
         min-height: 0 !important;
         height: calc(100dvh - 41px) !important;
@@ -1552,21 +1620,21 @@ body, html {
         padding: 0 !important;
     }
 
-    /* FILE CAMPO DA GIOCO (78px) */
+    /* FILE CAMPO DA GIOCO DINAMICHE */
     body .board-row {
         min-height: 0 !important;
-        height: 78px !important;
-        max-height: 80px !important;
+        height: var(--board-row-h, 86px) !important;
+        max-height: 115px !important;
         gap: 10px !important;
         padding: 2px !important;
         flex: 0 0 auto !important;
         margin: 0 !important;
     }
 
-    /* CARTE SUL CAMPO (54px x 76px) PERFETTE E NITIDE */
+    /* CARTE SUL CAMPO CON SCALA DINAMICA SUL DISPOSITIVO */
     body .board-card {
-        width: 54px !important;
-        height: 76px !important;
+        width: var(--card-w, 58px) !important;
+        height: var(--card-h, 82px) !important;
         border-width: 1.8px !important;
         border-radius: 7px !important;
     }
@@ -1591,15 +1659,15 @@ body, html {
         border-color: var(--accent-danger) !important;
     }
 
-    /* MANO GIOCATORE CON ALTEZZA 84px PER ACCOGLIERE AL 100% LE CARTE DA 76px CON MARGINE */
+    /* MANO GIOCATORE CON ALTEZZA DINAMICA E CALCOLATA DALL'ENGINE */
     body .hand-container {
         position: absolute !important;
         bottom: 3px !important;
         left: 50% !important;
         transform: translateX(-40%) !important;
-        height: 84px !important;
+        height: var(--hand-container-h, 90px) !important;
         width: 60% !important;
-        max-width: 480px !important;
+        max-width: 520px !important;
         overflow-x: auto !important;
         overflow-y: visible !important;
         -webkit-overflow-scrolling: touch !important;
@@ -1617,10 +1685,10 @@ body, html {
         height: 100% !important;
     }
 
-    /* CARTE IN MANO (54px x 76px) SI INGRANDISCONO VERSO L'ALTO DENTRO LO SPAZIO VUOTO */
+    /* CARTE IN MANO CON SCALA DINAMICA SUL DISPOSITIVO */
     body .hand-cards .card {
-        width: 54px !important;
-        height: 76px !important;
+        width: var(--card-w, 58px) !important;
+        height: var(--card-h, 82px) !important;
         border-width: 1.8px !important;
         border-radius: 7px !important;
         margin-left: 0 !important;
@@ -1639,11 +1707,11 @@ body, html {
         border-color: #ffffff !important;
     }
 
-    /* PALLINI ATTACCO E VITA ADATTATI PERFETTAMENTE A 18px x 18px */
+    /* PALLINI ATTACCO E VITA ADATTATI DINAMICAMENTE */
     body .stat-badge {
-        width: 18px !important;
-        height: 18px !important;
-        font-size: 0.7rem !important;
+        width: var(--stat-badge-size, 18px) !important;
+        height: var(--stat-badge-size, 18px) !important;
+        font-size: var(--stat-badge-font, 0.7rem) !important;
         border-width: 1.2px !important;
     }
 
@@ -1726,7 +1794,7 @@ body, html {
     }
 
     body .deck-card-cover {
-        width: 58px !important;
-        height: 82px !important;
+        width: var(--card-w, 58px) !important;
+        height: var(--card-h, 82px) !important;
     }
 }
