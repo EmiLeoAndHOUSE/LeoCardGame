@@ -334,20 +334,22 @@ class AppController {
     handleEndTurn() {
         if (!this.isMyTurn() || this.engine.gameOver) return;
         if (this.audio) this.audio.playClick();
-        this.stopTurnTimer();
         this.engine.endTurn();
 
         if (this.isMultiplayer) {
             this.multiplayer.send('END_TURN');
         }
 
+        this.triggerTurnTransition(false);
         this.renderBattlefield();
 
         if (!this.isMultiplayer) {
-            this.showToast("Turno dell'IA...");
             this.ai.takeTurn(
                 (action) => this.handleAIAction(action),
-                () => this.renderBattlefield()
+                () => {
+                    this.triggerTurnTransition(true);
+                    this.renderBattlefield();
+                }
             );
         }
     }
@@ -497,6 +499,7 @@ class AppController {
             case 'END_TURN':
                 this.engine.endTurn();
                 if (this.audio) this.audio.playClick();
+                this.triggerTurnTransition(true);
                 this.showToast(`${this.opponentNickname} ha terminato il turno. Tocca a te!`);
                 this.renderBattlefield();
                 break;
@@ -533,6 +536,26 @@ class AppController {
         }, 2000);
     }
 
+    triggerTurnTransition(isMyTurn) {
+        const banner = document.getElementById('turn-cutin-banner');
+        const text = document.getElementById('turn-cutin-text');
+        if (banner && text) {
+            banner.className = `turn-cutin-overlay active ${isMyTurn ? 'player-turn' : 'opponent-turn'}`;
+            text.textContent = isMyTurn ? '⚡ IL TUO TURNO! ⚡' : `⚠️ TURNO DI ${this.opponentNickname.toUpperCase()} ⚠️`;
+            
+            if (this.turnCutinTimeout) clearTimeout(this.turnCutinTimeout);
+            this.turnCutinTimeout = setTimeout(() => {
+                banner.className = 'turn-cutin-overlay';
+            }, 1800);
+        }
+
+        if (this.audio && typeof this.audio.playTurnStart === 'function') {
+            this.audio.playTurnStart(isMyTurn);
+        }
+
+        this.startTurnTimer();
+    }
+
     startTurnTimer() {
         this.stopTurnTimer();
         this.turnTimeLeft = 30;
@@ -541,12 +564,17 @@ class AppController {
         const text = document.getElementById('timer-text');
         const bar = document.getElementById('timer-bar');
 
-        if (widget) widget.classList.remove('warning');
+        const isMyTurn = this.isMyTurn();
+
+        if (widget) {
+            widget.classList.remove('warning', 'opponent-timer');
+            if (!isMyTurn) widget.classList.add('opponent-timer');
+        }
         if (text) text.textContent = '30s';
         if (bar) bar.style.width = '100%';
 
         this.turnTimerInterval = setInterval(() => {
-            if (!this.isMyTurn() || this.engine.gameOver) {
+            if (this.engine.gameOver) {
                 this.stopTurnTimer();
                 return;
             }
@@ -567,18 +595,32 @@ class AppController {
 
             if (this.turnTimeLeft <= 0) {
                 this.stopTurnTimer();
-                this.showToast("⏱️ Tempo scaduto! Turno passato automaticamente.");
-                this.engine.endTurn();
-                if (this.isMultiplayer) {
-                    this.multiplayer.send('END_TURN');
-                }
-                this.renderBattlefield();
+                if (this.isMyTurn()) {
+                    this.showToast("⏱️ Tempo scaduto! Turno passato automaticamente.");
+                    this.engine.endTurn();
+                    if (this.isMultiplayer) {
+                        this.multiplayer.send('END_TURN');
+                    }
+                    this.triggerTurnTransition(false);
+                    this.renderBattlefield();
 
-                if (!this.isMultiplayer) {
-                    this.ai.takeTurn(
-                        (action) => this.handleAIAction(action),
-                        () => this.renderBattlefield()
-                    );
+                    if (!this.isMultiplayer) {
+                        this.ai.takeTurn(
+                            (action) => this.handleAIAction(action),
+                            () => {
+                                this.triggerTurnTransition(true);
+                                this.renderBattlefield();
+                            }
+                        );
+                    }
+                } else {
+                    if (this.isMultiplayer && this.myRole === 'PLAYER') {
+                        this.showToast(`⏱️ Tempo di ${this.opponentNickname} scaduto! Turno passato.`);
+                        this.engine.endTurn();
+                        this.multiplayer.send('END_TURN');
+                        this.triggerTurnTransition(true);
+                        this.renderBattlefield();
+                    }
                 }
             }
         }, 1000);
@@ -596,10 +638,27 @@ class AppController {
         const msgEl = document.getElementById('action-status-msg');
         const bannerEl = document.getElementById('action-status-banner');
         const endTurnBtn = document.getElementById('btn-end-turn');
+        const zonePlayer = document.getElementById('zone-player');
+        const zoneOpponent = document.getElementById('zone-opponent');
+        const playerBadge = document.getElementById('player-turn-badge');
+        const oppBadge = document.getElementById('opponent-turn-badge');
 
         if (!iconEl || !msgEl) return;
 
-        if (this.isMyTurn() && !this.engine.gameOver) {
+        const isMyTurn = this.isMyTurn();
+
+        if (isMyTurn && !this.engine.gameOver) {
+            if (zonePlayer) zonePlayer.classList.add('active-turn');
+            if (zoneOpponent) zoneOpponent.classList.remove('active-turn');
+            if (playerBadge) { playerBadge.textContent = 'TUO TURNO'; playerBadge.className = 'turn-badge badge-my-turn'; }
+            if (oppBadge) { oppBadge.textContent = 'ATTENDE'; oppBadge.className = 'turn-badge badge-idle'; }
+
+            if (endTurnBtn) {
+                endTurnBtn.disabled = false;
+                endTurnBtn.classList.remove('btn-disabled');
+                endTurnBtn.textContent = 'Passa Turno ➔';
+            }
+
             const playedThisTurn = (this.engine.cardsPlayedThisTurn >= 1);
             const myBoard = (this.myRole === 'PLAYER') ? this.engine.playerBoard : this.engine.aiBoard;
             const readyAttackers = myBoard.filter(c => c.canAttack).length;
@@ -626,10 +685,21 @@ class AppController {
                 if (endTurnBtn) endTurnBtn.classList.add('btn-pulse-suggest');
             }
         } else {
+            if (zoneOpponent) zoneOpponent.classList.add('active-turn');
+            if (zonePlayer) zonePlayer.classList.remove('active-turn');
+            if (oppBadge) { oppBadge.textContent = 'IN CORSO...'; oppBadge.className = 'turn-badge badge-opp-turn'; }
+            if (playerBadge) { playerBadge.textContent = 'ATTENDE'; playerBadge.className = 'turn-badge badge-idle'; }
+
+            if (endTurnBtn) {
+                endTurnBtn.disabled = true;
+                endTurnBtn.classList.add('btn-disabled');
+                endTurnBtn.classList.remove('btn-pulse-suggest');
+                endTurnBtn.textContent = 'TURNO IA... ⏳';
+            }
+
             iconEl.textContent = '⏳';
             msgEl.textContent = `Turno di ${this.opponentNickname} in corso... Attendi le sue mosse.`;
             bannerEl.className = 'action-banner';
-            if (endTurnBtn) endTurnBtn.classList.remove('btn-pulse-suggest');
         }
     }
 
@@ -654,7 +724,7 @@ class AppController {
     renderBattlefield() {
         this.updateViewportDimensions();
 
-        if (this.isMyTurn() && !this.engine.gameOver) {
+        if (!this.engine.gameOver) {
             if (!this.turnTimerInterval) {
                 this.startTurnTimer();
             }

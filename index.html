@@ -14,7 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&family=Rajdhani:wght@600;700;900&display=swap" rel="stylesheet">
     
     <!-- Stylesheet Principale -->
-    <link rel="stylesheet" href="style.css?v=2.7">
+    <link rel="stylesheet" href="style.css?v=3.0">
 </head>
 <body>
     <div id="app">
@@ -192,13 +192,21 @@
                 <span id="action-status-msg">Il Tuo Turno - Schiera 1 Carta o Attacca!</span>
             </div>
 
+            <!-- BANNER CINEMATICO CAMBIO TURNO HIGH-IMPACT -->
+            <div id="turn-cutin-banner" class="turn-cutin-overlay">
+                <span id="turn-cutin-text" class="turn-cutin-text">⚡ IL TUO TURNO! ⚡</span>
+            </div>
+
             <div class="battlefield-container">
                 <!-- ZONA AVVERSARIO (IA o GIOCATORE ONLINE) -->
-                <div class="player-zone zone-opponent">
+                <div class="player-zone zone-opponent" id="zone-opponent">
                     <div class="player-portrait glass-panel" title="Tocca per attaccare direttamente l'Eroe Avversario">
                         <div class="avatar avatar-ai" id="opponent-avatar">🤖</div>
                         <div class="player-stats">
-                            <div class="player-name" id="opponent-name">Avversario</div>
+                            <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
+                                <div class="player-name" id="opponent-name">Avversario</div>
+                                <span class="turn-badge" id="opponent-turn-badge">ATTENDE</span>
+                            </div>
                             <div class="hp-bar-wrapper">
                                 <div class="hp-bar" id="ai-hp-bar" style="width: 100%;"></div>
                                 <span class="hp-text">❤️ <span id="ai-hp">150</span>/150 HP</span>
@@ -236,11 +244,14 @@
                 </div>
 
                 <!-- ZONA GIOCATORE HUMANO -->
-                <div class="player-zone zone-player">
+                <div class="player-zone zone-player" id="zone-player">
                     <div class="player-portrait glass-panel">
                         <div class="avatar avatar-player">👑</div>
                         <div class="player-stats">
-                            <div class="player-name" id="player-name">Tu</div>
+                            <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
+                                <div class="player-name" id="player-name">Tu</div>
+                                <span class="turn-badge" id="player-turn-badge">TUO TURNO</span>
+                            </div>
                             <div class="hp-bar-wrapper">
                                 <div class="hp-bar" id="player-hp-bar" style="width: 100%;"></div>
                                 <span class="hp-text">❤️ <span id="player-hp">150</span>/150 HP</span>
@@ -304,12 +315,12 @@
     <script src="https://unpkg.com/mqtt@5.3.0/dist/mqtt.min.js"></script>
 
     <!-- Moduli di Gioco JavaScript con Cache Busting Mobile -->
-    <script src="src/cards.js?v=2.7"></script>
-    <script src="src/engine.js?v=2.7"></script>
-    <script src="src/ai.js?v=2.7"></script>
-    <script src="src/multiplayer.js?v=2.7"></script>
-    <script src="src/audio.js?v=2.7"></script>
-    <script src="src/particles.js?v=2.7"></script>
-    <script src="src/app.js?v=2.7"></script>
+    <script src="src/cards.js?v=3.0"></script>
+    <script src="src/engine.js?v=3.0"></script>
+    <script src="src/ai.js?v=3.0"></script>
+    <script src="src/multiplayer.js?v=3.0"></script>
+    <script src="src/audio.js?v=3.0"></script>
+    <script src="src/particles.js?v=3.0"></script>
+    <script src="src/app.js?v=3.0"></script>
 </body>
 </html>

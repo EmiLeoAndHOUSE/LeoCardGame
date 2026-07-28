@@ -197,6 +197,134 @@ body, html {
     100% { opacity: 0; transform: scaleX(0.5) translateY(20px); }
 }
 
+/* ==========================================================================
+   SISTEMA DI SEGNALAZIONE TURNO HIGH-IMPACT (CINEMATIC CUT-IN & ACTIVE AURA)
+   ========================================================================== */
+.turn-cutin-overlay {
+    position: fixed;
+    top: 38%;
+    left: 0;
+    width: 100vw;
+    height: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    pointer-events: none !important;
+    opacity: 0;
+    transform: scaleX(0.1);
+    transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.turn-cutin-overlay.active {
+    opacity: 1;
+    transform: scaleX(1);
+}
+
+.turn-cutin-overlay.player-turn {
+    background: linear-gradient(90deg, transparent, rgba(192, 132, 252, 0.95), rgba(0, 210, 255, 0.95), transparent);
+    box-shadow: 0 0 60px rgba(192, 132, 252, 0.9), inset 0 0 20px #ffffff;
+}
+
+.turn-cutin-overlay.opponent-turn {
+    background: linear-gradient(90deg, transparent, rgba(255, 71, 87, 0.95), rgba(255, 184, 0, 0.95), transparent);
+    box-shadow: 0 0 60px rgba(255, 71, 87, 0.9), inset 0 0 20px #ffffff;
+}
+
+.turn-cutin-text {
+    font-family: var(--font-heading);
+    font-size: 2.4rem;
+    font-weight: 900;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    text-shadow: 0 0 20px #000, 0 0 40px #ffffff;
+    animation: turnPulseText 1.8s infinite ease-in-out;
+}
+
+@keyframes turnPulseText {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.06); }
+}
+
+/* ZONE RITRATTI EROE CON AURA TURNO ATTIVO */
+.zone-player.active-turn .player-portrait {
+    border-color: var(--accent-purple) !important;
+    box-shadow: 0 0 30px var(--accent-purple), 0 0 12px var(--accent-blue) !important;
+    animation: activePlayerAura 1.8s infinite ease-in-out !important;
+}
+
+.zone-opponent.active-turn .player-portrait {
+    border-color: var(--accent-danger) !important;
+    box-shadow: 0 0 30px var(--accent-danger), 0 0 12px var(--accent-gold) !important;
+    animation: activeOpponentAura 1.8s infinite ease-in-out !important;
+}
+
+@keyframes activePlayerAura {
+    0%, 100% { box-shadow: 0 0 15px var(--accent-purple); }
+    50% { box-shadow: 0 0 35px var(--accent-purple), 0 0 20px var(--accent-blue); }
+}
+
+@keyframes activeOpponentAura {
+    0%, 100% { box-shadow: 0 0 15px var(--accent-danger); }
+    50% { box-shadow: 0 0 35px var(--accent-danger), 0 0 20px var(--accent-gold); }
+}
+
+/* BADGES TURNO EROE */
+.turn-badge {
+    font-family: var(--font-heading);
+    font-size: 0.72rem;
+    font-weight: 900;
+    padding: 2px 8px;
+    border-radius: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    white-space: nowrap;
+}
+
+.turn-badge.badge-my-turn {
+    background: linear-gradient(135deg, #2ed573, #00b0ff);
+    color: #060810;
+    box-shadow: 0 0 12px var(--accent-success);
+}
+
+.turn-badge.badge-opp-turn {
+    background: linear-gradient(135deg, #ff4757, #ffb800);
+    color: #ffffff;
+    box-shadow: 0 0 12px var(--accent-danger);
+    animation: badgePulse 1.2s infinite ease-in-out;
+}
+
+.turn-badge.badge-idle {
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+@keyframes badgePulse {
+    0%, 100% { opacity: 0.75; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.08); }
+}
+
+/* TIMER AVVERSARIO (ROSSO/ARANCIO CON ANIMAZIONE) */
+.timer-widget.opponent-timer {
+    border-color: var(--accent-danger) !important;
+    box-shadow: 0 0 15px rgba(255, 71, 87, 0.6) !important;
+}
+
+.timer-widget.opponent-timer .timer-bar-fill {
+    background: linear-gradient(90deg, #ff4757, #ffb800) !important;
+}
+
+.btn-disabled {
+    opacity: 0.55 !important;
+    cursor: not-allowed !important;
+    pointer-events: none !important;
+    background: rgba(40, 44, 60, 0.8) !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+    box-shadow: none !important;
+}
+
 .glass-panel {
     background: var(--bg-card);
     backdrop-filter: blur(16px);
