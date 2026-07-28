@@ -1656,15 +1656,15 @@ body, html {
         border-color: var(--accent-danger) !important;
     }
 
-    /* MANO GIOCATORE CON AMPLEZZA PERFETTA E MARGIN AUTO ANTI-TAGLIO SINISTRA */
+    /* MANO GIOCATORE CON AMPLEZZA PERFETTA AL 90% (MAX 980px) E CENTRATURA GARANTITA */
     body .hand-container {
         position: absolute !important;
         bottom: 0 !important;
-        left: 52% !important;
+        left: 50% !important;
         transform: translateX(-50%) !important;
         height: 38dvh !important;
-        width: 78% !important;
-        max-width: 860px !important;
+        width: 90% !important;
+        max-width: 980px !important;
         overflow-x: auto !important;
         overflow-y: visible !important;
         -webkit-overflow-scrolling: touch !important;
@@ -1686,9 +1686,9 @@ body, html {
         flex-wrap: nowrap !important;
     }
 
-    /* CARTE IN MANO MOLTO PIÙ GRANDI (ALTEZZA 33dvh E ASPECT-RATIO AUREO 1 : 1.4) */
+    /* CARTE IN MANO CON TETTO ALTEZZA CAP min(30dvh, 185px) PERFETTE SU TABLET 16:10 E SMARTPHONE */
     body .hand-cards .card {
-        height: 33dvh !important;
+        height: min(30dvh, 185px) !important;
         width: auto !important;
         aspect-ratio: 1 / 1.4 !important;
         border-width: 2px !important;
