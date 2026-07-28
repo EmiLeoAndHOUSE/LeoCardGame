@@ -153,18 +153,17 @@ class AppController {
             aiPortrait.onclick = (e) => {
                 if (e) e.stopPropagation();
                 if (this.selectedBoardCardInstanceId && this.isMyTurn()) {
-                    const result = this.engine.attackHero(this.selectedBoardCardInstanceId);
+                    const attackerId = this.selectedBoardCardInstanceId;
+                    const result = this.engine.attackHero(attackerId);
                     if (result.success) {
-                        if (this.audio) this.audio.playAttackHit();
-                        if (this.particles) this.particles.createBurst(window.innerWidth / 2, 100, '#ff4757');
-                        
-                        if (this.isMultiplayer) {
-                            this.multiplayer.send('ATTACK_HERO', { attackerId: this.selectedBoardCardInstanceId });
-                        }
-
-                        this.selectedBoardCardInstanceId = null;
-                        this.showToast(result.message);
-                        this.renderBattlefield();
+                        this.animateAttack(attackerId, null, result.damageDealt, true, () => {
+                            if (this.isMultiplayer) {
+                                this.multiplayer.send('ATTACK_HERO', { attackerId });
+                            }
+                            this.selectedBoardCardInstanceId = null;
+                            this.showToast(result.message);
+                            this.renderBattlefield();
+                        });
                     } else {
                         this.showToast(result.reason);
                     }
@@ -482,18 +481,19 @@ class AppController {
                 break;
 
             case 'ATTACK_CARD':
-                this.engine.attackCard(msg.payload.attackerId, msg.payload.defenderId);
-                if (this.audio) this.audio.playAttackHit();
-                if (this.particles) this.particles.createBurst(window.innerWidth / 2, window.innerHeight / 2, '#ff4757');
-                this.showToast(`${this.opponentNickname} ha sferrato un attacco!`);
-                this.renderBattlefield();
+                const attCardRes = this.engine.attackCard(msg.payload.attackerId, msg.payload.defenderId);
+                this.animateAttack(msg.payload.attackerId, msg.payload.defenderId, attCardRes.damageDealt, false, () => {
+                    this.showToast(`${this.opponentNickname} ha sferrato un attacco!`);
+                    this.renderBattlefield();
+                });
                 break;
 
             case 'ATTACK_HERO':
-                this.engine.attackHero(msg.payload.attackerId);
-                if (this.audio) this.audio.playAttackHit();
-                this.showToast(`${this.opponentNickname} ha attaccato direttamente il tuo Eroe!`);
-                this.renderBattlefield();
+                const attHeroRes = this.engine.attackHero(msg.payload.attackerId);
+                this.animateAttack(msg.payload.attackerId, null, attHeroRes.damageDealt, true, () => {
+                    this.showToast(`${this.opponentNickname} ha attaccato direttamente il tuo Eroe!`);
+                    this.renderBattlefield();
+                });
                 break;
 
             case 'END_TURN':
@@ -861,6 +861,7 @@ class AppController {
     createCardDOM(card, inHand = false, inCollection = false) {
         const cardEl = document.createElement('div');
         cardEl.className = 'card';
+        cardEl.dataset.instanceId = card.instanceId;
         cardEl.style.borderColor = card.elementColor || '#c084fc';
 
         if (card.image) {
@@ -896,6 +897,84 @@ class AppController {
         `;
 
         return cardEl;
+    }
+
+    animateAttack(attackerId, defenderId, damageDealt, isHero = false, onComplete) {
+        const attackerEl = document.querySelector(`[data-instance-id="${attackerId}"]`);
+        let defenderEl = null;
+
+        if (isHero) {
+            defenderEl = (this.isMyTurn()) ? 
+                document.querySelector('.zone-opponent .player-portrait') : 
+                document.querySelector('.zone-player .player-portrait');
+        } else {
+            defenderEl = document.querySelector(`[data-instance-id="${defenderId}"]`);
+        }
+
+        if (!attackerEl || !defenderEl) {
+            if (onComplete) onComplete();
+            return;
+        }
+
+        const aRect = attackerEl.getBoundingClientRect();
+        const dRect = defenderEl.getBoundingClientRect();
+
+        const deltaX = (dRect.left + dRect.width / 2) - (aRect.left + aRect.width / 2);
+        const deltaY = (dRect.top + dRect.height / 2) - (aRect.top + aRect.height / 2);
+
+        // 1. Affondo fisico rapido con rotazione
+        attackerEl.style.transition = 'transform 0.18s cubic-bezier(0.1, 0.9, 0.2, 1.3)';
+        attackerEl.style.transform = `translate3d(${deltaX}px, ${deltaY}px, 0) scale(1.3) rotate(8deg)`;
+        attackerEl.style.zIndex = '9999';
+
+        setTimeout(() => {
+            // 2. Collisione ed Impatto!
+            attackerEl.style.transform = '';
+            attackerEl.style.zIndex = '';
+
+            // Shake schermo
+            const app = document.getElementById('app');
+            if (app) {
+                app.classList.remove('screen-shake-heavy');
+                void app.offsetWidth;
+                app.classList.add('screen-shake-heavy');
+                setTimeout(() => app.classList.remove('screen-shake-heavy'), 350);
+            }
+
+            // Flash del difensore colpito
+            defenderEl.classList.remove('card-hit-flash');
+            void defenderEl.offsetWidth;
+            defenderEl.classList.add('card-hit-flash');
+            setTimeout(() => defenderEl.classList.remove('card-hit-flash'), 400);
+
+            // Esplosione di particelle
+            if (this.particles) {
+                this.particles.createBurst(dRect.left + dRect.width / 2, dRect.top + dRect.height / 2, '#ff4757');
+            }
+
+            // Suono impatto
+            if (this.audio) {
+                this.audio.playAttackHit();
+            }
+
+            // Danni Fluttuanti 3D
+            const damagePop = document.createElement('div');
+            damagePop.className = 'damage-pop-float';
+            damagePop.textContent = `-${damageDealt} 💥`;
+            damagePop.style.left = `${dRect.left + dRect.width / 2}px`;
+            damagePop.style.top = `${dRect.top + dRect.height / 2}px`;
+            document.body.appendChild(damagePop);
+
+            setTimeout(() => {
+                if (document.body.contains(damagePop)) {
+                    document.body.removeChild(damagePop);
+                }
+            }, 1200);
+
+            setTimeout(() => {
+                if (onComplete) onComplete();
+            }, 150);
+        }, 180);
     }
 
     triggerBonusCutIn(cardName, bonusMessage) {
@@ -1053,28 +1132,28 @@ class AppController {
         if (!this.isMyTurn() || this.engine.gameOver) return;
 
         if (this.selectedBoardCardInstanceId) {
+            const attackerId = this.selectedBoardCardInstanceId;
+            const defenderId = aiCard.instanceId;
             const myBoard = (this.myRole === 'PLAYER') ? this.engine.playerBoard : this.engine.aiBoard;
-            const attacker = myBoard ? myBoard.find(c => c.instanceId === this.selectedBoardCardInstanceId) : null;
+            const attacker = myBoard ? myBoard.find(c => c.instanceId === attackerId) : null;
             
             if (attacker && attacker.bonusType === 'ATT_VS_ELEMENT' && aiCard.element === attacker.targetElement) {
                 this.triggerBonusCutIn(attacker.name, `+${attacker.bonusValue} ATTACCO CONTRO ${aiCard.element}!`);
             }
 
-            const result = this.engine.attackCard(this.selectedBoardCardInstanceId, aiCard.instanceId);
+            const result = this.engine.attackCard(attackerId, defenderId);
             if (result.success) {
-                if (this.audio) this.audio.playAttackHit();
-                if (this.particles) this.particles.createBurst(window.innerWidth / 2, window.innerHeight / 2, '#ff4757');
-                
-                if (this.isMultiplayer) {
-                    this.multiplayer.send('ATTACK_CARD', {
-                        attackerId: this.selectedBoardCardInstanceId,
-                        defenderId: aiCard.instanceId
-                    });
-                }
-
-                this.selectedBoardCardInstanceId = null;
-                this.showToast(result.message);
-                this.renderBattlefield();
+                this.animateAttack(attackerId, defenderId, result.damageDealt, false, () => {
+                    if (this.isMultiplayer) {
+                        this.multiplayer.send('ATTACK_CARD', {
+                            attackerId: attackerId,
+                            defenderId: defenderId
+                        });
+                    }
+                    this.selectedBoardCardInstanceId = null;
+                    this.showToast(result.message);
+                    this.renderBattlefield();
+                });
             } else {
                 this.showToast(result.reason);
             }
@@ -1087,15 +1166,20 @@ class AppController {
         if (action.type === 'PLAY_CARD') {
             if (this.audio) this.audio.playCardPlay();
             this.showToast(`L'IA ha schierato ${action.card.name}!`);
+            this.renderBattlefield();
         } else if (action.type === 'ATTACK_CARD') {
-            if (this.audio) this.audio.playAttackHit();
-            if (this.particles) this.particles.createBurst(window.innerWidth / 2, window.innerHeight / 2, '#ff4757');
-            this.showToast(action.result.message);
+            this.animateAttack(action.attackerId, action.defenderId, action.result.damageDealt, false, () => {
+                this.showToast(action.result.message);
+                this.renderBattlefield();
+            });
         } else if (action.type === 'ATTACK_HERO') {
-            if (this.audio) this.audio.playAttackHit();
-            this.showToast(action.result.message);
+            this.animateAttack(action.attackerId, null, action.result.damageDealt, true, () => {
+                this.showToast(action.result.message);
+                this.renderBattlefield();
+            });
+        } else {
+            this.renderBattlefield();
         }
-        this.renderBattlefield();
     }
 
     showGameOverModal() {
