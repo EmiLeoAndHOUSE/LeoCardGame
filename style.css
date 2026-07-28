@@ -1398,7 +1398,7 @@ body, html {
         width: 84px !important;
         height: 124px !important;
         border-width: 2.5px !important;
-        border-radius: 99px !important;
+        border-radius: 9px !important;
     }
 
     .hand-cards .card {
@@ -1656,32 +1656,34 @@ body, html {
         border-color: var(--accent-danger) !important;
     }
 
-    /* MANO GIOCATORE CON SPAZIO REALE RISERVATO DEL 38% DELL'ALTEZZA DELLO SCHERMO! */
+    /* MANO GIOCATORE CON AMPLEZZA ORIZZONTALE AMPIA (88% LARGHEZZA E MAX 920px CENTRATA) PER TABLET & MOBILE */
     body .hand-container {
         position: absolute !important;
         bottom: 0 !important;
         left: 50% !important;
-        transform: translateX(-40%) !important;
+        transform: translateX(-50%) !important;
         height: 38dvh !important;
-        width: 65% !important;
-        max-width: 650px !important;
+        width: 88% !important;
+        max-width: 920px !important;
         overflow-x: auto !important;
         overflow-y: visible !important;
         -webkit-overflow-scrolling: touch !important;
         z-index: 600 !important;
-        padding: 0 6px !important;
+        padding: 0 10px !important;
         display: flex !important;
         align-items: flex-end !important;
+        justify-content: center !important;
     }
 
     body .hand-cards {
         display: flex !important;
-        gap: 10px !important;
+        gap: 8px !important;
         padding: 4px 10px 6px 10px !important;
         justify-content: center !important;
         align-items: flex-end !important;
         width: auto !important;
         height: 100% !important;
+        flex-wrap: nowrap !important;
     }
 
     /* CARTE IN MANO MOLTO PIÙ GRANDI (ALTEZZA 33dvh E ASPECT-RATIO AUREO 1 : 1.4) */
